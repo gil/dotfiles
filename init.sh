@@ -53,7 +53,7 @@ plugins=(git github ruby rails rake gem node npm bowerd gradle grunt brew z dock
 
 # User configuration
 
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
