@@ -1,9 +1,6 @@
 set -e
 source ~/.dotfiles/colors.sh
-
-if [ ! -n "$ZSH" ]; then
-  ZSH=~/.dotfiles/oh-my-zsh
-fi
+ZSH=~/.dotfiles/oh-my-zsh
 
 if [ -d "$ZSH" ]; then
 	echo "${C_BLUE}Removing old Oh My Zsh...${C_RESTORE}"
