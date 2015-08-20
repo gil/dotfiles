@@ -43,13 +43,13 @@ DISABLE_AUTO_UPDATE="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM=$HOME/.dotfiles/scripts
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git github ruby rails rake gem node npm bowerd gradle grunt brew z docker aws vagrant osx terminalapp extract)
+plugins=(git rails gem node npm bower gradle grunt brew z docker docker-compose aws osx terminalapp extract)
 
 # User configuration
 
