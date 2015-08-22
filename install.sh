@@ -1,5 +1,5 @@
 set -e
-source ~/.dotfiles/colors.sh
+source ~/.dotfiles/scripts/colors.zsh
 ZSH=~/.dotfiles/oh-my-zsh
 
 if [ -d "$ZSH" ]; then

@@ -1,0 +1,17 @@
+export C_RESTORE='\033[0m'
+
+export C_RED='\033[00;31m'
+export C_GREEN='\033[00;32m'
+export C_YELLOW='\033[00;33m'
+export C_BLUE='\033[00;34m'
+export C_PURPLE='\033[00;35m'
+export C_CYAN='\033[00;36m'
+export C_LIGHTGRAY='\033[00;37m'
+
+export C_LRED='\033[01;31m'
+export C_LGREEN='\033[01;32m'
+export C_LYELLOW='\033[01;33m'
+export C_LBLUE='\033[01;34m'
+export C_LPURPLE='\033[01;35m'
+export C_LCYAN='\033[01;36m'
+export C_WHITE='\033[01;37m'
