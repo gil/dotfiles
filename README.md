@@ -15,6 +15,12 @@ sh ~/.dotfiles/install.sh
 setup_dotfiles
 ```
 
+## Upgrade
+
+```
+upgrade_dotfiles
+```
+
 ## Warning
 
 I'll probably keep changing this code a lot, since it's my personal preference here. So I suggest you read the code and create your own dotfiles instead of just using mine.
