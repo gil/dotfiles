@@ -12,7 +12,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # General                                                                     #
 ###############################################################################
 
-sudo launchctl limit maxfiles 10480 10480
+sudo launchctl limit maxfiles 10240 10240
 
 ###############################################################################
 # General UI/UX                                                               #
