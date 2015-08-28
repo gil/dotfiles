@@ -84,4 +84,4 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 ulimit -n 10240
 alias setup_dotfiles="sh ~/.dotfiles/scripts/tools/setup/menu.sh"
-alias upgrade_dotfiles="sh ~/.dotfiles/scripts/tools/upgrade-dotfiles.sh"
+alias upgrade_dotfiles="sh ~/.dotfiles/scripts/tools/upgrade-dotfiles.sh && source ~/.zshrc"
