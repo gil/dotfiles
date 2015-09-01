@@ -85,3 +85,4 @@ source $ZSH/oh-my-zsh.sh
 ulimit -n 10240
 alias setup_dotfiles="sh ~/.dotfiles/scripts/tools/setup/menu.sh"
 alias upgrade_dotfiles="sh ~/.dotfiles/scripts/tools/upgrade-dotfiles.sh && source ~/.zshrc"
+alias refresh_dotfiles="source ~/.zshrc"
