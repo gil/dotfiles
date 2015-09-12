@@ -2,7 +2,7 @@
 
 KEEP_MENU_OPEN=true
 PS3='Please enter your choice: '
-options=("OSX" "Command Line Tools (If you don't want XCode)" "Homebrew" "Quit")
+options=("OSX" "Fonts and Terminal Theme" "Command Line Tools (If you don't want XCode)" "Homebrew" "Quit")
 
 while $KEEP_MENU_OPEN
 do
@@ -15,6 +15,11 @@ do
       "OSX")
         echo ""
         ~/.dotfiles/scripts/tools/setup/osx.sh
+        break
+        ;;
+      "Fonts and Terminal Theme")
+        echo ""
+        ~/.dotfiles/scripts/tools/setup/fonts-and-themes.sh
         break
         ;;
       "Command Line Tools (If you don't want XCode)")
