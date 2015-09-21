@@ -25,6 +25,7 @@ do
       "Command Line Tools (If you don't want XCode)")
         echo ""
         xcode-select --install
+        sudo xcodebuild -license
         break
         ;;
       "Homebrew")
