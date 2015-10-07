@@ -1,3 +1,6 @@
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.dotfiles/oh-my-zsh
 
@@ -52,8 +55,9 @@ ZSH_CUSTOM=$HOME/.dotfiles/scripts
 plugins=(git rbenv rails gem node npm bower gradle mvn grunt brew z docker docker-compose docker-machine aws osx terminalapp sublimetext extract)
 
 # User configuration
-
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+export POWERLINE_SCRIPTS_PATH="$HOME/.vim/bundle/powerline/scripts"
+export POWERLINE_CONFIG_COMMAND="$POWERLINE_SCRIPTS_PATH/powerline-config"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$POWERLINE_SCRIPTS_PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh

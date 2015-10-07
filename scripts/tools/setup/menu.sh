@@ -2,7 +2,7 @@
 
 KEEP_MENU_OPEN=true
 PS3='Please enter your choice: '
-options=("OSX" "Fonts and Terminal Theme" "Command Line Tools (If you don't want XCode)" "Homebrew" "Vim" "Quit")
+options=("OSX" "Fonts and Terminal Theme" "Command Line Tools (If you don't want XCode)" "Homebrew" "Vim & tmux" "Quit")
 
 while $KEEP_MENU_OPEN
 do
@@ -32,7 +32,7 @@ do
         ~/.dotfiles/scripts/tools/setup/brew.sh
         break
         ;;
-      "Vim")
+      "Vim & tmux")
         ~/.dotfiles/scripts/tools/setup/vim.sh
         break
         ;;

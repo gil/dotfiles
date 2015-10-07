@@ -19,8 +19,18 @@ else
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
-echo "${C_BLUE}Installing Powerline...${C_RESTORE}"
-pip3 install powerline-status #--user
+echo "${C_BLUE}Installing Powerline requirements...${C_RESTORE}"
+#pip3 install powerline-status #--user
+pip install psutil
 
 echo "${C_BLUE}Installing plugins...${C_RESTORE}"
 vim +PluginInstall +qall
+
+echo "${C_BLUE}Looking for an existing .tmux.conf...${C_RESTORE}"
+if [ -f ~/.tmux.conf ] || [ -h ~/.tmux.conf ]; then
+  echo "${C_YELLOW}Found ~/.tmux.conf.${C_RESTORE} ${C_GREEN}Backing up to ~/.tmux.conf.backup${C_RESTORE}";
+  mv ~/.tmux.conf ~/.tmux.conf.backup;
+fi
+
+echo "${C_BLUE}Creating .tmux.conf symlink...${C_RESTORE}"
+ln -s ~/.dotfiles/vim/.tmux.conf ~/.tmux.conf

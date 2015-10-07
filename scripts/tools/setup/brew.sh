@@ -18,6 +18,7 @@ if hash brew 2>/dev/null; then
 
 	# General tools
 	brew install vim
+  brew install tmux
 	brew install ack
 	brew install wget
 	brew install curl
