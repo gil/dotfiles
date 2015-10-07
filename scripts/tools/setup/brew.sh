@@ -44,4 +44,5 @@ if hash brew 2>/dev/null; then
 	brew install ruby-build
 	brew install docker
 	brew install docker-machine
+	brew install python3
 fi
