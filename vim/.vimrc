@@ -47,8 +47,9 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
-
 Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'altercation/vim-colors-solarized'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -57,3 +58,7 @@ python from powerline.vim import setup as powerline_setup
 python powerline_setup()
 python del powerline_setup
 set laststatus=2 " always show the status lines
+
+" activate color scheme (theme)
+set background=dark
+colorscheme solarized
