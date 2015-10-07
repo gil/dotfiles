@@ -20,7 +20,7 @@ else
 fi
 
 echo "${C_BLUE}Installing Powerline...${C_RESTORE}"
-pip install powerline-status #--user
+pip3 install powerline-status #--user
 
 echo "${C_BLUE}Installing plugins...${C_RESTORE}"
 vim +PluginInstall +qall

@@ -11,6 +11,7 @@ set backspace=indent,eol,start " fix backspace behaviour
 set autoindent " automatically indent new line
 set nobackup " do not write backup files
 set showmatch " Show matching brackets.
+set laststatus=2 " always show the status lines
 " filetype indent on
 
 set ts=2 " number of spaces in a tab
@@ -59,12 +60,6 @@ Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()
 filetype plugin indent on
-
-" powerline
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-set laststatus=2 " always show the status lines
 
 " activate color scheme (theme)
 set background=dark
