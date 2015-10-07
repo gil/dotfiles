@@ -27,6 +27,7 @@ set smartcase " do not ignore if search pattern has CAPS
 inoremap jj <Esc>
 let mapleader = "\<Space>"
 map <C-n> :NERDTreeToggle<CR>
+nmap <leader>p :NERDTreeFind<CR>
 
 map <up> <nop> " disable arrows for visual mode
 map <down> <nop>
