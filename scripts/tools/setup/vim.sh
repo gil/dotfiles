@@ -34,3 +34,6 @@ fi
 
 echo "${C_BLUE}Creating .tmux.conf symlink...${C_RESTORE}"
 ln -s ~/.dotfiles/vim/.tmux.conf ~/.tmux.conf
+
+echo "${C_BLUE}Installing Tmuxinator...${C_RESTORE}"
+gem install tmuxinator
