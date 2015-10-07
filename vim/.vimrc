@@ -23,17 +23,24 @@ set hlsearch " Highlight search match
 set ignorecase " Do case insensitive matching
 set smartcase " do not ignore if search pattern has CAPS
 
+" highlight current line (and optionally column)
+au WinLeave * set nocursorline "nocursorcolumn
+au WinEnter * set cursorline "cursorcolumn
+set cursorline "cursorcolumn
+
 " key mappings
 inoremap jj <Esc>
 let mapleader = "\<Space>"
 map <C-n> :NERDTreeToggle<CR>
 nmap <leader>p :NERDTreeFind<CR>
 
-map <up> <nop> " disable arrows for visual mode
+" disable arrows for visual mode
+map <up> <nop>
 map <down> <nop>
 map <left> <nop>
 map <right> <nop>
-imap <up> <nop> "disable arrows for insert mode
+" disable arrows for insert mode
+imap <up> <nop>
 imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
