@@ -35,5 +35,19 @@ fi
 echo "${C_BLUE}Creating .tmux.conf symlink...${C_RESTORE}"
 ln -s ~/.dotfiles/vim/.tmux.conf ~/.tmux.conf
 
+if [ ! -d ~/.config ]; then
+  echo "${C_YELLOW}Creating ~/.config directory.${C_RESTORE}";
+  mkdir ~/.config
+fi
+
+echo "${C_BLUE}Looking for an existing ~/.config/powerline directory...${C_RESTORE}"
+if [ -d ~/.config/powerline ]; then
+  echo "${C_YELLOW}Found ~/.config/powerline.${C_RESTORE} ${C_GREEN}Backing up to ~/.config/powerline.backup${C_RESTORE}";
+  mv ~/.config/powerline ~/.config/powerline.backup;
+fi
+
+echo "${C_BLUE}Creating ~/.config/powerline symlink...${C_RESTORE}"
+ln -s ~/.dotfiles/vim/config/powerline ~/.config/powerline
+
 echo "${C_BLUE}Installing Tmuxinator...${C_RESTORE}"
 gem install tmuxinator

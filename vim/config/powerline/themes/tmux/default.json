@@ -1,0 +1,16 @@
+{
+	"segments": {
+		"right": [
+			{
+				"function": "powerline.segments.common.sys.uptime",
+				"priority": 50,
+				"args": {
+					"shorten_len": 1
+				}
+			},
+			{
+				"function": "powerline.segments.common.net.external_ip"
+			}
+		]
+	}
+}
