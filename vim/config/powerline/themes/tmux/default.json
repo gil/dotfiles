@@ -9,6 +9,12 @@
 				}
 			},
 			{
+				"function": "powerline.segments.common.net.internal_ip",
+				"args": {
+					"interface": "default_gateway"
+				}
+			},
+			{
 				"function": "powerline.segments.common.net.external_ip"
 			}
 		]

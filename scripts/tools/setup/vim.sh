@@ -22,6 +22,7 @@ fi
 echo "${C_BLUE}Installing Powerline requirements...${C_RESTORE}"
 #pip3 install powerline-status #--user
 pip install psutil
+pip install netifaces
 
 echo "${C_BLUE}Installing plugins...${C_RESTORE}"
 vim +PluginInstall +qall
