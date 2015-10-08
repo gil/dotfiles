@@ -48,7 +48,7 @@ if [ -d ~/.config/powerline ]; then
 fi
 
 echo "${C_BLUE}Creating ~/.config/powerline symlink...${C_RESTORE}"
-ln -s ~/.dotfiles/vim/config/powerline ~/.config/powerline
+ln -s ~/.dotfiles/vim/config/powerline/ ~/.config/powerline
 
 echo "${C_BLUE}Installing Tmuxinator...${C_RESTORE}"
 gem install tmuxinator
