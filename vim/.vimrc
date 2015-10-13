@@ -34,6 +34,7 @@ inoremap jj <Esc>
 let mapleader = "\<Space>"
 map <C-n> :NERDTreeToggle<CR>
 nmap <leader>p :NERDTreeFind<CR>
+map <leader>t :bufdo tab split<CR>
 
 " disable arrows for visual mode
 map <up> <nop>
