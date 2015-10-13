@@ -33,7 +33,8 @@ set cursorline "cursorcolumn
 inoremap jj <Esc>
 let mapleader = "\<Space>"
 map <C-n> :NERDTreeToggle<CR>
-nmap <leader>p :NERDTreeFind<CR>
+nmap <leader>n :NERDTreeFind<CR>
+nmap <leader>h :noh<CR>
 map <leader>t :bufdo tab split<CR>
 
 " ctrlp.vim
