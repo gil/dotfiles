@@ -42,6 +42,16 @@ let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_custom_ignore = '\v[\/]\.?(git|node_modules)$'
 nmap <leader>p :CtrlPBuffer<cr>
 
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 " disable arrows for visual mode
 map <up> <nop>
 map <down> <nop>
@@ -64,6 +74,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'scrooloose/syntastic'
 
 call vundle#end()
 filetype plugin indent on
