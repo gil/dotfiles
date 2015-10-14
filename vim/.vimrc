@@ -40,6 +40,7 @@ map <leader>t :bufdo tab split<CR>
 " ctrlp.vim
 let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_custom_ignore = '\v[\/]\.?(git|node_modules)$'
+nmap <leader>p :CtrlPBuffer<cr>
 
 " disable arrows for visual mode
 map <up> <nop>
