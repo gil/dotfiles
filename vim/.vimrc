@@ -36,6 +36,7 @@ map <C-n> :NERDTreeToggle<CR>
 nmap <leader>n :NERDTreeFind<CR>
 nmap <leader>h :noh<CR>
 map <leader>t :bufdo tab split<CR>
+inoremap <C-X><C-F> <C-O>:lcd %:p:h<CR><C-X><C-F>
 
 " ctrlp.vim
 let g:ctrlp_working_path_mode = 'a'
