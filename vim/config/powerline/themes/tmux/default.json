@@ -11,7 +11,7 @@
 			{
 				"function": "powerline.segments.common.net.internal_ip",
 				"args": {
-					"interface": "default_gateway"
+					"interface": "en0"
 				}
 			},
 			{
