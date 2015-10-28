@@ -77,6 +77,8 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/syntastic'
+Plugin 'pangloss/vim-javascript'
+Plugin 'ahayman/vim-nodejs-complete'
 
 call vundle#end()
 filetype plugin indent on
