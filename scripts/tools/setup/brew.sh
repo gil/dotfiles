@@ -20,6 +20,7 @@ if hash brew 2>/dev/null; then
 	brew install vim
   brew install tmux
 	brew install ack
+  brew install the_silver_searcher
 	brew install wget
 	brew install curl
 	brew install figlet
