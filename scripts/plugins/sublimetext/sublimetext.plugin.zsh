@@ -1,1 +1,1 @@
-alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+alias subl="open -a \"Sublime Text\""
