@@ -85,6 +85,9 @@ Plugin 'ahayman/vim-nodejs-complete'
 call vundle#end()
 filetype plugin indent on
 
+" The Silver Searcher config
+let g:ag_prg="ag --vimgrep --silent"
+
 " activate color scheme (theme)
 set background=dark
 colorscheme solarized
