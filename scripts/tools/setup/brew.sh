@@ -27,6 +27,7 @@ if hash brew 2>/dev/null; then
 	brew install youtube-dl
 	brew install ghostscript
 	brew install graphicsmagick --with-libtiff --with-webp --with-ghostscript
+  brew install lame
   brew install ffmpeg --with-libvpx --with-libvorbis --with-webp
 
 	# Databases
