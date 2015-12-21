@@ -27,6 +27,15 @@ fi
 echo "${C_BLUE}Creating ~/.vim/UltiSnips symlink...${C_RESTORE}"
 ln -s ~/.dotfiles/vim/UltiSnips/ ~/.vim/UltiSnips
 
+echo "${C_BLUE}Looking for an existing ~/.vim/spell directory...${C_RESTORE}"
+if [ -d ~/.vim/spell ] || [ -h ~/.vim/spell ]; then
+  echo "${C_YELLOW}Found ~/.vim/spell.${C_RESTORE} ${C_GREEN}Backing up to ~/.vim/spell.backup${C_RESTORE}";
+  mv ~/.vim/spell ~/.vim/spell.backup;
+fi
+
+echo "${C_BLUE}Creating ~/.vim/spell symlink...${C_RESTORE}"
+ln -s ~/.dotfiles/vim/spell/ ~/.vim/spell
+
 if [ -d ~/.vim/bundle/Vundle.vim ]; then
 	echo "${C_BLUE}Updating Vundle...${C_RESTORE}"
 	cd ~/.vim/bundle/Vundle.vim

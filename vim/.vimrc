@@ -104,3 +104,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " activate color scheme (theme)
 set background=dark
 colorscheme solarized
+
+" spell check
+set spellfile=$HOME/.vim/spell/en.utf-8.add
+set complete+=kspell
