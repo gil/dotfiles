@@ -87,6 +87,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'majutsushi/tagbar'
+Plugin 'plasticboy/vim-markdown'
 
 call vundle#end()
 filetype plugin indent on
