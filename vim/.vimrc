@@ -36,7 +36,8 @@ let mapleader = "\<Space>"
 map <C-n> :NERDTreeToggle<CR>
 nmap <leader>n :NERDTreeFind<CR>
 nmap <leader>h :noh<CR>
-map <leader>t :bufdo tab split<CR>
+"map <leader>t :bufdo tab split<CR>
+map <leader>t :TagbarToggle<CR>
 " inoremap <C-X><C-F> <C-O>:lcd %:p:h<CR><C-X><C-F>
 
 " ctrlp.vim
@@ -85,6 +86,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'majutsushi/tagbar'
 
 call vundle#end()
 filetype plugin indent on

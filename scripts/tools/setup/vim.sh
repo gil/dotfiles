@@ -28,6 +28,15 @@ else
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
+echo "${C_BLUE}Looking for an existing .ctags...${C_RESTORE}"
+if [ -f ~/.ctags ] || [ -h ~/.ctags ]; then
+  echo "${C_YELLOW}Found ~/.ctags.${C_RESTORE} ${C_GREEN}Backing up to ~/.ctags.backup${C_RESTORE}";
+  mv ~/.ctags ~/.ctags.backup;
+fi
+
+echo "${C_BLUE}Creating .ctags symlink...${C_RESTORE}"
+ln -s ~/.dotfiles/vim/.ctags ~/.ctags
+
 echo "${C_BLUE}Installing Powerline requirements...${C_RESTORE}"
 #pip3 install powerline-status #--user
 pip install psutil
