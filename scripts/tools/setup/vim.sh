@@ -9,6 +9,15 @@ fi
 echo "${C_BLUE}Creating .vimrc symlink...${C_RESTORE}"
 ln -s ~/.dotfiles/vim/.vimrc ~/.vimrc
 
+echo "${C_BLUE}Looking for an existing ~/.vim/ftplugin directory...${C_RESTORE}"
+if [ -d ~/.vim/ftplugin ] || [ -h ~/.vim/ftplugin ]; then
+  echo "${C_YELLOW}Found ~/.vim/ftplugin.${C_RESTORE} ${C_GREEN}Backing up to ~/.vim/ftplugin.backup${C_RESTORE}";
+  mv ~/.vim/ftplugin ~/.vim/ftplugin.backup;
+fi
+
+echo "${C_BLUE}Creating ~/.vim/ftplugin symlink...${C_RESTORE}"
+ln -s ~/.dotfiles/vim/ftplugin/ ~/.vim/ftplugin
+
 if [ -d ~/.vim/bundle/Vundle.vim ]; then
 	echo "${C_BLUE}Updating Vundle...${C_RESTORE}"
 	cd ~/.vim/bundle/Vundle.vim
@@ -42,7 +51,7 @@ if [ ! -d ~/.config ]; then
 fi
 
 echo "${C_BLUE}Looking for an existing ~/.config/powerline directory...${C_RESTORE}"
-if [ -d ~/.config/powerline ]; then
+if [ -d ~/.config/powerline ] || [ -h ~/.config/powerline ]; then
   echo "${C_YELLOW}Found ~/.config/powerline.${C_RESTORE} ${C_GREEN}Backing up to ~/.config/powerline.backup${C_RESTORE}";
   mv ~/.config/powerline ~/.config/powerline.backup;
 fi
