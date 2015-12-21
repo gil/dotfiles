@@ -18,6 +18,15 @@ fi
 echo "${C_BLUE}Creating ~/.vim/ftplugin symlink...${C_RESTORE}"
 ln -s ~/.dotfiles/vim/ftplugin/ ~/.vim/ftplugin
 
+echo "${C_BLUE}Looking for an existing ~/.vim/UltiSnips directory...${C_RESTORE}"
+if [ -d ~/.vim/UltiSnips ] || [ -h ~/.vim/UltiSnips ]; then
+  echo "${C_YELLOW}Found ~/.vim/UltiSnips.${C_RESTORE} ${C_GREEN}Backing up to ~/.vim/UltiSnips.backup${C_RESTORE}";
+  mv ~/.vim/UltiSnips ~/.vim/UltiSnips.backup;
+fi
+
+echo "${C_BLUE}Creating ~/.vim/UltiSnips symlink...${C_RESTORE}"
+ln -s ~/.dotfiles/vim/UltiSnips/ ~/.vim/UltiSnips
+
 if [ -d ~/.vim/bundle/Vundle.vim ]; then
 	echo "${C_BLUE}Updating Vundle...${C_RESTORE}"
 	cd ~/.vim/bundle/Vundle.vim

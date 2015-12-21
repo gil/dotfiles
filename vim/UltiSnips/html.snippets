@@ -1,0 +1,5 @@
+snippet debug "debug handlebars data" b
+{{#each ${1:.}}}
+	<strong>{{@key}}:</strong><br/>{{this}}<br/>
+{{/each}}
+endsnippet
