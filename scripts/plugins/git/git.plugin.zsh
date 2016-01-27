@@ -60,6 +60,7 @@ alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
 alias gst='git status --short --branch'
 alias gbold='git for-each-ref --sort=committerdate --format="%(refname:short) * %(authorname) * %(committerdate:relative)" refs/remotes/ | column -t -s "*"'
+alias gmt='git mergetool --no-prompt'
 
 alias findorig="find . -name '*.orig'"
 alias deleteorig="find . -name '*.orig' -delete"
@@ -175,7 +176,6 @@ alias deleteorig="find . -name '*.orig' -delete"
 
 # alias gm='git merge'
 # alias gmom='git merge origin/master'
-# alias gmt='git mergetool --no-prompt'
 # alias gmtvim='git mergetool --no-prompt --tool=vimdiff'
 # alias gmum='git merge upstream/master'
 
