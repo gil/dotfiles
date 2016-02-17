@@ -69,6 +69,8 @@ function _rake_command () {
 # alias sc='ruby script/console'
 # alias sd='ruby script/server --debugger'
 
+alias be='bundle exec'
+
 function remote_console() {
   /usr/bin/env ssh $1 "( cd $2 && ruby script/console production )"
 }
