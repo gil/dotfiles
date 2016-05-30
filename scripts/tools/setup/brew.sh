@@ -7,7 +7,7 @@ if hash brew 2>/dev/null; then
 	# Repos
 	brew tap homebrew/dupes
 	brew tap homebrew/versions
-	brew tap homebrew/homebrew-php
+	#brew tap homebrew/homebrew-php
 
 	# Update formulas
 	brew update
@@ -18,37 +18,37 @@ if hash brew 2>/dev/null; then
 
 	# General tools
 	brew install vim
-  brew install tmux
+	brew install tmux
 	brew install ack
-  brew install the_silver_searcher
-  brew install ctags-exuberant
+	brew install the_silver_searcher
+	brew install ctags-exuberant
 	brew install wget
 	brew install curl
 	brew install figlet
 	brew install youtube-dl
 	brew install ghostscript
 	brew install graphicsmagick --with-libtiff --with-webp --with-ghostscript
-  brew install lame
-  brew install ffmpeg --with-libvpx --with-libvorbis --with-webp
+	brew install lame
+	brew install ffmpeg --with-libvpx --with-libvorbis --with-webp
 
 	# Databases
-	brew install postgresql
-	brew install mysql
-	brew install redis
+	#brew install postgresql
+	#brew install mysql
+	#brew install redis
 
 	# Servers
 	brew install nginx
-	brew install php56 --with-fpm
+	#brew install php56 --with-fpm
 
 	# Dev tools
 	brew install git
-	brew install maven
-	brew install gradle
-	brew install node
+	#brew install maven
+	#brew install gradle
+	#brew install node
 	brew install rbenv
 	brew install ruby-build
-	brew install docker
-	brew install docker-machine
-  brew install python
-  brew install python3
+	#brew install docker
+	#brew install docker-machine
+	brew install python
+	brew install python3
 fi
