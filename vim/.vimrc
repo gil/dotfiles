@@ -2,7 +2,10 @@ set encoding=utf-8
 set binary
 
 set history=1000
+
+" syntax highlight
 syntax on
+au BufRead,BufNewFile *.inc set filetype=html
 
 set number " precede each line with its line number
 set relativenumber " set relative line numbers
@@ -15,6 +18,7 @@ set showmatch " Show matching brackets.
 set laststatus=2 " always show the status lines
 " filetype indent on
 set wildmenu " visual menu for file and command auto complete (like zsh)
+set splitbelow " open split bellow the current
 
 set ts=2 " number of spaces in a tab
 set sw=2 " number of spaces for indent
@@ -92,6 +96,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'majutsushi/tagbar'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-sleuth'
 
 call vundle#end()
 filetype plugin indent on
