@@ -51,4 +51,5 @@ if hash brew 2>/dev/null; then
 	#brew install docker-machine
 	brew install python
 	brew install python3
+	brew install node
 fi
