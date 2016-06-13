@@ -93,3 +93,6 @@ alias upgrade_dotfiles="sh ~/.dotfiles/scripts/tools/upgrade-dotfiles.sh && sour
 alias refresh_dotfiles="source ~/.zshrc"
 
 alias dev_chrome="open -n -a \"Google Chrome\" --args --profile-directory=\"Debug Profile\""
+
+alias vi="vim"
+alias v="vim"
