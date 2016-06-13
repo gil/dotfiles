@@ -17,7 +17,7 @@ if hash brew 2>/dev/null; then
 	brew upgrade
 
 	# General tools
-	brew install vim
+	brew install vim --with-override-system-vi
 	brew install tmux
 	brew install ack
 	brew install the_silver_searcher
