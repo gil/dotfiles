@@ -61,6 +61,8 @@ alias grbc='git rebase --continue'
 alias gst='git status --short --branch'
 alias gbold='git for-each-ref --sort=committerdate --format="%(refname:short) * %(authorname) * %(committerdate:relative)" refs/remotes/ | column -t -s "*"'
 alias gmt='git mergetool --no-prompt'
+alias gd='git diff -w'
+alias gds='git diff -w --staged'
 
 alias findorig="find . -name '*.orig'"
 alias deleteorig="find . -name '*.orig' -delete"
