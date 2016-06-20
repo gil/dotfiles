@@ -5,7 +5,6 @@ set history=1000
 
 " syntax highlight
 syntax on
-au BufRead,BufNewFile *.inc set filetype=html
 
 set number " precede each line with its line number
 set relativenumber " set relative line numbers
@@ -97,6 +96,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-sleuth'
+Plugin 'othree/html5.vim'
 
 call vundle#end()
 filetype plugin indent on
