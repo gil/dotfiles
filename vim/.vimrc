@@ -97,6 +97,7 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-sleuth'
 Plugin 'othree/html5.vim'
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 filetype plugin indent on
