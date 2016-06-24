@@ -52,7 +52,7 @@ alias gc='git commit -v'
 alias gco='git checkout'
 alias gfa='git fetch --all --prune'
 alias gl='git pull'
-alias glr='git pull --rebase'
+alias glr='git pull --rebase --autostash'
 alias glog='git log --oneline --decorate --color --graph'
 alias glola="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all"
 alias gp='git push'
