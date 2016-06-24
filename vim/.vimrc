@@ -45,6 +45,8 @@ map <leader>t :TagbarToggle<CR>
 " inoremap <C-X><C-F> <C-O>:lcd %:p:h<CR><C-X><C-F>
 map <leader>md :silent !open -a Marked.app '%:p'<cr>
 map <leader>ns :Dispatch npm start<cr>
+nmap <leader>w :set wrap!<CR>
+nmap <leader>r :so $MYVIMRC<CR>
 
 " ctrlp.vim
 let g:ctrlp_working_path_mode = 'a'
