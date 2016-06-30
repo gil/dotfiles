@@ -64,6 +64,7 @@ alias gbold='git for-each-ref --sort=committerdate --format="%(refname:short) * 
 alias gmt='git mergetool --no-prompt'
 alias gd='git diff -w'
 alias gds='git diff -w --staged'
+alias gff='git ls-files | grep -i'
 
 alias findorig="find . -name '*.orig'"
 alias deleteorig="find . -name '*.orig' -delete"
