@@ -105,7 +105,7 @@ call vundle#end()
 filetype plugin indent on
 
 " The Silver Searcher config
-let g:ag_prg="ag --vimgrep --silent"
+let g:ag_prg="ag --vimgrep --silent --max-count 1"
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
