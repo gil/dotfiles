@@ -30,6 +30,7 @@ if hash brew 2>/dev/null; then
 	brew install graphicsmagick --with-libtiff --with-webp --with-ghostscript
 	brew install lame
 	brew install ffmpeg --with-libvpx --with-libvorbis --with-webp
+	brew install fpp
 
 	# Databases
 	#brew install postgresql
