@@ -22,6 +22,9 @@ set splitbelow " open split bellow the current
 set ts=2 " number of spaces in a tab
 set sw=2 " number of spaces for indent
 set et " expand tabs into spaces
+":let g:detectindent_preferred_expandtab = 1
+":let g:detectindent_preferred_indent = 2
+:autocmd BufReadPost * :DetectIndent
 
 " search settings
 set incsearch " Incremental search
@@ -97,9 +100,11 @@ Plugin 'honza/vim-snippets'
 Plugin 'majutsushi/tagbar'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-sleuth'
+"Plugin 'tpope/vim-sleuth'
+Plugin 'ciaranm/detectindent'
 Plugin 'othree/html5.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'w0ng/vim-hybrid'
 
 call vundle#end()
 filetype plugin indent on
@@ -114,7 +119,9 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " activate color scheme (theme)
 set background=dark
-colorscheme solarized
+"colorscheme solarized
+let g:hybrid_custom_term_colors = 1
+colorscheme hybrid
 
 " spell check
 set spellfile=$HOME/.vim/spell/en.utf-8.add
