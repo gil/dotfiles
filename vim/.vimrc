@@ -19,9 +19,9 @@ set laststatus=2 " always show the status lines
 set wildmenu " visual menu for file and command auto complete (like zsh)
 set splitbelow " open split bellow the current
 
-set ts=2 " number of spaces in a tab
-set sw=2 " number of spaces for indent
-set et " expand tabs into spaces
+set tabstop=2 " number of spaces in a tab
+set shiftwidth=2 " number of spaces for indent
+set expandtab " expand tabs into spaces
 ":let g:detectindent_preferred_expandtab = 1
 ":let g:detectindent_preferred_indent = 2
 :autocmd BufReadPost * :DetectIndent
