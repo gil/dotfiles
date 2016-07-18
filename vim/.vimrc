@@ -44,7 +44,7 @@ map <C-n> :NERDTreeToggle<CR>
 nmap <leader>n :NERDTreeFind<CR>
 nmap <leader>h :noh<CR>
 "map <leader>t :bufdo tab split<CR>
-map <leader>t :TagbarToggle<CR>
+"map <leader>t :TagbarToggle<CR>
 " inoremap <C-X><C-F> <C-O>:lcd %:p:h<CR><C-X><C-F>
 map <leader>md :silent !open -a Marked.app '%:p'<cr>
 map <leader>ns :Dispatch npm start<cr>
@@ -97,7 +97,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'majutsushi/tagbar'
+"Plugin 'majutsushi/tagbar'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'tpope/vim-dispatch'
 "Plugin 'tpope/vim-sleuth'
