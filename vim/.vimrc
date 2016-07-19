@@ -103,6 +103,7 @@ Plugin 'tpope/vim-dispatch'
 "Plugin 'tpope/vim-sleuth'
 Plugin 'ciaranm/detectindent'
 Plugin 'othree/html5.vim'
+Plugin 'valloric/MatchTagAlways'
 Plugin 'tpope/vim-fugitive'
 Plugin 'w0ng/vim-hybrid'
 
@@ -116,6 +117,15 @@ let g:ag_prg="ag --vimgrep --silent --max-count 1"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" MatchTagAlways
+let g:mta_filetypes = {
+			\ 'html'  : 1,
+			\ 'xhtml' : 1,
+			\ 'xml'   : 1,
+			\ 'inc' 	: 1,
+			\ 'tmpl'  : 1,	
+			\}
 
 " activate color scheme (theme)
 set background=dark
