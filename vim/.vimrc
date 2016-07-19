@@ -127,6 +127,11 @@ let g:mta_filetypes = {
 			\ 'tmpl'  : 1,	
 			\}
 
+" DetectIndent
+:let g:detectindent_preferred_when_mixed = 1
+:let g:detectindent_preferred_expandtab = 1
+:let g:detectindent_preferred_indent = 2
+
 " activate color scheme (theme)
 set background=dark
 "colorscheme solarized
