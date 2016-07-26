@@ -54,6 +54,7 @@ alias gfa='git fetch --all --prune'
 alias gl='git pull'
 alias glr='git -c rebase.autoStash=true pull --rebase'
 alias glog='git log --oneline --decorate --color --graph'
+alias gilog='git log --oneline --decorate --color --graph --author="$(git config user.name)"'
 alias glola="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all"
 alias gp='git push'
 alias grbi='git rebase -i'
