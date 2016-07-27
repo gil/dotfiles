@@ -90,7 +90,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/syntastic'
-Plugin 'rking/ag.vim'
+Plugin 'mileszs/ack.vim'
 Plugin 'pangloss/vim-javascript'
 "Plugin 'ahayman/vim-nodejs-complete'
 Plugin 'tpope/vim-surround'
@@ -110,8 +110,11 @@ Plugin 'w0ng/vim-hybrid'
 call vundle#end()
 filetype plugin indent on
 
-" The Silver Searcher config
-let g:ag_prg="ag --vimgrep --silent --max-count 1"
+" The Silver Searcher(Ag) config for Ack plugin
+let g:ack_use_dispatch = 1
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep --silent --max-count 1'
+endif
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
