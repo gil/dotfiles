@@ -1,6 +1,8 @@
 export JOBS=max
 eval "$(npm completion 2>/dev/null)"
 
+# Allow node_modules/bin dir expansion with ~nb<tab>
+hash -d nb=./node_modules/.bin/
 
 # npm package names are lowercase
 # - https://twitter.com/substack/status/23122603153150361
