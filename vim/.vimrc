@@ -47,7 +47,8 @@ nmap <leader>h :noh<CR>
 "map <leader>t :TagbarToggle<CR>
 " inoremap <C-X><C-F> <C-O>:lcd %:p:h<CR><C-X><C-F>
 map <leader>md :silent !open -a Marked.app '%:p'<cr>
-map <leader>ns :Dispatch npm start<cr>
+"map <leader>ns :Dispatch npm start<cr>
+map <leader>ns :VimuxRunCommand "npm start"<cr>
 nmap <leader>w :set wrap!<CR>
 nmap <leader>r :so $MYVIMRC<CR>
 
@@ -106,6 +107,7 @@ Plugin 'othree/html5.vim'
 Plugin 'valloric/MatchTagAlways'
 Plugin 'tpope/vim-fugitive'
 Plugin 'w0ng/vim-hybrid'
+Plugin 'benmills/vimux'
 Plugin 'christoomey/vim-tmux-navigator'
 
 call vundle#end()
