@@ -106,6 +106,7 @@ Plugin 'othree/html5.vim'
 Plugin 'valloric/MatchTagAlways'
 Plugin 'tpope/vim-fugitive'
 Plugin 'w0ng/vim-hybrid'
+Plugin 'christoomey/vim-tmux-navigator'
 
 call vundle#end()
 filetype plugin indent on
