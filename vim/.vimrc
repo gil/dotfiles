@@ -68,6 +68,8 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+let g:syntastic_javascript_checkers = ['eslint', 'jshint']
+
 " disable arrows for visual mode
 map <up> <nop>
 map <down> <nop>
