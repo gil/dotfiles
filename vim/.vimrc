@@ -39,7 +39,8 @@ set cursorline "cursorcolumn
 
 " key mappings
 inoremap jj <Esc>
-let mapleader = "\<Space>"
+"let mapleader = "\<Space>"
+let mapleader = ","
 map <C-n> :NERDTreeToggle<CR>
 nmap <leader>n :NERDTreeFind<CR>
 nmap <leader>h :noh<CR>
@@ -112,6 +113,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'benmills/vimux'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'chaoren/vim-wordmotion'
 
 call vundle#end()
 filetype plugin indent on
