@@ -113,7 +113,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'benmills/vimux'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'chaoren/vim-wordmotion'
+"Plugin 'chaoren/vim-wordmotion'
 
 call vundle#end()
 filetype plugin indent on
