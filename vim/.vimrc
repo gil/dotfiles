@@ -24,7 +24,7 @@ set shiftwidth=2 " number of spaces for indent
 set expandtab " expand tabs into spaces
 ":let g:detectindent_preferred_expandtab = 1
 ":let g:detectindent_preferred_indent = 2
-:autocmd BufReadPost * :DetectIndent
+":autocmd BufReadPost * :DetectIndent
 
 " search settings
 set incsearch " Incremental search
@@ -105,8 +105,8 @@ Plugin 'honza/vim-snippets'
 "Plugin 'majutsushi/tagbar'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'tpope/vim-dispatch'
-"Plugin 'tpope/vim-sleuth'
-Plugin 'ciaranm/detectindent'
+Plugin 'tpope/vim-sleuth'
+"Plugin 'ciaranm/detectindent'
 Plugin 'othree/html5.vim'
 Plugin 'valloric/MatchTagAlways'
 Plugin 'tpope/vim-fugitive'
@@ -139,9 +139,9 @@ let g:mta_filetypes = {
 			\}
 
 " DetectIndent
-:let g:detectindent_preferred_when_mixed = 1
-:let g:detectindent_preferred_expandtab = 1
-:let g:detectindent_preferred_indent = 2
+":let g:detectindent_preferred_when_mixed = 1
+":let g:detectindent_preferred_expandtab = 1
+":let g:detectindent_preferred_indent = 2
 
 " activate color scheme (theme)
 set background=dark
