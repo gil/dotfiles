@@ -18,6 +18,7 @@ set laststatus=2 " always show the status lines
 " filetype indent on
 set wildmenu " visual menu for file and command auto complete (like zsh)
 set splitbelow " open split bellow the current
+set updatetime=250 " update faster, this helps vim-gitgutter
 
 set tabstop=2 " number of spaces in a tab
 set shiftwidth=2 " number of spaces for indent
@@ -114,6 +115,7 @@ Plugin 'w0ng/vim-hybrid'
 Plugin 'benmills/vimux'
 Plugin 'christoomey/vim-tmux-navigator'
 "Plugin 'chaoren/vim-wordmotion'
+Plugin 'airblade/vim-gitgutter'
 
 call vundle#end()
 filetype plugin indent on
