@@ -54,6 +54,8 @@ map <leader>ns :VimuxRunCommand "npm start"<cr>
 nmap <leader>w :set wrap!<CR>
 nmap <leader>r :so $MYVIMRC<CR>
 nmap <leader>l :redraw!<CR>
+nmap <leader>e :e<CR>
+nmap <leader>E :e!<CR>
 
 " ctrlp.vim
 let g:ctrlp_working_path_mode = 'a'
