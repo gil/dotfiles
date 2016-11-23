@@ -2,7 +2,7 @@
 
 KEEP_MENU_OPEN=true
 PS3='Please enter your choice: '
-options=("OSX" "Fonts and Terminal Theme" "Command Line Tools (If you don't want XCode)" "Homebrew" "Vim & tmux" "Quit")
+options=("OSX" "Fonts and Terminal Theme (OSX)" "Command Line Tools (If you don't want XCode)" "Homebrew (OSX)" "Vim & tmux" "Quit")
 
 while $KEEP_MENU_OPEN
 do
@@ -17,7 +17,7 @@ do
         ~/.dotfiles/scripts/tools/setup/osx.sh
         break
         ;;
-      "Fonts and Terminal Theme")
+      "Fonts and Terminal Theme (OSX)")
         echo ""
         ~/.dotfiles/scripts/tools/setup/fonts-and-themes.sh
         break
@@ -28,7 +28,7 @@ do
         sudo xcodebuild -license
         break
         ;;
-      "Homebrew")
+      "Homebrew (OSX)")
         ~/.dotfiles/scripts/tools/setup/brew.sh
         break
         ;;
