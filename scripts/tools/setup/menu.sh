@@ -2,7 +2,7 @@
 
 KEEP_MENU_OPEN=true
 PS3='Please enter your choice: '
-options=("OSX" "Fonts and Terminal Theme (OSX)" "Command Line Tools (If you don't want XCode)" "Homebrew (OSX)" "PIP (Python)" "rbenv (Ruby)" "Vim & tmux" "Quit")
+options=("OSX" "Fonts and Terminal Theme (OSX)" "Command Line Tools (If you don't want XCode)" "Homebrew (OSX)" "PIP (Python)" "rbenv + Ruby" "Vim & tmux" "Quit")
 
 while $KEEP_MENU_OPEN
 do
@@ -36,7 +36,7 @@ do
         ~/.dotfiles/scripts/tools/setup/pip.sh
         break
         ;;
-      "rbenv (Ruby)")
+      "rbenv + Ruby")
         ~/.dotfiles/scripts/tools/setup/rbenv.sh
         break
         ;;
