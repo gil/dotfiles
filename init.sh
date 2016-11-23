@@ -53,7 +53,7 @@ ZSH_CUSTOM=$HOME/.dotfiles/scripts
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rbenv rails gem node npm bower gradle grunt brew z docker docker-compose docker-machine aws osx terminalapp sublimetext extract)
+plugins=(git rbenv rails gem node npm bower gradle grunt brew z docker docker-compose docker-machine osx terminalapp sublimetext extract)
 
 # User configuration
 export POWERLINE_SCRIPTS_PATH="$HOME/.vim/bundle/powerline/scripts"
