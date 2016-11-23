@@ -6,7 +6,7 @@ git pull
 src/configure && make -C src
 ~/.rbenv/bin/rbenv init
 
-refresh_dotfiles
+source ~/.zshrc
 
 git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 cd ~/.rbenv/plugins/ruby-build
@@ -15,4 +15,4 @@ git pull
 rbenv install 2.3.3
 rbenv global 2.3.3
 
-refresh_dotfiles
+source ~/.zshrc
