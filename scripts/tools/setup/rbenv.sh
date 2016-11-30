@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+set -e
 
 git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 cd ~/.rbenv
