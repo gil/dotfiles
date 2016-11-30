@@ -4,7 +4,7 @@ if hash yum 2>/dev/null; then
 
 	# Dev tools
   sudo yum groupinstall -y "Development Tools"
-  sudo yum install -y openssl-devel readline-devel zlib-devel pcre-devel xz-devel
+  sudo yum install -y automake openssl-devel readline-devel zlib-devel pcre-devel xz-devel
   sudo yum install -y blue-python27-pip.noarch
 
 	# General tools
