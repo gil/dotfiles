@@ -2,7 +2,7 @@
 
 KEEP_MENU_OPEN=true
 PS3='Please enter your choice: '
-options=("OSX" "Fonts and Terminal Theme (OSX)" "Command Line Tools (If you don't want XCode)" "Homebrew (OSX)" "PIP (Python)" "rbenv + Ruby" "Vim & tmux" "Quit")
+options=("OSX Settings" "Fonts and Terminal Theme (OSX)" "Command Line Tools (If you don't want XCode)" "yum" "PIP (Python)" "rbenv + Ruby" "Homebrew (OSX)" "Vim & tmux" "Quit")
 
 while $KEEP_MENU_OPEN
 do
@@ -12,7 +12,7 @@ do
   select opt in "${options[@]}"
   do
     case $opt in
-      "OSX")
+      "OSX Settings")
         echo ""
         ~/.dotfiles/scripts/tools/setup/osx.sh
         break
@@ -28,8 +28,8 @@ do
         sudo xcodebuild -license
         break
         ;;
-      "Homebrew (OSX)")
-        ~/.dotfiles/scripts/tools/setup/brew.sh
+      "yum")
+        ~/.dotfiles/scripts/tools/setup/yum.sh
         break
         ;;
       "PIP (Python)")
@@ -38,6 +38,10 @@ do
         ;;
       "rbenv + Ruby")
         ~/.dotfiles/scripts/tools/setup/rbenv.sh
+        break
+        ;;
+      "Homebrew (OSX)")
+        ~/.dotfiles/scripts/tools/setup/brew.sh
         break
         ;;
       "Vim & tmux")
