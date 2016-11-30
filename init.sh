@@ -100,3 +100,8 @@ alias dev_chrome="open -n -a \"Google Chrome\" --args --profile-directory=\"Debu
 
 alias vi="vim"
 alias v="vim"
+
+if [ -f ~/.dotfiles/custom/.zshrc ]; then
+  source ~/.dotfiles/custom/.zshrc
+fi
+

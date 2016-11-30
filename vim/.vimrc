@@ -117,6 +117,10 @@ Plugin 'christoomey/vim-tmux-navigator'
 "Plugin 'chaoren/vim-wordmotion'
 Plugin 'airblade/vim-gitgutter'
 
+if !empty(glob('~/.dotfiles/custom/.vimrc'))
+  so ~/.dotfiles/custom/.vimrc
+endif
+
 call vundle#end()
 filetype plugin indent on
 
