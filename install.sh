@@ -25,7 +25,7 @@ if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
 fi
 
 echo -e "${C_BLUE}Creating the zsh config...${C_RESTORE}"
-echo "export \$OH_MY_GIL_SH=$OH_MY_GIL_SH" >> ~/.zshrc
+echo "export OH_MY_GIL_SH=$OH_MY_GIL_SH" >> ~/.zshrc
 echo "source \$OH_MY_GIL_SH/init.sh" >> ~/.zshrc
 
 TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
