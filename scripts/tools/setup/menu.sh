@@ -7,7 +7,7 @@ options=("OSX Settings" "Fonts and Terminal Theme (OSX)" "Command Line Tools (If
 while $KEEP_MENU_OPEN
 do
 
-  echo -e "${C_GREEN}\nSelect the script(s) you want to run to setup your environment:\n${C_RESTORE}"
+  printf "${C_GREEN}\nSelect the script(s) you want to run to setup your environment:\n${C_RESTORE}\n"
 
   select opt in "${options[@]}"
   do
