@@ -14,12 +14,12 @@ do
     case $opt in
       "OSX Settings")
         echo ""
-        ~/.dotfiles/scripts/tools/setup/osx.sh
+        $OH_MY_GIL_SH/scripts/tools/setup/osx.sh
         break
         ;;
       "Fonts and Terminal Theme (OSX)")
         echo ""
-        ~/.dotfiles/scripts/tools/setup/fonts-and-themes.sh
+        $OH_MY_GIL_SH/scripts/tools/setup/fonts-and-themes.sh
         break
         ;;
       "Command Line Tools (If you don't want XCode)")
@@ -29,23 +29,23 @@ do
         break
         ;;
       "yum")
-        ~/.dotfiles/scripts/tools/setup/yum.sh
+        $OH_MY_GIL_SH/scripts/tools/setup/yum.sh
         break
         ;;
       "PIP (Python)")
-        ~/.dotfiles/scripts/tools/setup/pip.sh
+        $OH_MY_GIL_SH/scripts/tools/setup/pip.sh
         break
         ;;
       "rbenv + Ruby")
-        ~/.dotfiles/scripts/tools/setup/rbenv.sh
+        $OH_MY_GIL_SH/scripts/tools/setup/rbenv.sh
         break
         ;;
       "Homebrew (OSX)")
-        ~/.dotfiles/scripts/tools/setup/brew.sh
+        $OH_MY_GIL_SH/scripts/tools/setup/brew.sh
         break
         ;;
       "Vim & tmux")
-        ~/.dotfiles/scripts/tools/setup/vim.sh
+        $OH_MY_GIL_SH/scripts/tools/setup/vim.sh
         break
         ;;
       "Quit")

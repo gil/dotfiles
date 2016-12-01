@@ -1,3 +1,3 @@
 #!/usr/bin/env zsh
-cp ~/.dotfiles/scripts/tools/assets/Inconsolata-dz\ for\ Powerline.otf ~/Library/Fonts
-open ~/.dotfiles/scripts/tools/assets/Solarized\ Dark\ 256.terminal
+cp $OH_MY_GIL_SH/scripts/tools/assets/Inconsolata-dz\ for\ Powerline.otf ~/Library/Fonts
+open $OH_MY_GIL_SH/scripts/tools/assets/Solarized\ Dark\ 256.terminal

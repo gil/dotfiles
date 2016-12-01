@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 #set -e
 
-cd ~/.dotfiles
+cd $OH_MY_GIL_SH
 printf '\033[0;34m%s\033[0m\n' "Upgrading dotfiles"
 #git pull origin master
 git -c rebase.autoStash=true pull --rebase

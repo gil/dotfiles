@@ -1,6 +1,11 @@
 set -e
-source ~/.dotfiles/scripts/colors.zsh
-ZSH=~/.dotfiles/oh-my-zsh
+
+if ! env | grep -q ^OH_MY_GIL_SH=; then
+  export OH_MY_GIL_SH=$HOME/.dotfiles
+fi
+
+source $OH_MY_GIL_SH/scripts/colors.zsh
+ZSH=$OH_MY_GIL_SH/oh-my-zsh
 
 if [ -d "$ZSH" ]; then
 	echo -e "${C_BLUE}Removing old Oh My Zsh...${C_RESTORE}"
@@ -20,7 +25,8 @@ if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
 fi
 
 echo -e "${C_BLUE}Creating the zsh config...${C_RESTORE}"
-echo "source $HOME/.dotfiles/init.sh" >> ~/.zshrc
+echo "export \$OH_MY_GIL_SH=$OH_MY_GIL_SH" >> ~/.zshrc
+echo "source \$OH_MY_GIL_SH/init.sh" >> ~/.zshrc
 
 TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
 if [ "$TEST_CURRENT_SHELL" != "zsh" ]; then

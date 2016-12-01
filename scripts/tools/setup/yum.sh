@@ -2,16 +2,16 @@
 
 if hash yum 2>/dev/null; then
 
-	# Dev tools
+  # Dev tools
   sudo yum groupinstall -y "Development Tools"
   sudo yum install -y automake openssl-devel readline-devel zlib-devel pcre-devel xz-devel
   sudo yum install -y blue-python27-pip.noarch
 
-	# General tools
+  # General tools
   sudo yum install -y vim
   sudo yum install -y tmux
   sudo yum install -y ack
-	sudo yum install -y wget
+  sudo yum install -y wget
   sudo yum install -y curl
 
   # The Silver Searcher (ag)

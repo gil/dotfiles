@@ -1,9 +1,13 @@
+if ! env | grep -q ^OH_MY_GIL_SH=; then
+  export OH_MY_GIL_SH=$HOME/.dotfiles
+fi
+
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export EDITOR="vim"
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.dotfiles/oh-my-zsh
+export ZSH=$OH_MY_GILSH/oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -47,7 +51,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$HOME/.dotfiles/scripts
+ZSH_CUSTOM=$OH_MY_GIL_SH/scripts
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -92,8 +96,8 @@ if [[ $OSTYPE == darwin* ]]; then
   ulimit -n 10240
 fi
 
-alias setup_dotfiles="sh ~/.dotfiles/scripts/tools/setup/menu.sh"
-alias upgrade_dotfiles="sh ~/.dotfiles/scripts/tools/upgrade-dotfiles.sh && source ~/.zshrc"
+alias setup_dotfiles="sh $OH_MY_GIL_SH/scripts/tools/setup/menu.sh"
+alias upgrade_dotfiles="sh $OH_MY_GIL_SH/scripts/tools/upgrade-dotfiles.sh && source ~/.zshrc"
 alias refresh_dotfiles="source ~/.zshrc"
 
 alias dev_chrome="open -n -a \"Google Chrome\" --args --profile-directory=\"Debug Profile\""
@@ -101,7 +105,7 @@ alias dev_chrome="open -n -a \"Google Chrome\" --args --profile-directory=\"Debu
 alias vi="vim"
 alias v="vim"
 
-if [ -f ~/.dotfiles/custom/.zshrc ]; then
-  source ~/.dotfiles/custom/.zshrc
+if [ -f $OH_MY_GIL_SH/custom/.zshrc ]; then
+  source $OH_MY_GIL_SH/custom/.zshrc
 fi
 

@@ -117,7 +117,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 "Plugin 'chaoren/vim-wordmotion'
 Plugin 'airblade/vim-gitgutter'
 
-if !empty(glob('~/.dotfiles/custom/.vimrc'))
+if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so ~/.dotfiles/custom/.vimrc
 endif
 

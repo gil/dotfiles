@@ -7,7 +7,7 @@ if [ -f ~/.vimrc ] || [ -h ~/.vimrc ]; then
 fi
 
 echo -e "${C_BLUE}Creating .vimrc symlink...${C_RESTORE}"
-ln -s ~/.dotfiles/vim/.vimrc ~/.vimrc
+ln -s $OH_MY_GIL_SH/vim/.vimrc ~/.vimrc
 
 echo -e "${C_BLUE}Looking for an existing ~/.vim/ftplugin directory...${C_RESTORE}"
 if [ -d ~/.vim/ftplugin ] || [ -h ~/.vim/ftplugin ]; then
@@ -16,7 +16,7 @@ if [ -d ~/.vim/ftplugin ] || [ -h ~/.vim/ftplugin ]; then
 fi
 
 echo -e "${C_BLUE}Creating ~/.vim/ftplugin symlink...${C_RESTORE}"
-ln -s ~/.dotfiles/vim/ftplugin/ ~/.vim/ftplugin
+ln -s $OH_MY_GIL_SH/vim/ftplugin/ ~/.vim/ftplugin
 
 echo -e "${C_BLUE}Looking for an existing ~/.vim/UltiSnips directory...${C_RESTORE}"
 if [ -d ~/.vim/UltiSnips ] || [ -h ~/.vim/UltiSnips ]; then
@@ -25,7 +25,7 @@ if [ -d ~/.vim/UltiSnips ] || [ -h ~/.vim/UltiSnips ]; then
 fi
 
 echo -e "${C_BLUE}Creating ~/.vim/UltiSnips symlink...${C_RESTORE}"
-ln -s ~/.dotfiles/vim/UltiSnips/ ~/.vim/UltiSnips
+ln -s $OH_MY_GIL_SH/vim/UltiSnips/ ~/.vim/UltiSnips
 
 echo -e "${C_BLUE}Looking for an existing ~/.vim/spell directory...${C_RESTORE}"
 if [ -d ~/.vim/spell ] || [ -h ~/.vim/spell ]; then
@@ -34,7 +34,7 @@ if [ -d ~/.vim/spell ] || [ -h ~/.vim/spell ]; then
 fi
 
 echo -e "${C_BLUE}Creating ~/.vim/spell symlink...${C_RESTORE}"
-ln -s ~/.dotfiles/vim/spell/ ~/.vim/spell
+ln -s $OH_MY_GIL_SH/vim/spell/ ~/.vim/spell
 
 if [ -d ~/.vim/bundle/Vundle.vim ]; then
 	echo -e "${C_BLUE}Updating Vundle...${C_RESTORE}"
@@ -53,7 +53,7 @@ if [ -f ~/.ctags ] || [ -h ~/.ctags ]; then
 fi
 
 echo -e "${C_BLUE}Creating .ctags symlink...${C_RESTORE}"
-ln -s ~/.dotfiles/vim/.ctags ~/.ctags
+ln -s $OH_MY_GIL_SH/vim/.ctags ~/.ctags
 
 echo -e "${C_BLUE}Installing Powerline requirements...${C_RESTORE}"
 #pip3 install powerline-status #--user
@@ -70,7 +70,7 @@ if [ -f ~/.tmux.conf ] || [ -h ~/.tmux.conf ]; then
 fi
 
 echo -e "${C_BLUE}Creating .tmux.conf symlink...${C_RESTORE}"
-ln -s ~/.dotfiles/vim/.tmux.conf ~/.tmux.conf
+ln -s $OH_MY_GIL_SH/vim/.tmux.conf ~/.tmux.conf
 
 if [ ! -d ~/.config ]; then
   echo -e "${C_YELLOW}Creating ~/.config directory.${C_RESTORE}";
@@ -84,7 +84,7 @@ if [ -d ~/.config/powerline ] || [ -h ~/.config/powerline ]; then
 fi
 
 echo -e "${C_BLUE}Creating ~/.config/powerline symlink...${C_RESTORE}"
-ln -s ~/.dotfiles/vim/config/powerline/ ~/.config/powerline
+ln -s $OH_MY_GIL_SH/vim/config/powerline/ ~/.config/powerline
 
 echo -e "${C_BLUE}Installing Tmuxinator...${C_RESTORE}"
 gem install tmuxinator
