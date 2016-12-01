@@ -7,7 +7,7 @@ export LANG=en_US.UTF-8
 export EDITOR="vim"
 
 # Path to your oh-my-zsh installation.
-export ZSH=$OH_MY_GILSH/oh-my-zsh
+export ZSH=$OH_MY_GIL_SH/oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
