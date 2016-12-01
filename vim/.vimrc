@@ -57,6 +57,11 @@ nmap <leader>l :redraw!<CR>
 nmap <leader>e :e<CR>
 nmap <leader>E :e!<CR>
 
+" directory for backup, swap and undo
+set backupdir=/tmp//
+set directory=/tmp//
+set undodir=/tmpl//
+
 " ctrlp.vim
 let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_custom_ignore = '\v[\/]\.?(git|node_modules)$'
