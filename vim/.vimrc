@@ -63,7 +63,7 @@ set directory=/tmp//
 set undodir=/tmpl//
 
 " ctrlp.vim
-let g:ctrlp_working_path_mode = 'a'
+let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\v[\/]\.?(git|node_modules)$'
 nmap <leader>p :CtrlPBuffer<cr>
 nmap <leader>o :CtrlPMRU<cr>
@@ -99,7 +99,8 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'junegunn/fzf'
 Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/syntastic'
@@ -130,6 +131,9 @@ endif
 
 call vundle#end()
 filetype plugin indent on
+
+" fzf
+map <C-p> :FZF<CR>
 
 " The Silver Searcher(Ag) config for Ack plugin
 let g:ack_use_dispatch = 1
