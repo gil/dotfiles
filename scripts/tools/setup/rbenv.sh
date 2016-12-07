@@ -17,3 +17,5 @@ git pull
 
 rbenv install 2.3.3
 rbenv global 2.3.3
+
+source ~/.zshrc
