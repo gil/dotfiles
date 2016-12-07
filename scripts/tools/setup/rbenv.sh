@@ -1,7 +1,10 @@
 #!/usr/bin/env zsh
 set -e
 
-git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+if [ ! -d ~/.rbenv ]; then
+  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+fi
+
 cd ~/.rbenv
 git pull
 src/configure && make -C src
