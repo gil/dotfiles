@@ -15,6 +15,14 @@ sh ~/.dotfiles/install.sh
 setup_dotfiles
 ```
 
+## Custom directory
+
+To install in a different directory, set `OH_MY_GIL_SH` before running `install.sh` and replace paths on previous instructions:
+
+```
+export OH_MY_GIL_SH=$HOME/.oh-my-gil-sh
+```
+
 ## Upgrade
 
 ```
