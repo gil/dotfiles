@@ -129,7 +129,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'airblade/vim-gitgutter'
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
-  so ~/.dotfiles/custom/.vimrc
+  so $OH_MY_GIL_SH/custom/.vimrc
 endif
 
 call vundle#end()
