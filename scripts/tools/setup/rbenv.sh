@@ -11,7 +11,10 @@ src/configure && make -C src
 #~/.rbenv/bin/rbenv init
 eval "$(rbenv init -)"
 
-git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+if [ ! -d ~/.rbenv/plugins/ruby-build ]; then
+  git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+fi
+
 cd ~/.rbenv/plugins/ruby-build
 git pull
 
