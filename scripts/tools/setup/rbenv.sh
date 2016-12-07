@@ -8,7 +8,8 @@ fi
 cd ~/.rbenv
 git pull
 src/configure && make -C src
-~/.rbenv/bin/rbenv init
+#~/.rbenv/bin/rbenv init
+eval "$(rbenv init -)"
 
 source ~/.zshrc
 
