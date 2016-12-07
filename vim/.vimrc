@@ -65,7 +65,8 @@ set undodir=/tmpl//
 " ctrlp.vim
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\v[\/]\.?(git|node_modules)$'
-nmap <leader>p :CtrlPBuffer<cr>
+let g:ctrlp_map = '<leader>p'
+"nmap <leader>p :CtrlPBuffer<cr>
 nmap <leader>o :CtrlPMRU<cr>
 
 " syntastic
