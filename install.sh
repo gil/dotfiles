@@ -31,7 +31,7 @@ echo "source \$OH_MY_GIL_SH/init.sh" >> ~/.zshrc
 TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
 if [ "$TEST_CURRENT_SHELL" != "zsh" ]; then
     printf "${C_BLUE}Time to change your default shell to zsh!${C_RESTORE}\n"
-    chsh -s $(grep /zsh$ /etc/shells | tail -1)
+    chsh -s $(grep /zsh$ /etc/shells | tail -1) || true
 fi
 unset TEST_CURRENT_SHELL
 
