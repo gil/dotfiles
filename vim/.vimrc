@@ -58,6 +58,7 @@ nmap <leader>r :so $MYVIMRC<CR>
 nmap <leader>l :redraw!<CR>
 nmap <leader>e :e<CR>
 nmap <leader>E :e!<CR>
+nmap <leader>p :set paste!<CR>
 
 " directory for backup, swap and undo
 set backupdir=/tmp//
@@ -67,7 +68,7 @@ set undodir=/tmpl//
 " ctrlp.vim
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\v[\/]\.?(git|node_modules)$'
-let g:ctrlp_map = '<leader>p'
+let g:ctrlp_map = '<leader>O'
 "nmap <leader>p :CtrlPBuffer<cr>
 nmap <leader>o :CtrlPMRU<cr>
 
