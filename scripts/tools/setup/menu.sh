@@ -2,7 +2,7 @@
 
 KEEP_MENU_OPEN=true
 PS3='Please enter your choice: '
-options=("OSX Settings" "Fonts and Terminal Theme (OSX)" "Command Line Tools (If you don't want XCode)" "yum" "PIP (Python)" "rbenv + Ruby" "Homebrew (OSX)" "Vim & tmux" "Quit")
+options=("OSX Settings" "Fonts and Terminal Theme (OSX)" "Command Line Tools (If you don't want XCode)" "yum" "PIP (Python)" "NPM" "rbenv + Ruby" "Homebrew (OSX)" "Vim & tmux" "Quit")
 
 while $KEEP_MENU_OPEN
 do
@@ -34,6 +34,10 @@ do
         ;;
       "PIP (Python)")
         $OH_MY_GIL_SH/scripts/tools/setup/pip.sh
+        break
+        ;;
+      "NPM")
+        $OH_MY_GIL_SH/scripts/tools/setup/npm.sh
         break
         ;;
       "rbenv + Ruby")
