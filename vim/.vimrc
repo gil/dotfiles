@@ -22,8 +22,8 @@ set updatetime=250 " update faster, this helps vim-gitgutter
 set list " show invisible characters
 set listchars=tab:>·,trail:· " but only show tabs and trailing whitespace
 
-set tabstop=2 " number of spaces in a tab
-set shiftwidth=2 " number of spaces for indent
+set tabstop=2 " number of spaces in a tab (how it looks)
+set shiftwidth=2 " number of spaces for indent (how many each tab will add)
 set expandtab " expand tabs into spaces
 ":let g:detectindent_preferred_expandtab = 1
 ":let g:detectindent_preferred_indent = 2
@@ -59,6 +59,10 @@ nmap <leader>l :redraw!<CR>
 nmap <leader>e :e<CR>
 nmap <leader>E :e!<CR>
 nmap <leader>p :set paste!<CR>
+
+" Some key maps to make it easier to work with legacy code
+nmap <leader><Space> :set ts=2 sw=2 expandtab<CR>
+nmap <leader><Tab> :set ts=4 sw=4 noexpandtab<CR>
 
 " directory for backup, swap and undo
 set backupdir=/tmp//
@@ -118,7 +122,7 @@ Plugin 'honza/vim-snippets'
 "Plugin 'majutsushi/tagbar'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-sleuth'
+"Plugin 'tpope/vim-sleuth'
 "Plugin 'ciaranm/detectindent'
 Plugin 'othree/html5.vim'
 Plugin 'valloric/MatchTagAlways'
