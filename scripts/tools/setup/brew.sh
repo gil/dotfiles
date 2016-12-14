@@ -46,11 +46,11 @@ if hash brew 2>/dev/null; then
 	#brew install maven
 	#brew install gradle
 	#brew install node
-	brew install rbenv
-	brew install ruby-build
+	#brew install rbenv
+	#brew install ruby-build
 	#brew install docker
 	#brew install docker-machine
-	brew install python
-	brew install python3
+	#brew install python
+	#brew install python3
 	brew install node
 fi

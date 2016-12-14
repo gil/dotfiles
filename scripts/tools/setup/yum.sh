@@ -7,9 +7,9 @@ if hash yum 2>/dev/null; then
   sudo yum install -y automake openssl-devel readline-devel zlib-devel pcre-devel xz-devel
 
   # Try installing new Python veresion
-  sudo yum install -y blue-python27
-  sudo ln -s /usr/local/bin/blue-python2.7 /usr/local/bin/python
-  sudo ln -s /opt/blue-python/2.7/bin/easy_install /usr/local/bin/easy_install
+  #sudo yum install -y blue-python27
+  #sudo ln -s /usr/local/bin/blue-python2.7 /usr/local/bin/python
+  #sudo ln -s /opt/blue-python/2.7/bin/easy_install /usr/local/bin/easy_install
 
   # General tools
   sudo yum install -y vim
