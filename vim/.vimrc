@@ -64,6 +64,11 @@ nmap <leader>p :set paste!<CR>
 nmap <leader><Space> :set ts=2 sw=2 expandtab<CR>
 nmap <leader><Tab> :set ts=4 sw=4 noexpandtab<CR>
 
+"### Experimental Clipboard Sharing Code ###
+map <leader>cy :'<,'> w! /tmp/__ssh_clipboard__<cr>
+map <leader>cp :read /tmp/__ssh_clipboard__<cr>
+"### Experimental Clipboard Sharing Code ###
+
 " directory for backup, swap and undo
 set backupdir=/tmp//
 set directory=/tmp//

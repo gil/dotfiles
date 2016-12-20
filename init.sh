@@ -105,6 +105,28 @@ alias dev_chrome="open -n -a \"Google Chrome\" --args --profile-directory=\"Debu
 alias vi="vim"
 alias v="vim"
 
+### Experimental Clipboard Sharing Code ###
+function clcopy {
+  if hash pbcopy 2>/dev/null; then
+    tee /tmp/__ssh_clipboard__ | pbcopy
+  else
+    tee /tmp/__ssh_clipboard__
+  fi
+}
+function clpaste {
+  cat /tmp/__ssh_clipboard__
+}
+function clsend {
+  scp /tmp/__ssh_clipboard__ $1:/tmp/
+}
+function clget {
+  scp $1:/tmp/__ssh_clipboard__ /tmp/
+  if hash pbcopy 2>/dev/null; then
+    cat /tmp/__ssh_clipboard__ | pbcopy
+  fi
+}
+### Experimental Clipboard Sharing Code ###
+
 if [ -f $OH_MY_GIL_SH/custom/.zshrc ]; then
   source $OH_MY_GIL_SH/custom/.zshrc
 fi
