@@ -101,6 +101,7 @@ alias upgrade_dotfiles="sh $OH_MY_GIL_SH/scripts/tools/upgrade-dotfiles.sh && so
 alias refresh_dotfiles="source ~/.zshrc"
 
 alias dev_chrome="open -n -a \"Google Chrome\" --args --profile-directory=\"Debug Profile\""
+alias simple_server="python -m SimpleHTTPServer 8080"
 
 alias vi="vim"
 alias v="vim"
