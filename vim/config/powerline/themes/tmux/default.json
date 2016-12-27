@@ -2,6 +2,9 @@
 	"segments": {
 		"right": [
 			{
+				"function": "powerline.segments.common.env.user"
+			},
+			{
 				"function": "powerline.segments.common.sys.uptime",
 				"priority": 50,
 				"args": {
@@ -11,7 +14,7 @@
 			{
 				"function": "powerline.segments.common.net.internal_ip",
 				"args": {
-					"interface": "en0"
+					"interface": "default_gateway"
 				}
 			},
 			{
