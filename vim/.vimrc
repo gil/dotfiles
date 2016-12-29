@@ -72,7 +72,7 @@ map <leader>cp :read /tmp/__ssh_clipboard__<cr>
 " directory for backup, swap and undo
 set backupdir=/tmp//
 set directory=/tmp//
-set undodir=/tmpl//
+set undodir=/tmp//
 
 " ctrlp.vim
 let g:ctrlp_working_path_mode = 'ra'
