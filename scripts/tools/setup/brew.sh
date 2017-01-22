@@ -53,4 +53,7 @@ if hash brew 2>/dev/null; then
 	#brew install python
 	#brew install python3
 	brew install node
+
+  # Cask
+  brew cask install xquartz
 fi
