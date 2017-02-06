@@ -64,6 +64,15 @@ nmap <leader>p :set paste!<CR>
 nmap <leader><Space> :set ts=2 sw=2 expandtab<CR>
 nmap <leader><Tab> :set ts=4 sw=4 noexpandtab<CR>
 
+" Command alias to avoid mistakes
+fun! SetupCommandAlias(from, to)
+  exec 'cnoreabbrev <expr> '.a:from
+        \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
+        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfun
+call SetupCommandAlias('W','w')
+call SetupCommandAlias('E','e')
+
 "### Experimental Clipboard Sharing Code ###
 map <leader>cy :'<,'> w! /tmp/__ssh_clipboard__<cr>
 map <leader>cp :read /tmp/__ssh_clipboard__<cr>
