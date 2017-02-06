@@ -72,6 +72,7 @@ fun! SetupCommandAlias(from, to)
 endfun
 call SetupCommandAlias('W','w')
 call SetupCommandAlias('E','e')
+call SetupCommandAlias('Q','q')
 
 "### Experimental Clipboard Sharing Code ###
 map <leader>cy :'<,'> w! /tmp/__ssh_clipboard__<cr>
