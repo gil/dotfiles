@@ -31,6 +31,7 @@ if hash brew 2>/dev/null; then
 	brew install lame
 	brew install ffmpeg --with-libvpx --with-libvorbis --with-webp
 	brew install fpp
+	brew install fdupes
 
 	# Databases
 	#brew install postgresql
