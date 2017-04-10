@@ -147,6 +147,7 @@ Plugin 'benmills/vimux'
 Plugin 'christoomey/vim-tmux-navigator'
 "Plugin 'chaoren/vim-wordmotion'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'bronson/vim-trailing-whitespace'
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
