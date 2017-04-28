@@ -45,7 +45,7 @@ inoremap jj <Esc>
 "let mapleader = "\<Space>"
 let mapleader = ","
 map <C-n> :NERDTreeToggle<CR>
-nmap <leader>n :NERDTreeFind<CR>
+nmap <leader>nf :NERDTreeFind<CR>
 nmap <leader>h :noh<CR>
 "map <leader>t :bufdo tab split<CR>
 "map <leader>t :TagbarToggle<CR>
