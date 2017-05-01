@@ -47,6 +47,7 @@ function work_in_progress() {
 
 alias ga='git add'
 alias gai='git add -i'
+alias gap='git add -p'
 alias gb='git branch'
 alias gc='git commit -v'
 alias gco='git checkout'
