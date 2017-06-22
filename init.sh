@@ -105,6 +105,7 @@ alias simple_server="python -m SimpleHTTPServer 8080"
 
 alias vi="vim"
 alias v="vim"
+alias work="vim -o \`git status -s --porcelain -uall | cut -c4- | sed \"s,\${\$(git rev-parse --show-prefix):-ºº},,\" | tr '\n' ' '\`"
 
 ### Experimental Clipboard Sharing Code ###
 function clcopy {
