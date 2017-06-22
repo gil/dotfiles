@@ -158,6 +158,7 @@ filetype plugin indent on
 
 " fzf
 map <C-p> :FZF<CR>
+"map <C-p> :call fzf#run({ 'source' : 'ag --hidden --ignore .git -g ""' })<CR>
 
 " The Silver Searcher(Ag) config for Ack plugin
 let g:ack_use_dispatch = 1
@@ -175,8 +176,8 @@ let g:mta_filetypes = {
 			\ 'html'  : 1,
 			\ 'xhtml' : 1,
 			\ 'xml'   : 1,
-			\ 'inc' 	: 1,
-			\ 'tmpl'  : 1,	
+			\ 'inc'   : 1,
+			\ 'tmpl'  : 1,
 			\}
 
 " DetectIndent
