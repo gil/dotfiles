@@ -162,7 +162,7 @@ map <C-p> :FZF<CR>
 
 " The Silver Searcher(Ag) config for Ack plugin
 let g:ack_use_dispatch = 1
-if executable('ag')
+if executable('ag') && !exists('g:ackprg')
 	let g:ackprg = 'ag --vimgrep --silent --max-count 1'
 endif
 
