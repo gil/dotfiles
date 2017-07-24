@@ -22,8 +22,8 @@ set updatetime=250 " update faster, this helps vim-gitgutter
 set list " show invisible characters
 set listchars=tab:>·,trail:· " but only show tabs and trailing whitespace
 
-set tabstop=2 " number of spaces in a tab (how it looks)
-set shiftwidth=2 " number of spaces for indent (how many each tab will add)
+set tabstop=4 " number of spaces in a tab (how it looks)
+set shiftwidth=4 " number of spaces for indent (how many each tab will add)
 set expandtab " expand tabs into spaces
 ":let g:detectindent_preferred_expandtab = 1
 ":let g:detectindent_preferred_indent = 2
@@ -61,7 +61,7 @@ nmap <leader>E :e!<CR>
 nmap <leader>p :set paste!<CR>
 
 " Some key maps to make it easier to work with legacy code
-nmap <leader><Space> :set ts=2 sw=2 expandtab<CR>
+nmap <leader><Space> :set ts=4 sw=4 expandtab<CR>
 nmap <leader><Tab> :set ts=4 sw=4 noexpandtab<CR>
 
 " Command alias to avoid mistakes

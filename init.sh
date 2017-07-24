@@ -66,6 +66,7 @@ export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$POWER
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
+source $OH_MY_GIL_SH/scripts/utils.zsh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
