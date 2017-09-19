@@ -1,5 +1,5 @@
 export JOBS=max
-eval "$(npm completion 2>/dev/null)"
+#eval "$(npm completion 2>/dev/null)"
 
 # Allow node_modules/bin dir expansion with ~nb<tab>
 hash -d nb=./node_modules/.bin/
