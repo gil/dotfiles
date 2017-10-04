@@ -101,6 +101,8 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" debug if eslint is loading correct config for current file
+" :echo syntastic#util#system('eslint --debug ' . expand('%:p'))
 let g:syntastic_javascript_checkers = ['eslint', 'jshint']
 
 " disable arrows for visual mode
