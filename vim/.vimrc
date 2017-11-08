@@ -53,6 +53,7 @@ nmap <leader>h :noh<CR>
 map <leader>md :silent !open -a Marked.app '%:p'<cr>
 "map <leader>ns :Dispatch npm start<cr>
 map <leader>ns :VimuxRunCommand "npm start"<cr>
+map <leader>nn :VimuxRunCommand "node \"" . expand('%:p') . "\""<cr>
 nmap <leader>w :set wrap!<CR>
 nmap <leader>r :so $MYVIMRC<CR>
 nmap <leader>l :redraw!<CR>
