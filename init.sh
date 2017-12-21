@@ -62,7 +62,7 @@ plugins=(git rbenv pyenv rails gem node npm bower gradle grunt brew z docker doc
 # User configuration
 export POWERLINE_SCRIPTS_PATH="$HOME/.vim/bundle/powerline/scripts"
 export POWERLINE_CONFIG_COMMAND="$POWERLINE_SCRIPTS_PATH/powerline-config"
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$POWERLINE_SCRIPTS_PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$POWERLINE_SCRIPTS_PATH:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
