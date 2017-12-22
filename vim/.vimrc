@@ -18,7 +18,7 @@ set laststatus=2 " always show the status lines
 " filetype indent on
 set wildmenu " visual menu for file and command auto complete (like zsh)
 set splitbelow " open split bellow the current
-set updatetime=250 " update faster, this helps vim-gitgutter
+set updatetime=750 " update faster, this helps vim-gitgutter
 set list " show invisible characters
 set listchars=tab:>·,trail:· " but only show tabs and trailing whitespace
 
