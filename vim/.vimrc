@@ -173,7 +173,7 @@ if executable('ag') && !exists('g:ackprg')
 endif
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 

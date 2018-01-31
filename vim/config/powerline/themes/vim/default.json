@@ -21,11 +21,6 @@
 				"priority": 10
 			},
 			{
-				"function": "branch",
-				"exclude_modes": ["nc"],
-				"priority": 30
-			},
-			{
 				"function": "readonly_indicator",
 				"draw_soft_divider": false,
 				"after": " "
@@ -44,11 +39,6 @@
 				"draw_soft_divider": false
 			},
 			{
-				"function": "file_vcs_status",
-				"before": " ",
-				"draw_soft_divider": false
-			},
-			{
 				"function": "modified_indicator",
 				"before": " "
 			},
@@ -61,12 +51,6 @@
 			{
 				"exclude_modes": ["nc"],
 				"function": "powerline.segments.vim.plugin.syntastic.syntastic",
-				"priority": 50
-			},
-			{
-				"exclude_modes": ["nc"],
-				"function": "powerline.segments.vim.plugin.tagbar.current_tag",
-				"draw_soft_divider": false,
 				"priority": 50
 			},
 			{
@@ -89,10 +73,6 @@
 				"priority": 50,
 				"width": 4,
 				"align": "r"
-			},
-			{
-				"function": "csv_col_current",
-				"priority": 30
 			},
 			{
 				"type": "string",
