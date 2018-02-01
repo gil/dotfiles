@@ -19,6 +19,8 @@ set laststatus=2 " always show the status lines
 set wildmenu " visual menu for file and command auto complete (like zsh)
 set splitbelow " open split bellow the current
 set updatetime=750 " update faster, this helps vim-gitgutter
+set lazyredraw " delay drawing when macros and other things are being applied
+set ttyfast " smooth redrawing for faster connections
 set list " show invisible characters
 set listchars=tab:>·,trail:· " but only show tabs and trailing whitespace
 
