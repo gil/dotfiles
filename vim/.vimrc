@@ -156,6 +156,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 "Plugin 'chaoren/vim-wordmotion'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'gil/vim-csscomb'
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
@@ -192,6 +193,9 @@ let g:mta_filetypes = {
 ":let g:detectindent_preferred_when_mixed = 1
 ":let g:detectindent_preferred_expandtab = 1
 ":let g:detectindent_preferred_indent = 2
+
+" CSScomb
+let g:CSScombArguments = '--config ~/.csscomb.json'
 
 " activate color scheme (theme)
 set background=dark

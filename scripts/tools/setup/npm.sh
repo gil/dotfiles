@@ -12,7 +12,7 @@ _npmInstallOrUpdate() {
   fi
 }
 
-for package in grunt-cli gulp-cli bower karma-cli nodemon
+for package in grunt-cli gulp-cli bower karma-cli nodemon csscomb
 do
   _npmInstallOrUpdate $package
 done
