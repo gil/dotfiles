@@ -61,6 +61,7 @@ nmap <leader>r :so $MYVIMRC<CR>
 nmap <leader>l :redraw!<CR>
 nmap <leader>e :e<CR>
 nmap <leader>E :e!<CR>
+nmap <leader>3 :windo e!<CR>
 nmap <leader>p :set paste!<CR>
 
 " Some key maps to make it easier to work with legacy code
