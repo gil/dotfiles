@@ -3,13 +3,15 @@ _homebrew-installed() {
 }
 
 _pyenv-from-homebrew-installed() {
-    brew --prefix pyenv &> /dev/null
+    #brew --prefix pyenv &> /dev/null
+    [[ $(readlink /usr/local/opt/pyenv) =~ \/Cellar\/ ]]
 }
 
 FOUND_PYENV=0
 pyenvdirs=("$HOME/.pyenv" "/usr/local/pyenv" "/opt/pyenv")
 if _homebrew-installed && _pyenv-from-homebrew-installed ; then
-    pyenvdirs=($(brew --prefix pyenv) "${pyenvdirs[@]}")
+    #pyenvdirs=($(brew --prefix pyenv) "${pyenvdirs[@]}")
+    pyenvdirs=("/usr/local/opt/pyenv" "${pyenvdirs[@]}")
 fi
 
 for pyenvdir in "${pyenvdirs[@]}" ; do

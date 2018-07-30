@@ -3,13 +3,15 @@ _homebrew-installed() {
 }
 
 _rbenv-from-homebrew-installed() {
-  brew --prefix rbenv &> /dev/null
+  #brew --prefix rbenv &> /dev/null
+  [[ $(readlink /usr/local/opt/rbenv) =~ \/Cellar\/ ]]
 }
 
 FOUND_RBENV=0
 rbenvdirs=("$HOME/.rbenv" "/usr/local/rbenv" "/opt/rbenv" "/usr/local/opt/rbenv")
 if _homebrew-installed && _rbenv-from-homebrew-installed ; then
-    rbenvdirs=($(brew --prefix rbenv) "${rbenvdirs[@]}")
+    #rbenvdirs=($(brew --prefix rbenv) "${rbenvdirs[@]}")
+    rbenvdirs=("/usr/local/opt/rbenv" "${rbenvdirs[@]}")
 fi
 
 for rbenvdir in "${rbenvdirs[@]}" ; do
