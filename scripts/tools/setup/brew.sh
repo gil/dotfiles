@@ -53,7 +53,6 @@ if hash brew 2>/dev/null; then
     for package in git node; do
         _brewInstallOrUpdate $package
     done
-    _brewInstallOrUpdate yarn --without-node
 
     # Cask
     for package in xquartz spectacle; do
