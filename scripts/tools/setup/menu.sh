@@ -2,7 +2,7 @@
 
 KEEP_MENU_OPEN=true
 PS3='Please enter your choice: '
-options=("OSX Settings" "Fonts and Terminal Theme (OSX)" "Command Line Tools (If you don't want XCode)" "Homebrew (OSX)" "Vim & tmux" "yum" "pyenv (Python)" "Yarn" "rbenv + Ruby" "Quit")
+options=("OSX Settings" "Fonts and Terminal Theme (OSX)" "Command Line Tools (If you don't want XCode)" "Homebrew (OSX)" "Vim & tmux" "yum" "NVM + NodeJS" "pyenv (Python)" "Yarn" "rbenv + Ruby" "Quit")
 
 while $KEEP_MENU_OPEN
 do
@@ -38,6 +38,10 @@ do
         ;;
       "yum")
         $OH_MY_GIL_SH/scripts/tools/setup/yum.sh
+        break
+        ;;
+      "NVM + NodeJS")
+        $OH_MY_GIL_SH/scripts/tools/setup/nvm.sh
         break
         ;;
       "pyenv (Python)")

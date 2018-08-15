@@ -2,6 +2,7 @@
 set -e
 
 if ! hash yarn 2>/dev/null; then
+    printf "\n${C_PURPLE}[Yarn] ${C_GREEN}Couldn't find Yarn, let's try to install it...${C_RESTORE}\n"
     if hash brew 2>/dev/null; then
         brew install yarn --without-node
     fi
