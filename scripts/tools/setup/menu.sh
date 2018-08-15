@@ -2,7 +2,7 @@
 
 KEEP_MENU_OPEN=true
 PS3='Please enter your choice: '
-options=("OSX Settings" "Fonts and Terminal Theme (OSX)" "Command Line Tools (If you don't want XCode)" "yum" "pyenv (Python)" "Yarn" "rbenv + Ruby" "Homebrew (OSX)" "Vim & tmux" "Quit")
+options=("OSX Settings" "Fonts and Terminal Theme (OSX)" "Command Line Tools (If you don't want XCode)" "Homebrew (OSX)" "Vim & tmux" "yum" "pyenv (Python)" "Yarn" "rbenv + Ruby" "Quit")
 
 while $KEEP_MENU_OPEN
 do
@@ -28,6 +28,14 @@ do
         sudo xcodebuild -license
         break
         ;;
+      "Homebrew (OSX)")
+        $OH_MY_GIL_SH/scripts/tools/setup/brew.sh
+        break
+        ;;
+      "Vim & tmux")
+        $OH_MY_GIL_SH/scripts/tools/setup/vim.sh
+        break
+        ;;
       "yum")
         $OH_MY_GIL_SH/scripts/tools/setup/yum.sh
         break
@@ -42,14 +50,6 @@ do
         ;;
       "rbenv + Ruby")
         $OH_MY_GIL_SH/scripts/tools/setup/rbenv.sh
-        break
-        ;;
-      "Homebrew (OSX)")
-        $OH_MY_GIL_SH/scripts/tools/setup/brew.sh
-        break
-        ;;
-      "Vim & tmux")
-        $OH_MY_GIL_SH/scripts/tools/setup/vim.sh
         break
         ;;
       "Quit")
