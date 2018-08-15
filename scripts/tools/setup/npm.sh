@@ -12,12 +12,11 @@ _npmInstallOrUpdate() {
   fi
 }
 
-for package in grunt-cli gulp-cli bower karma-cli nodemon csscomb
-do
+for package in grunt-cli gulp-cli bower karma-cli nodemon csscomb; do
   _npmInstallOrUpdate $package
 done
 
 # I don't rememeber why eslint was outside the main loop... Have to investigate later :/
-_npmInstallOrUpdate eslint 
+_npmInstallOrUpdate eslint
 _npmInstallOrUpdate eslint_d
 

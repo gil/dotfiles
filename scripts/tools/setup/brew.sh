@@ -1,60 +1,62 @@
 #!/usr/bin/env zsh
 if ! hash brew 2>/dev/null; then
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
+function _brewInstallOrUpdate {
+    printf "\n${C_PURPLE}[Brew] ${C_GREEN}Checking for package \"$1\"...${C_RESTORE}\n"
+    if brew ls --versions "$1" >/dev/null; then
+        printf "${C_PURPLE}[Brew] ${C_BLUE}Package \"$1\" found! Upgrading...${C_RESTORE}\n"
+        HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade "$1"
+    else
+        printf "${C_PURPLE}[Brew] ${C_BLUE}Package \"$1\" not found! Installing...${C_RESTORE}\n"
+        HOMEBREW_NO_AUTO_UPDATE=1 brew install $@
+    fi
+}
+
+function _caskInstallOrUpdate {
+    printf "\n${C_PURPLE}[Cask] ${C_GREEN}Checking for package \"$1\"...${C_RESTORE}\n"
+    if brew cask ls --versions "$1" >/dev/null; then
+        printf "${C_PURPLE}[Cask] ${C_BLUE}Package \"$1\" found! Upgrading...${C_RESTORE}\n"
+        HOMEBREW_NO_AUTO_UPDATE=1 brew cask upgrade "$1"
+    else
+        printf "${C_PURPLE}[Cask] ${C_BLUE}Package \"$1\" not found! Installing...${C_RESTORE}\n"
+        HOMEBREW_NO_AUTO_UPDATE=1 brew cask install $@
+    fi
+}
+
 if hash brew 2>/dev/null; then
-	# Repos
-	brew tap homebrew/dupes
-	brew tap homebrew/versions
-	#brew tap homebrew/homebrew-php
+    printf "\n${C_PURPLE}[Brew] ${C_GREEN}Updating Homebrew...${C_RESTORE}\n"
+    # Repos
+    #brew tap homebrew/dupes
+    #brew tap homebrew/versions
+    #brew tap homebrew/homebrew-php
 
-	# Update formulas
-	brew update
+    # Update formulas
+    brew update
+    brew prune
 
-	# Upgrade everything already installed
-	brew prune
-	brew upgrade
+    # General tools
+    for package in tmux ack the_silver_searcher wget curl figlet youtube-dl ghostscript lame fpp fdupes ncdu; do
+        _brewInstallOrUpdate $package
+    done
+    _brewInstallOrUpdate vim --with-override-system-vi
+    _brewInstallOrUpdate graphicsmagick --with-libtiff --with-webp --with-ghostscript
+    _brewInstallOrUpdate ffmpeg --with-libvpx --with-libvorbis --with-webp
 
-	# General tools
-	brew install vim --with-override-system-vi
-	brew install tmux
-	brew install ack
-	brew install the_silver_searcher
-	brew install ctags-exuberant
-	brew install wget
-	brew install curl
-	brew install figlet
-	brew install youtube-dl
-	brew install ghostscript
-	brew install graphicsmagick --with-libtiff --with-webp --with-ghostscript
-	brew install lame
-	brew install ffmpeg --with-libvpx --with-libvorbis --with-webp
-	brew install fpp
-	brew install fdupes
+    # Servers
+    for package in nginx; do
+        _brewInstallOrUpdate $package
+    done
 
-	# Databases
-	#brew install postgresql
-	#brew install mysql
-	#brew install redis
+    # Dev tools
+    for package in git node; do
+        _brewInstallOrUpdate $package
+    done
+    _brewInstallOrUpdate yarn --without-node
 
-	# Servers
-	brew install nginx
-	#brew install php56 --with-fpm
-
-	# Dev tools
-	brew install git
-	#brew install maven
-	#brew install gradle
-	#brew install node
-	#brew install rbenv
-	#brew install ruby-build
-	#brew install docker
-	#brew install docker-machine
-	#brew install python
-	#brew install python3
-	brew install node
-
-  # Cask
-  brew cask install xquartz
+    # Cask
+    for package in xquartz spectacle; do
+        _caskInstallOrUpdate $package
+    done
 fi
