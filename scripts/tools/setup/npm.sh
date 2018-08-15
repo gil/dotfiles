@@ -1,6 +1,10 @@
 #!/usr/bin/env zsh
 set -e
 
+#######
+## WARNING: This file won't be used anymore, since I'm using Yarn now
+#######
+
 _npmInstallOrUpdate() {
   printf "\n${C_PURPLE}[NPM] ${C_GREEN}Checking for package \"$1\"...${C_RESTORE}\n"
   if npm list --depth 0 --global $1 > /dev/null 2>&1 ; then
@@ -12,7 +16,7 @@ _npmInstallOrUpdate() {
   fi
 }
 
-for package in grunt-cli gulp-cli bower karma-cli nodemon csscomb; do
+for package in karma-cli nodemon csscomb; do
   _npmInstallOrUpdate $package
 done
 
