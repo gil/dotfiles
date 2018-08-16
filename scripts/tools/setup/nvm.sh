@@ -16,9 +16,14 @@ if ! which nvm 2>&1 >/dev/null; then
 fi
 
 if which nvm 2>&1 >/dev/null; then
+
     printf "\n${C_PURPLE}[NVM] ${C_GREEN}Installing latest node...${C_RESTORE}\n"
     nvm install node
     nvm use node
+    nvm alias default node
+
+    printf "\n${C_PURPLE}[NVM] ${C_GREEN}Installing latest NPM for this version...${C_RESTORE}\n"
+    nvm install-latest-npm
 
     printf "\n${C_PURPLE}[NVM] ${C_GREEN}Done! If NVM is not working, run refresh_dotfiles manually now.${C_RESTORE}\n"
 else
