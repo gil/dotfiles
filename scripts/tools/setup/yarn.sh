@@ -15,7 +15,7 @@ fi
 
 if hash yarn 2>/dev/null; then
     printf "\n${C_PURPLE}[Yarn] ${C_GREEN}Installing/Updating modules...${C_RESTORE}\n"
-    yarn global add karma-cli nodemon csscomb eslint eslint_d
+    yarn global add karma-cli nodemon csscomb eslint eslint_d http-server
 else
     printf "\n${C_PURPLE}[Yarn] ${C_RED}Couldn't find Yarn!${C_RESTORE}\n"
 fi
