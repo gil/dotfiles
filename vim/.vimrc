@@ -56,6 +56,7 @@ map <leader>md :silent !open -a Marked.app '%:p'<cr>
 "map <leader>ns :Dispatch npm start<cr>
 map <leader>ns :VimuxRunCommand "npm start"<cr>
 map <leader>nn :VimuxRunCommand "node \"" . expand('%:p') . "\""<cr>
+map <leader>m :VimuxRunCommand "!!\n"<cr>
 nmap <leader>w :set wrap!<CR>
 nmap <leader>r :so $MYVIMRC<CR>
 nmap <leader>l :redraw!<CR>
@@ -75,6 +76,7 @@ fun! SetupCommandAlias(from, to)
         \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfun
 call SetupCommandAlias('W','w')
+call SetupCommandAlias('Wa','wa')
 call SetupCommandAlias('E','e')
 call SetupCommandAlias('Q','q')
 
