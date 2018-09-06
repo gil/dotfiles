@@ -121,27 +121,8 @@ alias vi="vim"
 alias v="vim"
 alias work="vim -o \`git status -s --porcelain -uall | cut -c4- | sed \"s,\${\$(git rev-parse --show-prefix):-ºº},,\" | tr '\n' ' '\`"
 
-### Experimental Clipboard Sharing Code ###
-function clcopy {
-  if hash pbcopy 2>/dev/null; then
-    tee /tmp/__ssh_clipboard__ | pbcopy
-  else
-    tee /tmp/__ssh_clipboard__
-  fi
-}
-function clpaste {
-  cat /tmp/__ssh_clipboard__
-}
-function clsend {
-  scp /tmp/__ssh_clipboard__ $1:/tmp/
-}
-function clget {
-  scp $1:/tmp/__ssh_clipboard__ /tmp/
-  if hash pbcopy 2>/dev/null; then
-    cat /tmp/__ssh_clipboard__ | pbcopy
-  fi
-}
-### Experimental Clipboard Sharing Code ###
+# Pipe anything into `clip` to forward it to Clipper
+alias clip="nc localhost 8377"
 
 if [ -f $OH_MY_GIL_SH/custom/.zshrc ]; then
   source $OH_MY_GIL_SH/custom/.zshrc

@@ -65,6 +65,9 @@ nmap <leader>E :e!<CR>
 nmap <leader>3 :windo e!<CR>
 nmap <leader>p :set paste!<CR>
 
+" Send last yank to Clipper
+nnoremap <leader>y :call system('nc localhost 8377', @0)<CR>
+
 " Some key maps to make it easier to work with legacy code
 nmap <leader><Space> :set ts=4 sw=4 expandtab<CR>
 nmap <leader><Tab> :set ts=4 sw=4 noexpandtab<CR>
@@ -79,11 +82,6 @@ call SetupCommandAlias('W','w')
 call SetupCommandAlias('Wa','wa')
 call SetupCommandAlias('E','e')
 call SetupCommandAlias('Q','q')
-
-"### Experimental Clipboard Sharing Code ###
-map <leader>cy :'<,'> w! /tmp/__ssh_clipboard__<cr>
-map <leader>cp :read /tmp/__ssh_clipboard__<cr>
-"### Experimental Clipboard Sharing Code ###
 
 " directory for backup, swap and undo
 set backupdir=/tmp//
