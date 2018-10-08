@@ -132,6 +132,9 @@ defaults write com.apple.universalaccess reduceTransparency -bool true
 #sudo rm -rf /System/Library/CoreServices/DefaultDesktop.jpg
 #sudo ln -s /path/to/your/image /System/Library/CoreServices/DefaultDesktop.jpg
 
+# Don't show notifications when screen is locked
+sudo defaults write  ~/Library/Preferences/ByHost/com.apple.notificationcenterui.*.plist dndEnabledDisplaySleep 1
+
 ###############################################################################
 # SSD-specific tweaks                                                         #
 ###############################################################################
@@ -302,7 +305,7 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # /usr/libexec/PlistBuddy -c "Set DesktopViewSettings:IconViewSettings:labelOnBottom false" ~/Library/Preferences/com.apple.finder.plist
 
 # Enable snap-to-grid for icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+#/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 
@@ -857,7 +860,7 @@ sudo launchctl start com.apple.diskspaced &>/dev/null
 # "Google Chrome" "Google Chrome Canary" "Mail" "Opera" "SizeUp" "Spectacle" "Terminal"
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
 	"Dock" "Finder" "Messages" "Safari" "SystemUIServer" \
-	"Transmission" "Twitter" "iCal" "coreaudiod"; do
+	"Transmission" "Twitter" "iCal" "coreaudiod" "Notification Center"; do
 	killall "${app}" > /dev/null 2>&1
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
