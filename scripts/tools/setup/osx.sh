@@ -132,9 +132,6 @@ defaults write com.apple.universalaccess reduceTransparency -bool true
 #sudo rm -rf /System/Library/CoreServices/DefaultDesktop.jpg
 #sudo ln -s /path/to/your/image /System/Library/CoreServices/DefaultDesktop.jpg
 
-# Don't show notifications when screen is locked
-sudo defaults write  ~/Library/Preferences/ByHost/com.apple.notificationcenterui.*.plist dndEnabledDisplaySleep 1
-
 ###############################################################################
 # SSD-specific tweaks                                                         #
 ###############################################################################
@@ -860,7 +857,7 @@ sudo launchctl start com.apple.diskspaced &>/dev/null
 # "Google Chrome" "Google Chrome Canary" "Mail" "Opera" "SizeUp" "Spectacle" "Terminal"
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
 	"Dock" "Finder" "Messages" "Safari" "SystemUIServer" \
-	"Transmission" "Twitter" "iCal" "coreaudiod" "Notification Center"; do
+	"Transmission" "Twitter" "iCal" "coreaudiod"; do
 	killall "${app}" > /dev/null 2>&1
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
