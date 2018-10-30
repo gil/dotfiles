@@ -158,6 +158,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'gil/vim-csscomb'
+Plugin 'ConradIrwin/vim-bracketed-paste'
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
