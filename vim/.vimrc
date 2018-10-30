@@ -113,15 +113,15 @@ let g:syntastic_tmpl_checkers = ['tmpl/htmltemplate_linter']
 "let g:syntastic_tmpl_htmltemplate_linter_exec = '/usr/local/git_tree/affiliate_data/packages/booking-htmltemplate-linter-api/bin/lint'
 
 " disable arrows for visual mode
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
+"map <up> <nop>
+"map <down> <nop>
+"map <left> <nop>
+"map <right> <nop>
 " disable arrows for insert mode
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
-imap <right> <nop>
+"imap <up> <nop>
+"imap <down> <nop>
+"imap <left> <nop>
+"imap <right> <nop>
 
 " vundle and plugins
 set nocompatible
