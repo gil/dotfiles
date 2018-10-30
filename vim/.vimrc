@@ -160,6 +160,7 @@ Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'gil/vim-csscomb'
 Plugin 'ConradIrwin/vim-bracketed-paste'
 Plugin 'posva/vim-vue'
+Plugin 'easymotion/vim-easymotion'
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
@@ -199,6 +200,12 @@ let g:mta_filetypes = {
 
 " CSScomb
 let g:CSScombArguments = '--config ~/.csscomb.json'
+
+" EasyMotion
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+"nmap s <Plug>(easymotion-overwin-f)
+nmap s <Plug>(easymotion-overwin-f2)
 
 " activate color scheme (theme)
 set background=dark
