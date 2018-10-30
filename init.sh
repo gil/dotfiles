@@ -64,8 +64,15 @@ if [ -z "$OH_MY_GIL_SH_OLD_PATH" ]; then
     export OH_MY_GIL_SH_OLD_PATH="$PATH"
 fi
 
+# Making sure Powerline works (with proper Python version)
+if hash python3 2>/dev/null; then
+    export POWERLINE_PYTHON="python3"
+else
+    export POWERLINE_PYTHON="python"
+fi
 export POWERLINE_SCRIPTS_PATH="$HOME/.vim/bundle/powerline/scripts"
 export POWERLINE_CONFIG_COMMAND="$POWERLINE_SCRIPTS_PATH/powerline-config"
+
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$POWERLINE_SCRIPTS_PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
