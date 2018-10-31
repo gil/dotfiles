@@ -46,14 +46,14 @@ else
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
-printf "${C_BLUE}Looking for an existing .ctags...${C_RESTORE}\n"
-if [ -f ~/.ctags ] || [ -h ~/.ctags ]; then
-  printf "${C_YELLOW}Found ~/.ctags.${C_RESTORE} ${C_GREEN}Backing up to ~/.ctags.backup${C_RESTORE}\n"
-  mv ~/.ctags ~/.ctags.backup;
-fi
+#printf "${C_BLUE}Looking for an existing .ctags...${C_RESTORE}\n"
+#if [ -f ~/.ctags ] || [ -h ~/.ctags ]; then
+  #printf "${C_YELLOW}Found ~/.ctags.${C_RESTORE} ${C_GREEN}Backing up to ~/.ctags.backup${C_RESTORE}\n"
+  #mv ~/.ctags ~/.ctags.backup;
+#fi
 
-printf "${C_BLUE}Creating .ctags symlink...${C_RESTORE}\n"
-ln -s $OH_MY_GIL_SH/vim/.ctags ~/.ctags
+#printf "${C_BLUE}Creating .ctags symlink...${C_RESTORE}\n"
+#ln -s $OH_MY_GIL_SH/vim/.ctags ~/.ctags
 
 printf "${C_BLUE}Installing Powerline requirements...${C_RESTORE}\n"
 #pip3 install powerline-status #--user
@@ -86,5 +86,5 @@ fi
 printf "${C_BLUE}Creating ~/.config/powerline symlink...${C_RESTORE}\n"
 ln -s $OH_MY_GIL_SH/vim/config/powerline/ ~/.config/powerline
 
-printf "${C_BLUE}Installing Tmuxinator...${C_RESTORE}\n"
-gem install tmuxinator
+#printf "${C_BLUE}Installing Tmuxinator...${C_RESTORE}\n"
+#gem install tmuxinator
