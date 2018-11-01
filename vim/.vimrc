@@ -161,6 +161,8 @@ Plugin 'gil/vim-csscomb'
 Plugin 'ConradIrwin/vim-bracketed-paste'
 Plugin 'posva/vim-vue'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-session'
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
@@ -206,6 +208,14 @@ let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 "nmap s <Plug>(easymotion-overwin-f)
 nmap s <Plug>(easymotion-overwin-f2)
+
+" vim-session
+set sessionoptions-=options " Don't persist options and mappings because it can corrupt sessions.
+set sessionoptions-=buffers " Don't save hidden and unloaded buffers in sessions.
+let g:session_autoload = 'yes'
+let g:session_autosave = 'yes'
+let g:session_autosave_periodic = 5
+let g:session_autosave_silent = 1
 
 " activate color scheme (theme)
 set background=dark
