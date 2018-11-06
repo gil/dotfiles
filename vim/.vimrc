@@ -107,7 +107,7 @@ let g:syntastic_check_on_wq = 0
 
 " debug if eslint is loading correct config for current file
 " :echo syntastic#util#system('eslint --debug ' . expand('%:p'))
-let g:syntastic_javascript_checkers = ['eslint', 'jshint']
+let g:syntastic_javascript_checkers = ['eslint']
 
 let g:syntastic_tmpl_checkers = ['tmpl/htmltemplate_linter']
 "let g:syntastic_tmpl_htmltemplate_linter_exec = '/usr/local/git_tree/affiliate_data/packages/booking-htmltemplate-linter-api/bin/lint'
