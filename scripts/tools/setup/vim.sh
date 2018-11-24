@@ -37,13 +37,13 @@ printf "${C_BLUE}Creating ~/.vim/spell symlink...${C_RESTORE}\n"
 ln -s $OH_MY_GIL_SH/vim/spell/ ~/.vim/spell
 
 if [ -d ~/.vim/bundle/Vundle.vim ]; then
-	printf "${C_BLUE}Updating Vundle...${C_RESTORE}\n"
-	cd ~/.vim/bundle/Vundle.vim
-	git pull origin master
-	cd -
+    printf "${C_BLUE}Updating Vundle...${C_RESTORE}\n"
+    cd ~/.vim/bundle/Vundle.vim
+    git pull origin master
+    cd -
 else
-	printf "${C_BLUE}Cloning Vundle...${C_RESTORE}\n"
-	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    printf "${C_BLUE}Cloning Vundle...${C_RESTORE}\n"
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
 #printf "${C_BLUE}Looking for an existing .ctags...${C_RESTORE}\n"
@@ -71,6 +71,16 @@ fi
 
 printf "${C_BLUE}Creating .tmux.conf symlink...${C_RESTORE}\n"
 ln -s $OH_MY_GIL_SH/vim/.tmux.conf ~/.tmux.conf
+
+if [ -d ~/.tmux/plugins/tpm ]; then
+    printf "${C_BLUE}Updating Tmux Plugin Manager...${C_RESTORE}\n"
+    cd ~/.tmux/plugins/tpm
+    git pull origin master
+    cd -
+else
+    printf "${C_BLUE}Cloning Tmux Plugin Manager...${C_RESTORE}\n"
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
 
 if [ ! -d ~/.config ]; then
   printf "${C_YELLOW}Creating ~/.config directory.${C_RESTORE}\n"
