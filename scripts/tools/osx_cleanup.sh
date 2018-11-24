@@ -27,8 +27,7 @@ sudo rm -rfv ~/Library/iTunes/iPhone\ Software\ Updates &>/dev/null
 sudo rm -rfv ~/Library/iTunes/iPad\ Software\ Updates &>/dev/null
 
 echo "Cleaning Homebrew Cache..."
-brew cleanup --force -s &>/dev/null
-brew cask cleanup &>/dev/null
+brew cleanup -s &>/dev/null
 sudo rm -rfv /Library/Caches/Homebrew/* &>/dev/null
 brew tap --repair &>/dev/null
 

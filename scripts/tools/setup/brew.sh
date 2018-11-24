@@ -7,7 +7,7 @@ function _brewInstallOrUpdate {
     printf "\n${C_PURPLE}[Brew] ${C_GREEN}Checking for package \"$1\"...${C_RESTORE}\n"
     if brew ls --versions "$1" >/dev/null; then
         printf "${C_PURPLE}[Brew] ${C_BLUE}Package \"$1\" found! Upgrading...${C_RESTORE}\n"
-        HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade "$1"
+        HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade --cleanup "$1"
     else
         printf "${C_PURPLE}[Brew] ${C_BLUE}Package \"$1\" not found! Installing...${C_RESTORE}\n"
         HOMEBREW_NO_AUTO_UPDATE=1 brew install $@
@@ -59,4 +59,9 @@ if hash brew 2>/dev/null; then
     for package in xquartz spectacle; do
         _caskInstallOrUpdate $package
     done
+
+    vared -p 'Would you like to update all brew packages installed manualy as well? [y/n]' -c REPLY
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        brew upgrade --cleanup
+    fi
 fi
