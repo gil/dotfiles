@@ -155,6 +155,7 @@ Plugin 'posva/vim-vue'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
+Plugin 'terryma/vim-multiple-cursors'
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
