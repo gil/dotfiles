@@ -95,22 +95,14 @@ let g:ctrlp_map = '<leader>O'
 "nmap <leader>p :CtrlPBuffer<cr>
 nmap <leader>o :CtrlPMRU<cr>
 
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" ale
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" debug if eslint is loading correct config for current file
-" :echo syntastic#util#system('eslint --debug ' . expand('%:p'))
-let g:syntastic_javascript_checkers = ['eslint']
-
-let g:syntastic_tmpl_checkers = ['tmpl/htmltemplate_linter']
-"let g:syntastic_tmpl_htmltemplate_linter_exec = '/usr/local/git_tree/affiliate_data/packages/booking-htmltemplate-linter-api/bin/lint'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %code: %%s [%severity%]'
 
 " disable arrows for visual mode
 "map <up> <nop>
@@ -135,7 +127,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'junegunn/fzf'
 Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
 Plugin 'mileszs/ack.vim'
 Plugin 'pangloss/vim-javascript'
 "Plugin 'ahayman/vim-nodejs-complete'

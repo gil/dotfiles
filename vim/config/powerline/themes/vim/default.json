@@ -50,7 +50,7 @@
 			},
 			{
 				"exclude_modes": ["nc"],
-				"function": "powerline.segments.vim.plugin.syntastic.syntastic",
+				"function": "powerline.segments.vim.plugin.ale.ale",
 				"priority": 50
 			},
 			{
