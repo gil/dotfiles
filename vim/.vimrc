@@ -108,6 +108,17 @@ let g:ale_echo_msg_format = '[%linter%] %code: %%s [%severity%]'
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
+" vim-multiple-cursors
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_start_word_key      = '<C-N>'
+let g:multi_cursor_select_all_word_key = '<A-N>'
+let g:multi_cursor_start_key           = 'g<C-N>'
+let g:multi_cursor_select_all_key      = 'g<A-N>'
+let g:multi_cursor_next_key            = '<C-N>'
+let g:multi_cursor_prev_key            = '<C-P>'
+let g:multi_cursor_skip_key            = '<C-X>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
 " disable arrows for visual mode
 "map <up> <nop>
 "map <down> <nop>
