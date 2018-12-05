@@ -153,7 +153,8 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 "Plug 'ciaranm/detectindent'
 Plug 'othree/html5.vim'
 Plug 'valloric/MatchTagAlways'
-Plug 'tpope/vim-fugitive', { 'on': 'Gblame' }
+Plug 'tpope/vim-fugitive', { 'on': ['Gblame', 'GV'] }
+Plug 'junegunn/gv.vim', { 'on': 'GV' }
 Plug 'airblade/vim-gitgutter'
 "Plug 'altercation/vim-colors-solarized'
 Plug 'w0ng/vim-hybrid'
@@ -169,6 +170,7 @@ Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 "Plug 'terryma/vim-multiple-cursors'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer' }
+Plug 'wesq3/vim-windowswap'
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
