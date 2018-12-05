@@ -1,5 +1,7 @@
 set encoding=utf-8
 set binary
+set nocompatible
+filetype off
 
 set history=1000
 
@@ -88,13 +90,6 @@ set backupdir=/tmp//
 set directory=/tmp//
 set undodir=/tmp//
 
-" ctrlp.vim
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = '\v[\/]\.?(git|node_modules)$'
-let g:ctrlp_map = '<leader>O'
-"nmap <leader>p :CtrlPBuffer<cr>
-nmap <leader>o :CtrlPMRU<cr>
-
 " ale
 let g:ale_linters = {
 \   'javascript': ['eslint'],
@@ -130,63 +125,64 @@ let g:multi_cursor_quit_key            = '<Esc>'
 "imap <left> <nop>
 "imap <right> <nop>
 
-" vundle and plugins
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" vim-plug and plugins
+if !filereadable(expand('~/.vim/autoload/plug.vim'))
+    let answer = confirm('plug.vim not found. Can I download it?', "&Yes\n&No", 1)
+    if answer == 1
+        call system('curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+    endif
+endif
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plugin 'junegunn/fzf.vim'
-Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'w0rp/ale'
-Plugin 'mileszs/ack.vim'
-Plugin 'pangloss/vim-javascript'
-"Plugin 'ahayman/vim-nodejs-complete'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-"Plugin 'majutsushi/tagbar'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'tpope/vim-dispatch'
-"Plugin 'tpope/vim-sleuth'
-"Plugin 'ciaranm/detectindent'
-Plugin 'othree/html5.vim'
-Plugin 'valloric/MatchTagAlways'
-Plugin 'tpope/vim-fugitive'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'benmills/vimux'
-Plugin 'christoomey/vim-tmux-navigator'
-"Plugin 'chaoren/vim-wordmotion'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'gil/vim-csscomb'
-Plugin 'ConradIrwin/vim-bracketed-paste'
-Plugin 'posva/vim-vue'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-session'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'Valloric/YouCompleteMe'
+call plug#begin('~/.vim/plugged')
+
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim' ", { 'on': ['FZF', 'History'] }
+Plug 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plug 'w0rp/ale'
+Plug 'mileszs/ack.vim', { 'on': 'Ack' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+"Plug 'majutsushi/tagbar'
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+"Plug 'tpope/vim-dispatch'
+"Plug 'tpope/vim-sleuth'
+"Plug 'ciaranm/detectindent'
+Plug 'othree/html5.vim'
+Plug 'valloric/MatchTagAlways'
+Plug 'tpope/vim-fugitive', { 'on': 'Gblame' }
+Plug 'airblade/vim-gitgutter'
+"Plug 'altercation/vim-colors-solarized'
+Plug 'w0ng/vim-hybrid'
+Plug 'benmills/vimux', { 'on': 'VimuxRunCommand' }
+Plug 'christoomey/vim-tmux-navigator'
+"Plug 'chaoren/vim-wordmotion'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'gil/vim-csscomb', { 'on': 'CSScomb' }
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'posva/vim-vue', { 'for': 'vue' }
+Plug 'easymotion/vim-easymotion'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
+"Plug 'terryma/vim-multiple-cursors'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer' }
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
 endif
 
-call vundle#end()
-filetype plugin indent on
+call plug#end()
 
 " fzf
 map <C-p> :FZF<CR>
+map <leader>o :History<CR>
 "map <C-p> :call fzf#run({ 'source' : 'ag --hidden --ignore .git -g ""' })<CR>
 
 " The Silver Searcher(Ag) config for Ack plugin
-let g:ack_use_dispatch = 1
+"let g:ack_use_dispatch = 1
 if executable('ag') && !exists('g:ackprg')
 	let g:ackprg = 'ag --vimgrep --silent --max-count 1'
 endif
