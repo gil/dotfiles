@@ -147,7 +147,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 "Plug 'majutsushi/tagbar'
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+"Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 "Plug 'tpope/vim-dispatch'
 "Plug 'tpope/vim-sleuth'
 "Plug 'ciaranm/detectindent'
