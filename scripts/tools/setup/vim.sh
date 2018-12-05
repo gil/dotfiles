@@ -36,15 +36,15 @@ fi
 printf "${C_BLUE}Creating ~/.vim/spell symlink...${C_RESTORE}\n"
 ln -s $OH_MY_GIL_SH/vim/spell/ ~/.vim/spell
 
-if [ -d ~/.vim/bundle/Vundle.vim ]; then
-    printf "${C_BLUE}Updating Vundle...${C_RESTORE}\n"
-    cd ~/.vim/bundle/Vundle.vim
-    git pull origin master
-    cd -
-else
-    printf "${C_BLUE}Cloning Vundle...${C_RESTORE}\n"
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-fi
+#if [ -d ~/.vim/bundle/Vundle.vim ]; then
+    #printf "${C_BLUE}Updating Vundle...${C_RESTORE}\n"
+    #cd ~/.vim/bundle/Vundle.vim
+    #git pull origin master
+    #cd -
+#else
+    #printf "${C_BLUE}Cloning Vundle...${C_RESTORE}\n"
+    #git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+#fi
 
 #printf "${C_BLUE}Looking for an existing .ctags...${C_RESTORE}\n"
 #if [ -f ~/.ctags ] || [ -h ~/.ctags ]; then
