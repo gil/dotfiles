@@ -100,6 +100,8 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %code: %%s [%severity%]'
 
 " YouCompleteMe
+let g:ycm_auto_trigger = 0
+let g:ycm_key_invoke_completion = '<C-j>'
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
