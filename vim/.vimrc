@@ -239,3 +239,9 @@ colorscheme hybrid
 " spell check
 set spellfile=$HOME/.vim/spell/en.utf-8.add
 set complete+=kspell
+
+" Note taking
+" For now, we need: npm install --global slugify-cli
+let g:vim_notes_repo_path = "~/dev/notes"
+command! NoteSave execute ("saveas " . substitute(system("slugify \"" . getline(1) . "\""), '\n\+$', '', '') . ".md")
+command! NoteSync VimuxRunCommand("cd " . g:vim_notes_repo_path . " && glr && git add . && gc -a -m \"Updating notes: $(date)\" && gp")
