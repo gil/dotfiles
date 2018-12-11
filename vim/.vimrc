@@ -188,8 +188,11 @@ map <leader>o :History<CR>
 " The Silver Searcher(Ag) config for Ack plugin
 "let g:ack_use_dispatch = 1
 if executable('ag') && !exists('g:ackprg')
-	let g:ackprg = 'ag --vimgrep --silent --max-count 1'
+    let g:ackprg = 'ag --vimgrep --silent --max-count 1'
 endif
+" Keep the trailing space bellow
+map <leader>a :Ack 
+map <leader>A :Ack  <C-R>=expand('%:h')<CR><C-Left><Left>
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<leader><tab>"
