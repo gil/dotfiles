@@ -173,12 +173,35 @@ Plug 'xolox/vim-session'
 "Plug 'terryma/vim-multiple-cursors'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer' }
 Plug 'wesq3/vim-windowswap'
+Plug 'ryanoasis/vim-devicons'
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
 endif
 
 call plug#end()
+
+" NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, guifg)
+    exec 'autocmd FileType nerdtree highlight ' . a:extension .' guifg='. a:guifg
+    exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('md', '#3366FF')
+call NERDTreeHighlightFile('yml', 'yellow')
+call NERDTreeHighlightFile('config', 'yellow')
+call NERDTreeHighlightFile('conf', 'yellow')
+call NERDTreeHighlightFile('json', 'yellow')
+call NERDTreeHighlightFile('html', '#E35D30')
+call NERDTreeHighlightFile('css', '#3C9AD1')
+call NERDTreeHighlightFile('js', '#EED94E')
+call NERDTreeHighlightFile('rb', '#A92B22')
+call NERDTreeHighlightFile('py', '#4686B8')
+
+" vim-devicons
+if exists("g:loaded_webdevicons")
+    call webdevicons#refresh() " don't break on refresh
+endif
 
 " fzf
 map <C-p> :FZF<CR>
