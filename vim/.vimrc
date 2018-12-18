@@ -192,6 +192,7 @@ Plug 'xolox/vim-session'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer' }
 Plug 'wesq3/vim-windowswap'
 Plug 'ryanoasis/vim-devicons', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'ap/vim-css-color', { 'for': 'css' }
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
