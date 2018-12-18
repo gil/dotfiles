@@ -116,6 +116,24 @@ let g:multi_cursor_prev_key            = 'P'
 let g:multi_cursor_skip_key            = 'X'
 let g:multi_cursor_quit_key            = '<Esc>'
 
+" NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, guifg)
+    exec 'autocmd FileType nerdtree highlight ' . a:extension .' guifg='. a:guifg
+    exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('md', '#3366FF')
+call NERDTreeHighlightFile('html', '#E34F26')
+call NERDTreeHighlightFile('css', '#3C9AD1')
+call NERDTreeHighlightFile('js', '#F7DF1E')
+call NERDTreeHighlightFile('rb', '#CC342D')
+call NERDTreeHighlightFile('py', '#4B90C6')
+call NERDTreeHighlightFile('pl', '#0092CC')
+call NERDTreeHighlightFile('yml', 'yellow')
+call NERDTreeHighlightFile('config', 'yellow')
+call NERDTreeHighlightFile('conf', 'yellow')
+call NERDTreeHighlightFile('json', 'yellow')
+
 " disable arrows for visual mode
 "map <up> <nop>
 "map <down> <nop>
@@ -180,23 +198,6 @@ if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
 endif
 
 call plug#end()
-
-" NERDTress File highlighting
-function! NERDTreeHighlightFile(extension, guifg)
-    exec 'autocmd FileType nerdtree highlight ' . a:extension .' guifg='. a:guifg
-    exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
-call NERDTreeHighlightFile('md', '#3366FF')
-call NERDTreeHighlightFile('yml', 'yellow')
-call NERDTreeHighlightFile('config', 'yellow')
-call NERDTreeHighlightFile('conf', 'yellow')
-call NERDTreeHighlightFile('json', 'yellow')
-call NERDTreeHighlightFile('html', '#E35D30')
-call NERDTreeHighlightFile('css', '#3C9AD1')
-call NERDTreeHighlightFile('js', '#EED94E')
-call NERDTreeHighlightFile('rb', '#A92B22')
-call NERDTreeHighlightFile('py', '#4686B8')
 
 " vim-devicons
 if exists("g:loaded_webdevicons")
