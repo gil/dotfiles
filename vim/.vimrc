@@ -164,7 +164,9 @@ Plug 'mileszs/ack.vim', { 'on': 'Ack' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
-Plug 'SirVer/ultisnips'
+Plug 'MarcWeber/vim-addon-mw-utils' " for vim-snipmate
+Plug 'tomtom/tlib_vim' " for vim-snipmate
+Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 "Plug 'majutsushi/tagbar'
 "Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
@@ -200,6 +202,10 @@ endif
 
 call plug#end()
 
+" vim-snipmate
+imap <leader><tab> <Plug>snipMateNextOrTrigger
+smap <leader><tab> <Plug>snipMateNextOrTrigger
+
 " vim-devicons
 if exists("g:loaded_webdevicons")
     call webdevicons#refresh() " don't break on refresh
@@ -218,11 +224,6 @@ endif
 " Keep the trailing space bellow
 map <leader>a :Ack 
 map <leader>A :Ack  <C-R>=expand('%:h')<CR><C-Left><Left>
-
-" UltiSnips
-let g:UltiSnipsExpandTrigger="<leader><tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " MatchTagAlways
 let g:mta_filetypes = {

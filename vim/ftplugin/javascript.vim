@@ -1,2 +1,0 @@
-UltiSnipsAddFiletypes javascript-jasmine
-UltiSnipsAddFiletypes javascript-node
