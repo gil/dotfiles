@@ -9,3 +9,4 @@ function virtualenv_prompt_info(){
 # aliases to make it easier
 alias vea="deactivate &> /dev/null ; source ./venv/bin/activate"
 alias ved="deactivate"
+alias vec="python3 -m venv venv"
