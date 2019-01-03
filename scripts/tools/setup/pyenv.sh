@@ -15,3 +15,4 @@ eval "$(pyenv init -)"
 pyenv install 2.7.12
 pyenv global 2.7.12
 pip install --upgrade pip
+pip install pudb
