@@ -56,7 +56,7 @@ if hash brew 2>/dev/null; then
     done
 
     # Cask
-    for package in xquartz spectacle; do
+    for package in xquartz spectacle imageoptim; do
         _caskInstallOrUpdate $package
     done
 
