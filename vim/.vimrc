@@ -85,10 +85,19 @@ call SetupCommandAlias('Wa','wa')
 call SetupCommandAlias('E','e')
 call SetupCommandAlias('Q','q')
 
-" directory for backup, swap and undo
+" directory for backup and swap
 set backupdir=/tmp//
 set directory=/tmp//
-set undodir=/tmp//
+
+" unlimited undo
+if !isdirectory($HOME . "/.vim/undodir")
+    call mkdir($HOME . "/.vim/undodir", "p")
+endif
+set undofile
+set undodir=~/.vim/undodir
+let s:undos = split(globpath(&undodir, '*'), "\n")
+call filter(s:undos, 'getftime(v:val) < localtime() - (60 * 60 * 24 * 90)')
+call map(s:undos, 'delete(v:val)')
 
 " ale
 let g:ale_linters = {
@@ -195,6 +204,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer' }
 Plug 'wesq3/vim-windowswap'
 Plug 'ryanoasis/vim-devicons', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'ap/vim-css-color', { 'for': 'css' }
+Plug 'sjl/gundo.vim', { 'on': ['GundoToggle'] }
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
@@ -205,6 +215,9 @@ call plug#end()
 " vim-snipmate
 imap <leader><tab> <Plug>snipMateNextOrTrigger
 smap <leader><tab> <Plug>snipMateNextOrTrigger
+
+" gundo
+let g:gundo_prefer_python3 = 1
 
 " vim-devicons
 if exists("g:loaded_webdevicons")
