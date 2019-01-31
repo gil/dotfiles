@@ -54,7 +54,7 @@ nmap <leader>h :noh<CR>
 "map <leader>t :bufdo tab split<CR>
 "map <leader>t :TagbarToggle<CR>
 " inoremap <C-X><C-F> <C-O>:lcd %:p:h<CR><C-X><C-F>
-map <leader>md :silent !open -a Marked.app '%:p'<cr>
+map <leader>Md :silent !open -a Marked.app '%:p'<cr>
 "map <leader>ns :Dispatch npm start<cr>
 map <leader>ns :VimuxRunCommand "npm start"<cr>
 map <leader>nn :VimuxRunCommand "node \"" . expand('%:p') . "\""<cr>
