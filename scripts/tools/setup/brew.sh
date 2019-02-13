@@ -37,11 +37,11 @@ if hash brew 2>/dev/null; then
     brew prune
 
     # General tools
-    for package in tmux ack the_silver_searcher ripgrep wget curl figlet youtube-dl ghostscript lame fpp fdupes ncdu mosh clipper reattach-to-user-namespace pipenv socat; do
+    for package in tmux ack the_silver_searcher ripgrep wget curl figlet youtube-dl lame fpp fdupes ncdu mosh clipper reattach-to-user-namespace pipenv socat; do
         _brewInstallOrUpdate $package
     done
     _brewInstallOrUpdate vim --with-override-system-vi
-    _brewInstallOrUpdate graphicsmagick --with-libtiff --with-webp --with-ghostscript
+    _brewInstallOrUpdate graphicsmagick --with-libtiff --with-webp # --with-ghostscript
     _brewInstallOrUpdate ffmpeg --with-libvpx --with-libvorbis --with-webp
     _brewInstallOrUpdate weechat --with-python@2 --with-perl --with-ruby
 
