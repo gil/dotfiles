@@ -34,7 +34,6 @@ if hash brew 2>/dev/null; then
 
     # Update formulas
     brew update
-    brew cleanup
 
     # General tools
     for package in tmux ack the_silver_searcher ripgrep wget curl figlet youtube-dl lame fpp fdupes ncdu mosh clipper reattach-to-user-namespace pipenv socat; do
@@ -64,4 +63,7 @@ if hash brew 2>/dev/null; then
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         brew upgrade
     fi
+
+    printf "\n${C_PURPLE}[Brew] ${C_GREEN}Removing old packages...${C_RESTORE}\n"
+    brew cleanup
 fi
