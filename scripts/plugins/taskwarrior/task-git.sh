@@ -18,6 +18,12 @@ if [ -z "$LAST_UPDATE_TIME" ] || [ $(($CURRENT_TIME - $LAST_UPDATE_TIME)) -gt $S
     git -c rebase.autoStash=true pull --rebase
 fi
 
+# Couldn't pull? Stop now so I can fix manually
+if [ $? -ne 0 ]; then
+    exit $?
+fi
+
+# Update sync time
 echo $(date +%s) > $TASKDIR/.last_git_sync
 
 # Run original command
@@ -30,7 +36,7 @@ if [ $(git status --short | wc -c) -ne 0 ]; then
     "$TASKBIN" count &> /dev/null
 
     git add .
-    git commit --quiet -m "Automatic update of tasks from [$USER@$HOST] at [$(date)]"
+    git commit --quiet -m "Automatic update of tasks from [$USER@$(hostname)] at [$(date)]"
 fi
 
 # Push any new commits
