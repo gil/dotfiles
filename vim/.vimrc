@@ -61,7 +61,7 @@ map <leader>nn :VimuxRunCommand "node \"" . expand('%:p') . "\""<cr>
 map <leader>m :VimuxRunCommand "!!\n"<cr>
 nmap <leader>w :set wrap!<CR>
 nmap <leader>r :so $MYVIMRC<CR>
-nmap <leader>l :redraw!<CR>
+nmap <leader>l :redraw!<CR>:syntax sync fromstart<CR>
 nmap <leader>e :e<CR>
 nmap <leader>E :e!<CR>
 nmap <leader>3 :windo e!<CR>
