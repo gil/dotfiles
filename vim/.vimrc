@@ -72,7 +72,8 @@ nmap <leader>p :set paste!<CR>
 nnoremap <leader>y :call system('nc localhost 8377', @0)<CR>
 
 " Some key maps to make it easier to work with legacy code
-nmap <leader><Space> :set ts=4 sw=4 expandtab<CR>
+nmap <leader><Space> :set ts=2 sw=2 expandtab<CR>
+nmap <leader><Space><Space> :set ts=4 sw=4 expandtab<CR>
 nmap <leader><Tab> :set ts=4 sw=4 noexpandtab<CR>
 
 " Command alias to avoid mistakes
