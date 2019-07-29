@@ -45,6 +45,12 @@ au WinLeave * set nocursorline "nocursorcolumn
 au WinEnter * set cursorline "cursorcolumn
 set cursorline "cursorcolumn
 
+" remove some input delay (for quicker escape)
+if !has('nvim') && &ttimeoutlen == -1
+  set ttimeout
+  set ttimeoutlen=100
+endif
+
 " key mappings
 inoremap jj <Esc>
 "let mapleader = "\<Space>"

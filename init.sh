@@ -5,6 +5,7 @@ fi
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export EDITOR="vim"
+export KEYTIMEOUT=1
 
 # Path to your oh-my-zsh installation.
 export ZSH=$OH_MY_GIL_SH/oh-my-zsh
