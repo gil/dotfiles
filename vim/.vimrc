@@ -74,6 +74,10 @@ nmap <leader>E :e!<CR>
 nmap <leader>3 :windo e!<CR>
 nmap <leader>p :set paste!<CR>
 
+" Make ctrl+c behave as ESC and also trigger InsertLeave. Trying to get used
+" to it because of the annoying Macbook touchbar
+inoremap <C-c> <ESC>
+
 " Send last yank to Clipper
 nnoremap <leader>y :call system('nc localhost 8377', @0)<CR>
 
