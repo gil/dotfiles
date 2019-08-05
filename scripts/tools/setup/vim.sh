@@ -61,7 +61,7 @@ pip install psutil
 pip install netifaces
 
 printf "${C_BLUE}Installing plugins...${C_RESTORE}\n"
-vim +PluginInstall +qall
+vim +PlugInstall +qall
 
 printf "${C_BLUE}Looking for an existing .tmux.conf...${C_RESTORE}\n"
 if [ -f ~/.tmux.conf ] || [ -h ~/.tmux.conf ]; then
