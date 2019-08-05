@@ -71,7 +71,7 @@ if hash python3 2>/dev/null; then
 else
     export POWERLINE_PYTHON="python"
 fi
-export POWERLINE_SCRIPTS_PATH="$HOME/.vim/bundle/powerline/scripts"
+export POWERLINE_SCRIPTS_PATH="$HOME/.vim/plugged/powerline/scripts"
 export POWERLINE_CONFIG_COMMAND="$POWERLINE_SCRIPTS_PATH/powerline-config"
 
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$POWERLINE_SCRIPTS_PATH"
