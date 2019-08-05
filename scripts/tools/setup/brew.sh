@@ -46,12 +46,12 @@ if hash brew 2>/dev/null; then
     done
 
     # Dev tools
-    for package in git node; do
+    for package in git node cmake; do
         _brewInstallOrUpdate $package
     done
 
     # Cask
-    for package in xquartz spectacle imageoptim; do
+    for package in xquartz spectacle imageoptim iterm2; do
         _caskInstallOrUpdate $package
     done
 
