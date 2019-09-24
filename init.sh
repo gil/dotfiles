@@ -74,7 +74,7 @@ fi
 export POWERLINE_SCRIPTS_PATH="$HOME/.vim/plugged/powerline/scripts"
 export POWERLINE_CONFIG_COMMAND="$POWERLINE_SCRIPTS_PATH/powerline-config"
 
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$POWERLINE_SCRIPTS_PATH"
+export PATH="$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$POWERLINE_SCRIPTS_PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 if [ -z "$OH_MY_GIL_SH_PATH_APPENDED" ]; then
