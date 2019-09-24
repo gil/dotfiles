@@ -18,6 +18,6 @@ git pull
 # Install python and update pip
 pyenv install --skip-existing 2.7.16
 pyenv install --skip-existing 3.7.4
-pyenv global 2.7.16 3.7.4
+pyenv global 3.7.4 2.7.16
 pip install --upgrade pip
 pip install pudb

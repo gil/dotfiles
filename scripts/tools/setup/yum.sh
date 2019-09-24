@@ -35,7 +35,7 @@ if hash yum 2>/dev/null; then
     git pull
     pyenv install --skip-existing 2.7.16
     pyenv install --skip-existing 3.7.4
-    pyenv global 2.7.16 3.7.4
+    pyenv global 3.7.4 2.7.16
     pyenv rehash
   fi
 
