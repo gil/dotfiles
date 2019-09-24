@@ -1,3 +1,5 @@
+export PYTHON_CONFIGURE_OPTS="--enable-shared"
+
 _homebrew-installed() {
     type brew &> /dev/null
 }

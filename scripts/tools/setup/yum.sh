@@ -4,7 +4,7 @@ if hash yum 2>/dev/null; then
 
   # Dev tools
   sudo yum groupinstall -y "Development Tools"
-  sudo yum install -y automake openssl-devel readline-devel zlib-devel pcre-devel xz-devel gcc git ncurses-devel libX11-devel libXtst-devel
+  sudo yum install -y automake openssl-devel readline-devel zlib-devel pcre-devel xz-devel gcc git ncurses-devel libX11-devel libXtst-devel libffi-devel
 
   # General tools
   sudo yum install -y vim tmux ack wget curl
@@ -31,9 +31,11 @@ if hash yum 2>/dev/null; then
 
   ## Install Python with pyenv (needed to compile vim)
   if hash pyenv 2>/dev/null; then
-    pyenv install --skip-existing 2.7.12
-    pyenv install --skip-existing 3.6.4
-    pyenv global 2.7.12 3.6.4
+    cd $(pyenv root)
+    git pull
+    pyenv install --skip-existing 2.7.16
+    pyenv install --skip-existing 3.7.4
+    pyenv global 2.7.16 3.7.4
     pyenv rehash
   fi
 

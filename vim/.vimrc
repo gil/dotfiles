@@ -213,7 +213,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 "Plug 'terryma/vim-multiple-cursors'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'git submodule sync --recursive && git submodule update --init --recursive && ./install.py --ts-completer' }
 Plug 'wesq3/vim-windowswap'
 Plug 'ryanoasis/vim-devicons', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 "Plug 'ap/vim-css-color', { 'for': 'css' }

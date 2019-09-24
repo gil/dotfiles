@@ -11,8 +11,13 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+# Update pyenv
+cd $(pyenv root)
+git pull
+
 # Install python and update pip
-pyenv install 2.7.12
-pyenv global 2.7.12
+pyenv install --skip-existing 2.7.16
+pyenv install --skip-existing 3.7.4
+pyenv global 2.7.16 3.7.4
 pip install --upgrade pip
 pip install pudb
