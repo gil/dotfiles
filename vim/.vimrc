@@ -27,8 +27,8 @@ set ttyfast " smooth redrawing for faster connections
 set list " show invisible characters
 set listchars=tab:>·,trail:· " but only show tabs and trailing whitespace
 
-set tabstop=4 " number of spaces in a tab (how it looks)
-set shiftwidth=4 " number of spaces for indent (how many each tab will add)
+set tabstop=2 " number of spaces in a tab (how it looks)
+set shiftwidth=2 " number of spaces for indent (how many each tab will add)
 set expandtab " expand tabs into spaces
 ":let g:detectindent_preferred_expandtab = 1
 ":let g:detectindent_preferred_indent = 2
