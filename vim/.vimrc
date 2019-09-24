@@ -216,7 +216,7 @@ Plug 'xolox/vim-session'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer' }
 Plug 'wesq3/vim-windowswap'
 Plug 'ryanoasis/vim-devicons', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
-Plug 'ap/vim-css-color', { 'for': 'css' }
+"Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'sjl/gundo.vim', { 'on': ['GundoToggle'] }
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
