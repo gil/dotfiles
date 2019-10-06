@@ -36,7 +36,7 @@ if hash brew 2>/dev/null; then
     brew update
 
     # General tools
-    for package in vim tmux ack the_silver_searcher ripgrep wget curl figlet youtube-dl lame fpp fdupes ncdu mosh clipper reattach-to-user-namespace pipenv socat graphicsmagick ffmpeg weechat aria2 moreutils libdvdcss openssh; do
+    for package in vim tmux ack the_silver_searcher ripgrep wget curl figlet youtube-dl lame fpp fdupes ncdu mosh clipper reattach-to-user-namespace pipenv socat graphicsmagick ffmpeg weechat aria2 moreutils libdvdcss openssh ranger fd; do
         _brewInstallOrUpdate $package
     done
 
