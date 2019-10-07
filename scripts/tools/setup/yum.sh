@@ -5,7 +5,7 @@ if hash yum 2>/dev/null; then
   # Dev tools
   printf "\n${C_PURPLE}[yum] ${C_GREEN}Installing stuff required to compile other stuff...${C_RESTORE}\n"
   sudo yum groupinstall -y "Development Tools"
-  sudo yum install -y automake openssl-devel readline-devel zlib-devel pcre-devel xz-devel gcc git ncurses-devel libX11-devel libXtst-devel libffi-devel python-devel python3-devel
+  sudo yum install -y automake openssl-devel readline-devel zlib-devel pcre-devel xz-devel gcc cmake git ncurses-devel libX11-devel libXtst-devel libffi-devel python-devel python3-devel
 
   # General tools
   printf "\n${C_PURPLE}[yum] ${C_GREEN}Installing general tools...${C_RESTORE}\n"
