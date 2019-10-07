@@ -277,7 +277,7 @@ nmap s <Plug>(easymotion-overwin-f2)
 " vim-session
 set sessionoptions-=options " Don't persist options and mappings because it can corrupt sessions.
 set sessionoptions-=buffers " Don't save hidden and unloaded buffers in sessions.
-let g:session_autoload = 'yes'
+let g:session_autoload = 'no'
 let g:session_autosave = 'yes'
 let g:session_autosave_periodic = 5
 let g:session_autosave_silent = 1
