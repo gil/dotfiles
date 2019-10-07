@@ -55,11 +55,6 @@ ln -s $OH_MY_GIL_SH/vim/spell/ ~/.vim/spell
 #printf "${C_BLUE}Creating .ctags symlink...${C_RESTORE}\n"
 #ln -s $OH_MY_GIL_SH/vim/.ctags ~/.ctags
 
-printf "${C_BLUE}Installing Powerline requirements...${C_RESTORE}\n"
-#pip3 install powerline-status #--user
-pip install --user psutil
-pip install --user netifaces
-
 printf "${C_BLUE}Installing plugins...${C_RESTORE}\n"
 vim +PlugInstall +qall
 
@@ -86,15 +81,6 @@ if [ ! -d ~/.config ]; then
   printf "${C_YELLOW}Creating ~/.config directory.${C_RESTORE}\n"
   mkdir ~/.config
 fi
-
-printf "${C_BLUE}Looking for an existing ~/.config/powerline directory...${C_RESTORE}\n"
-if [ -d ~/.config/powerline ] || [ -h ~/.config/powerline ]; then
-  printf "${C_YELLOW}Found ~/.config/powerline.${C_RESTORE} ${C_GREEN}Backing up to ~/.config/powerline.backup${C_RESTORE}\n"
-  mv ~/.config/powerline ~/.config/powerline.backup;
-fi
-
-printf "${C_BLUE}Creating ~/.config/powerline symlink...${C_RESTORE}\n"
-ln -s $OH_MY_GIL_SH/vim/config/powerline/ ~/.config/powerline
 
 #printf "${C_BLUE}Installing Tmuxinator...${C_RESTORE}\n"
 #gem install tmuxinator

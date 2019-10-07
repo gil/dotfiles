@@ -180,7 +180,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' ", { 'on': ['FZF', 'History'] }
-Plug 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plug 'vim-airline/vim-airline'
+Plug 'edkolev/tmuxline.vim'
 Plug 'w0rp/ale'
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
@@ -224,6 +225,30 @@ if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
 endif
 
 call plug#end()
+
+" tmuxline.vim
+let g:tmuxline_preset = {
+      \'a'    : '#W',
+      \'win'  : '#I #W',
+      \'cwin' : '#I #W',
+      \'x'    : '#H',
+      \'y'    : "#(uptime | awk '{print $3}') days",
+      \'z'    : '%R',
+      \'options' : {'status-justify' : 'left'}}
+
+" vim-airline
+let g:airline_powerline_fonts = 1
+let g:airline_skip_empty_sections = 1
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#parts#ffenc#skip_expected_string = '[unix]'
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#show_close_button = 0
+
+let g:airline#extensions#tmuxline#enabled = 1
+let g:airline#extensions#tmuxline#snapshot_file = $OH_MY_GIL_SH . "/scripts/tools/assets/tmux-statusline-colors.conf"
 
 " vim-snipmate
 imap <leader><tab> <Plug>snipMateNextOrTrigger
