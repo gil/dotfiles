@@ -118,7 +118,7 @@ if [[ $OSTYPE == darwin* ]]; then
   ulimit -n 10240
 fi
 
-alias setup_dotfiles="sh $OH_MY_GIL_SH/scripts/tools/setup/menu.sh"
+alias setup_dotfiles="sh $OH_MY_GIL_SH/scripts/tools/setup/menu.sh && refresh_dotfiles"
 alias upgrade_dotfiles="sh $OH_MY_GIL_SH/scripts/tools/upgrade-dotfiles.sh && source ~/.zshrc"
 alias refresh_dotfiles="source ~/.zshrc"
 

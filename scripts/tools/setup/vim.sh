@@ -57,8 +57,8 @@ ln -s $OH_MY_GIL_SH/vim/spell/ ~/.vim/spell
 
 printf "${C_BLUE}Installing Powerline requirements...${C_RESTORE}\n"
 #pip3 install powerline-status #--user
-pip install psutil
-pip install netifaces
+pip install --user psutil
+pip install --user netifaces
 
 printf "${C_BLUE}Installing plugins...${C_RESTORE}\n"
 vim +PlugInstall +qall

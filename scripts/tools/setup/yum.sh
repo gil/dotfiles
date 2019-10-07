@@ -3,10 +3,12 @@
 if hash yum 2>/dev/null; then
 
   # Dev tools
+  printf "\n${C_PURPLE}[yum] ${C_GREEN}Installing stuff required to compile other stuff...${C_RESTORE}\n"
   sudo yum groupinstall -y "Development Tools"
-  sudo yum install -y automake openssl-devel readline-devel zlib-devel pcre-devel xz-devel gcc git ncurses-devel libX11-devel libXtst-devel libffi-devel
+  sudo yum install -y automake openssl-devel readline-devel zlib-devel pcre-devel xz-devel gcc git ncurses-devel libX11-devel libXtst-devel libffi-devel python-devel python3-devel
 
   # General tools
+  printf "\n${C_PURPLE}[yum] ${C_GREEN}Installing general tools...${C_RESTORE}\n"
   sudo yum install -y vim tmux ack wget curl
 
   # Try installing new Python veresion
@@ -15,11 +17,13 @@ if hash yum 2>/dev/null; then
   #sudo ln -s /opt/blue-python/2.7/bin/easy_install /usr/local/bin/easy_install
 
   # Create dirs to compile stuff
+  printf "\n${C_PURPLE}[yum] ${C_GREEN}Creating directories for dev...${C_RESTORE}\n"
   mkdir -p ~/dev
   mkdir -p ~/.local
 
   # The Silver Searcher (ag)
   if ! hash ag 2>/dev/null; then
+    printf "\n${C_PURPLE}[yum] ${C_GREEN}Installing The Silver Searcher (ag)...${C_RESTORE}\n"
     cd /usr/local/src
     sudo git clone https://github.com/ggreer/the_silver_searcher.git
     cd the_silver_searcher
@@ -31,6 +35,7 @@ if hash yum 2>/dev/null; then
 
   ## Install Python with pyenv (needed to compile vim)
   if hash pyenv 2>/dev/null; then
+    printf "\n${C_PURPLE}[yum] ${C_GREEN}Installing Python to compile Vim...${C_RESTORE}\n"
     cd $(pyenv root)
     git pull
     pyenv install --skip-existing 2.7.16
@@ -39,20 +44,26 @@ if hash yum 2>/dev/null; then
     pyenv rehash
   fi
 
+  printf "\n${C_PURPLE}[yum] ${C_GREEN}Installing pip...${C_RESTORE}\n"
+  easy_install --user pip
+
   # Compile more recent vim
   cd ~/dev
   if [ ! -d vim ]; then
+    printf "\n${C_PURPLE}[yum] ${C_GREEN}Clonning Vim...${C_RESTORE}\n"
     git clone https://github.com/vim/vim.git
   fi
+  printf "\n${C_PURPLE}[yum] ${C_GREEN}Updating Vim...${C_RESTORE}\n"
   cd vim
   git pull
+  printf "\n${C_PURPLE}[yum] ${C_GREEN}Cleaning old Vim build files...${C_RESTORE}\n"
   rm auto/config.log 2>/dev/null
   make distclean
+  printf "\n${C_PURPLE}[yum] ${C_GREEN}Configuring Vim...${C_RESTORE}\n"
   ./configure --with-features=huge \
             --enable-multibyte \
             --enable-rubyinterp \
             --enable-pythoninterp \
-            --enable-shared \
             --enable-perlinterp \
             --enable-luainterp \
             --enable-gui=auto \
@@ -61,7 +72,15 @@ if hash yum 2>/dev/null; then
             --enable-gnome-check \
             --enable-cscope \
             --prefix=$HOME/.local
-  make -j8
-  make install
-
+  if [ $? -eq 0 ]; then
+    printf "\n${C_PURPLE}[yum] ${C_GREEN}Making Vim...${C_RESTORE}\n"
+    make -j8
+  fi
+  if [ $? -eq 0 ]; then
+    printf "\n${C_PURPLE}[yum] ${C_GREEN}Installing Vim...${C_RESTORE}\n"
+    make install
+  fi
+  if [ $? -eq 0 ]; then
+    printf "\n${C_PURPLE}[yum] ${C_GREEN}Vim installed!${C_RESTORE}\n"
+  fi
 fi
