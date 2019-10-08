@@ -231,9 +231,9 @@ let g:tmuxline_preset = {
       \'a'    : '#W',
       \'win'  : '#I #W',
       \'cwin' : '#I #W',
-      \'x'    : '#H',
-      \'y'    : "#(uptime | awk '{print $3}') days",
-      \'z'    : '%R',
+      \'x'    : '#H \uf98c',
+      \'y'    : "#(uptime | awk '{print $3}' | sed 's/,//g') \uFa51",
+      \'z'    : '%R \ue385 ',
       \'options' : {'status-justify' : 'left'}}
 
 " vim-airline
