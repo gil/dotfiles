@@ -58,7 +58,7 @@ ZSH_CUSTOM=$OH_MY_GIL_SH/scripts
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rbenv pyenv rails gem node npm nvm bower gradle grunt brew z docker docker-compose docker-machine osx terminalapp sublimetext extract tmux fzf virtualenv zsh-autosuggestions zsh-syntax-highlighting taskwarrior youtube-dl)
+plugins=(git rbenv pyenv rails gem node npm nvm bower gradle grunt brew z docker docker-compose docker-machine osx terminalapp sublimetext extract tmux fzf virtualenv zsh-autosuggestions zsh-syntax-highlighting taskwarrior youtube-dl vi-mode)
 
 # User configuration
 if [ -z "$OH_MY_GIL_SH_OLD_PATH" ]; then
@@ -126,15 +126,3 @@ alias clip="nc localhost 8377"
 if [ -f $OH_MY_GIL_SH/custom/.zshrc ]; then
   source $OH_MY_GIL_SH/custom/.zshrc
 fi
-
-# vi mode
-bindkey -v
-
-#function zle-line-init zle-keymap-select {
-    #VIM_PROMPT="%{$fg_bold[yellow]%} [% N]%  %{$reset_color%}"
-    #RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}dsadas $EPS1"
-    #zle reset-prompt
-#}
-
-#zle -N zle-line-init
-#zle -N zle-keymap-select
