@@ -60,6 +60,8 @@ alias glog='git log --graph --date=format:"%Y-%m-%d %H:%M" --pretty=format:"%C(a
 alias gilog='git log --graph --date=format:"%Y-%m-%d %H:%M" --pretty=format:"%C(auto,yellow)%h%C(auto,blue)%>(17,trunc)%ad %C(auto,reset)%s%C(auto,red)% gD% D" --author="$(git config user.name)"'
 alias glola="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all"
 alias gp='git push'
+alias gpf='git push --force-with-lease'
+alias grb='git rebase'
 alias grbi='git rebase -i'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
