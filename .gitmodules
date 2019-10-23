@@ -4,3 +4,6 @@
 [submodule "scripts/plugins/zsh-syntax-highlighting"]
 	path = scripts/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "scripts/themes/powerlevel10k"]
+	path = scripts/themes/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git

@@ -14,7 +14,11 @@ export ZSH=$OH_MY_GIL_SH/oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="miloshadzic"
+#ZSH_THEME="miloshadzic"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+ZSH_THEME=powerlevel10k/powerlevel10k
+[[ ! -f $OH_MY_GIL_SH/scripts/themes/.p10k.zsh ]] || source $OH_MY_GIL_SH/scripts/themes/.p10k.zsh
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
