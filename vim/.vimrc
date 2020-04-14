@@ -16,7 +16,8 @@ set nowrap " Do not wrap words (view)
 set backspace=indent,eol,start " fix backspace behaviour
 set autoindent " automatically indent new line
 set nobackup " do not write backup files
-set showmatch " Show matching brackets.
+"set showmatch " Show matching brackets.
+"set matchtime=2 "Make showmatch faster
 set laststatus=2 " always show the status lines
 " filetype indent on
 set wildmenu " visual menu for file and command auto complete (like zsh)
