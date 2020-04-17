@@ -264,7 +264,7 @@ if exists("g:loaded_webdevicons")
 endif
 
 " fzf
-map <C-p> :FZF<CR>
+map <C-p> :Files<CR>
 map <leader>o :History<CR>
 "map <C-p> :call fzf#run({ 'source' : 'ag --hidden --ignore .git -g ""' })<CR>
 
