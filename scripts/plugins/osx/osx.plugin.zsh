@@ -5,6 +5,8 @@
 #       VERSION:  1.1.0
 # ------------------------------------------------------------------------------
 
+alias force_eject_superdrive="echo Disconnect the SuperDrive and connect again after loop starts in 5 seconds... && sleep 5 && while true; do date && /usr/bin/drutil eject; done"
+
 function tab() {
   local command="cd \\\"$PWD\\\"; clear; "
   (( $# > 0 )) && command="${command}; $*"
