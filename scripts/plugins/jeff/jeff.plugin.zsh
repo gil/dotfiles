@@ -12,8 +12,16 @@ jeff() {
     if [ -n "$selected" ]; then
       jeff_cmd=$selected[1] # 1 = history index, 2+ = command
       if [ -n "$jeff_cmd" ]; then
-        fc -e - $jeff_cmd
+        fc -e - $jeff_cmd && __hide_iterm2_hotkey_window
       fi
     fi
   fi
+}
+
+__hide_iterm2_hotkey_window() {
+  osascript -e 'tell application "iTerm2"
+    tell current window
+      hide hotkey window
+    end tell
+  end tell'
 }
