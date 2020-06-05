@@ -268,9 +268,11 @@ map <C-p> :Files<CR>
 map <leader>o :History<CR>
 "map <C-p> :call fzf#run({ 'source' : 'ag --hidden --ignore .git -g ""' })<CR>
 
-" The Silver Searcher(Ag) config for Ack plugin
+" Ack plugin
 "let g:ack_use_dispatch = 1
-if executable('ag') && !exists('g:ackprg')
+if executable('rg') && !exists('g:ackprg') " ripgrep(rg)
+    let g:ackprg = 'rg --vimgrep'
+elseif executable('ag') && !exists('g:ackprg') " The Silver Searcher(ag)
     let g:ackprg = 'ag --vimgrep --silent' " --max-count 1'
 endif
 " Keep the trailing space bellow
