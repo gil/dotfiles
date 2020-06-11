@@ -220,7 +220,8 @@ Plug 'wesq3/vim-windowswap'
 Plug 'ryanoasis/vim-devicons', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 "Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'sjl/gundo.vim', { 'on': ['GundoToggle'] }
-Plug 'leafgarland/typescript-vim'
+"Plug 'leafgarland/typescript-vim'
+"Plug 'HerringtonDarkholme/yats.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
