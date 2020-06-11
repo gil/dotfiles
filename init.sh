@@ -120,6 +120,10 @@ alias refresh_dotfiles="source ~/.zshrc"
 alias dev_chrome="open -n -a \"Google Chrome\" --args --profile-directory=\"Debug Profile\""
 alias simple_server="python -m SimpleHTTPServer 8080"
 
+if hash nvim 2>/dev/null; then
+  alias vim="nvim"
+fi
+alias vimdiff="vim -d"
 alias vi="vim"
 alias v="vim"
 alias work="vim -o \`git status -s --porcelain -uall | cut -c4- | sed \"s,\${\$(git rev-parse --show-prefix):-ºº},,\" | tr '\n' ' '\`"
