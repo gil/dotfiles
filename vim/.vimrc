@@ -114,12 +114,22 @@ call map(s:undos, 'delete(v:val)')
 
 " ale
 let g:ale_linters = {
+\   'vue': ['eslint'],
 \   'javascript': ['eslint'],
+\   'typescript': ['eslint'],
+\}
+
+let g:ale_fixers = {
+\   'vue': ['eslint'],
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint'],
 \}
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %code: %%s [%severity%]'
+
+nmap <leader>f :ALEFix<CR>
 
 " YouCompleteMe
 "let g:ycm_auto_trigger = 0
@@ -228,6 +238,7 @@ Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
@@ -407,6 +418,10 @@ endfunction
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
+
+nmap <leader>ca :CocAction<CR>
+nmap <leader>cc :CocCommand<CR>
+nmap <leader>cf :CocFix<CR>
 
 " /vim-coc
 " -------------
