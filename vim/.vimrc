@@ -10,7 +10,7 @@ syntax on
 
 set number " precede each line with its line number
 " set relativenumber " set relative line numbers, can be slow
-set re=1 " regexpengine, the old version seems to be faster
+"set re=1 " regexpengine, the old version seems to be faster
 set textwidth=0 " Do not wrap words (insert)
 set nowrap " Do not wrap words (view)
 set backspace=indent,eol,start " fix backspace behaviour
