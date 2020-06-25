@@ -20,4 +20,6 @@ pyenv install --skip-existing 2.7.16
 pyenv install --skip-existing 3.7.4
 pyenv global 3.7.4 2.7.16
 pip install --upgrade pip
-pip install pudb
+
+pip install pudb neovim
+pip2.7 install neovim
