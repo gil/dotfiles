@@ -9,6 +9,11 @@ fi
 printf "${C_BLUE}Creating .vimrc symlink...${C_RESTORE}\n"
 ln -s $OH_MY_GIL_SH/vim/.vimrc ~/.vimrc
 
+if [ ! -d ~/.vim ]; then
+  printf "${C_BLUE}Creating ~/.vim dir...${C_RESTORE}\n"
+  mkdir ~/.vim/
+fi
+
 printf "${C_BLUE}Looking for an existing ~/.vim/ftplugin directory...${C_RESTORE}\n"
 if [ -d ~/.vim/ftplugin ] || [ -h ~/.vim/ftplugin ]; then
   printf "${C_YELLOW}Found ~/.vim/ftplugin.${C_RESTORE} ${C_GREEN}Backing up to ~/.vim/ftplugin.backup${C_RESTORE}\n"
