@@ -287,7 +287,7 @@ map <C-p> :Files<CR>
 map <leader>o :History<CR>
 "map <C-p> :call fzf#run({ 'source' : 'ag --hidden --ignore .git -g ""' })<CR>
 
-" Ack plugin
+" ack.vim
 "let g:ack_use_dispatch = 1
 if executable('rg') && !exists('g:ackprg') " ripgrep(rg)
     let g:ackprg = 'rg --vimgrep'
