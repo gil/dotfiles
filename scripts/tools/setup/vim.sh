@@ -60,6 +60,12 @@ ln -s $OH_MY_GIL_SH/vim/spell/ ~/.vim/spell
 #printf "${C_BLUE}Creating .ctags symlink...${C_RESTORE}\n"
 #ln -s $OH_MY_GIL_SH/vim/.ctags ~/.ctags
 
+if [ ! -f ~/.config/nvim/init.vim ]; then
+  printf "${C_BLUE}Linking nvim config...${C_RESTORE}\n"
+  mkdir -p ~/.config/nvim
+  ln -s $OH_MY_GIL_SH/vim/init.vim ~/.config/nvim/init.vim
+fi
+
 printf "${C_BLUE}Installing plugins...${C_RESTORE}\n"
 vim +PlugInstall +qall
 
