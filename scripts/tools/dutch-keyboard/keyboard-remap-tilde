@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# This remaps § on the Dutch keyboard to `~ like the US keyboard.
+# 0x700000029 instead of 0x700000035 would give you a real escape key
+#
+# You can clean this change with:
+#   hidutil property --set '{"UserKeyMapping":[{}]}'
+#
+# To make it "permanent", run:
+#   ln -s $OH_MY_GIL_SH/scripts/tools/dutch-keyboard/keyboard-remap-tilde.plist "$HOME"/Library/LaunchAgents/
+#   launchctl load "$HOME"/Library/LaunchAgents/keyboard-remap-tilde.plist
+#
+# Other keys: https://developer.apple.com/library/archive/technotes/tn2450/_index.html
+# Based on: https://apple.stackexchange.com/a/349440/68149
+#
+hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000035}]}'
