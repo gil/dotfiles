@@ -52,7 +52,7 @@ if hash brew 2>/dev/null; then
     git config --global credential.helper osxkeychain # Is there a btter place for this?
 
     # Cask
-    for package in xquartz spectacle imageoptim iterm2; do
+    for package in xquartz spectacle imageoptim iterm2 vlc qlvideo; do
         _caskInstallOrUpdate $package
     done
 
