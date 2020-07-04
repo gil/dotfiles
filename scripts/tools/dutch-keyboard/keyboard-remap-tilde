@@ -1,7 +1,10 @@
 #!/bin/sh
 #
-# This remaps § on the Dutch keyboard to `~ like the US keyboard.
-# 0x700000029 instead of 0x700000035 would give you a real escape key
+# This remaps § (0x64) on the Dutch keyboard to `~ (0x35) like the US keyboard.
+# It also remaps the original `~ (0x35) to behave like a left shift (0xE1) to avoid
+# accidentally pressing it.
+#
+# Using 0x29 instead of 0x35 would give you a real escape key
 #
 # You can clean this change with:
 #   hidutil property --set '{"UserKeyMapping":[{}]}'
@@ -13,4 +16,4 @@
 # Other keys: https://developer.apple.com/library/archive/technotes/tn2450/_index.html
 # Based on: https://apple.stackexchange.com/a/349440/68149
 #
-hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000035}]}'
+hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000035,"HIDKeyboardModifierMappingDst":0x7000000E1}, {"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000035}]}'
