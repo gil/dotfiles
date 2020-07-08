@@ -9,7 +9,7 @@ if ! which nvm 2>&1 >/dev/null; then
         echo "# This line is here to prevent NVM from adding its code during installation and sourcing /nvm.sh and \$NVM_DIR/bash_completion automatically, since we'll lazy load it later. You can probably remove this if you want." >> ~/.bashrc
     fi
 
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
