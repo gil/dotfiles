@@ -36,28 +36,71 @@ if hash brew 2>/dev/null; then
     brew update
 
     # General tools
-    for package in vim neovim tmux ack the_silver_searcher ripgrep wget curl figlet youtube-dl lame fpp fdupes ncdu mosh clipper reattach-to-user-namespace pipenv socat graphicsmagick ffmpeg weechat aria2 moreutils libdvdcss openssh ranger fd bat; do
-        _brewInstallOrUpdate $package
-    done
-
-    # Servers
-    for package in nginx; do
+    for package in tmux \
+      wget \
+      curl \
+      figlet \
+      youtube-dl \
+      fpp \
+      fdupes \
+      ncdu \
+      mosh \
+      clipper \
+      reattach-to-user-namespace \
+      socat \
+      weechat \
+      aria2 \
+      ranger \
+      fd \
+      htop; do
         _brewInstallOrUpdate $package
     done
 
     # Dev tools
-    for package in git node cmake; do
+    for package in git \
+      vim \
+      neovim \
+      nginx \
+      node \
+      pipenv \
+      bat \
+      ack \
+      the_silver_searcher \
+      ripgrep \
+      cmake; do
         _brewInstallOrUpdate $package
     done
     git config --global credential.helper osxkeychain # Is there a btter place for this?
 
+    # Dependencies
+    for package in graphicsmagick \
+      ffmpeg \
+      lame \
+      moreutils \
+      libdvdcss \
+      openssh; do
+        _brewInstallOrUpdate $package
+    done
+
     # Cask
-    for package in xquartz spectacle imageoptim iterm2 vlc qlvideo; do
+    for package in xquartz \
+      spectacle \
+      imageoptim \
+      iterm2 \
+      vlc; do
         _caskInstallOrUpdate $package
     done
 
-    vared -p 'Would you like to update all brew packages installed manualy as well? [y/n]' -c REPLY
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
+    # Not work-related Casks
+    vared -p 'Would you like to install/update not work-related Casks? [y/n]' -c REPLY1
+    if [[ $REPLY1 =~ ^[Yy]$ ]]; then
+      for package in handbrake; do
+          _caskInstallOrUpdate $package
+      done
+    fi
+
+    vared -p 'Would you like to update all brew packages installed manualy as well? [y/n]' -c REPLY2
+    if [[ $REPLY2 =~ ^[Yy]$ ]]; then
         brew upgrade
     fi
 

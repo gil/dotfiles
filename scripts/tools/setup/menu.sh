@@ -3,9 +3,9 @@
 KEEP_MENU_OPEN=true
 PS3='Please enter your choice: '
 options=(
-  "OSX Settings"
+  #"OSX Settings"
   "Fonts and Terminal Theme (OSX)"
-  "Command Line Tools (If you don't want XCode)"
+  #"Command Line Tools (If you don't want XCode)"
   "Homebrew (OSX)"
   "yum (Linux)"
   "NVM + NodeJS"
@@ -24,22 +24,22 @@ do
   select opt in "${options[@]}"
   do
     case $opt in
-      "OSX Settings")
-        echo ""
-        $OH_MY_GIL_SH/scripts/tools/setup/osx.sh
-        break
-        ;;
+      #"OSX Settings")
+        #echo ""
+        #$OH_MY_GIL_SH/scripts/tools/setup/osx.sh
+        #break
+        #;;
       "Fonts and Terminal Theme (OSX)")
         echo ""
         $OH_MY_GIL_SH/scripts/tools/setup/fonts-and-themes.sh
         break
         ;;
-      "Command Line Tools (If you don't want XCode)")
-        echo ""
-        xcode-select --install
-        sudo xcodebuild -license
-        break
-        ;;
+      #"Command Line Tools (If you don't want XCode)")
+        #echo ""
+        #xcode-select --install
+        #sudo xcodebuild -license
+        #break
+        #;;
       "Homebrew (OSX)")
         $OH_MY_GIL_SH/scripts/tools/setup/brew.sh
         break

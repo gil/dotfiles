@@ -12,10 +12,18 @@ if ! hash yarn 2>/dev/null; then
     fi
 fi
 
-
 if hash yarn 2>/dev/null; then
     printf "\n${C_PURPLE}[Yarn] ${C_GREEN}Installing/Updating modules...${C_RESTORE}\n"
-    yarn global add karma-cli nodemon csscomb eslint eslint_d http-server typescript neovim slugify-cli prettier
+    yarn global add karma-cli \
+      nodemon \
+      csscomb \
+      eslint \
+      eslint_d \
+      http-server \
+      typescript \
+      neovim \
+      slugify-cli \
+      prettier
 else
     printf "\n${C_PURPLE}[Yarn] ${C_RED}Couldn't find Yarn!${C_RESTORE}\n"
 fi
