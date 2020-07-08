@@ -1,0 +1,65 @@
+#!/usr/bin/env zsh
+
+#####
+## Install/Update NVM
+#####
+
+printf "\n${C_PURPLE}[NVM] ${C_GREEN}Installing or updating NVM...${C_RESTORE}\n"
+
+if ! command grep -qc '/nvm.sh' ~/.zshrc; then
+    echo "# This line is here to prevent NVM from adding its code during installation and sourcing /nvm.sh and \$NVM_DIR/bash_completion automatically, since we'll lazy load it later. You can probably remove this if you want." >> ~/.zshrc
+fi
+if ! command grep -qc '/nvm.sh' ~/.bashrc; then
+    echo "# This line is here to prevent NVM from adding its code during installation and sourcing /nvm.sh and \$NVM_DIR/bash_completion automatically, since we'll lazy load it later. You can probably remove this if you want." >> ~/.bashrc
+fi
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+#####
+## Install latest NodeJS with NVM
+#####
+
+if which nvm 2>&1 >/dev/null; then
+
+    printf "\n${C_PURPLE}[NVM] ${C_GREEN}Installing latest node...${C_RESTORE}\n"
+    nvm install node
+    nvm use node
+    nvm alias default node
+
+    printf "\n${C_PURPLE}[NVM] ${C_GREEN}Installing latest NPM for this version...${C_RESTORE}\n"
+    nvm install-latest-npm
+
+    printf "\n${C_PURPLE}[NVM] ${C_GREEN}Done! If NVM is not working, run refresh_dotfiles manually now.${C_RESTORE}\n"
+else
+    printf "\n${C_PURPLE}[NVM] ${C_RED}Couldn't find NVM!${C_RESTORE}\n"
+fi
+
+#####
+## Install Yarn from latest NodeJS
+#####
+
+printf "\n${C_PURPLE}[Yarn] ${C_GREEN}Installing latest NPM for this version...${C_RESTORE}\n"
+npm install -g yarn
+
+#####
+## Install all global tools with Yarn
+#####
+
+if hash yarn 2>/dev/null; then
+    printf "\n${C_PURPLE}[Yarn] ${C_GREEN}Installing/Updating modules...${C_RESTORE}\n"
+    yarn global add karma-cli \
+      nodemon \
+      csscomb \
+      eslint \
+      eslint_d \
+      http-server \
+      typescript \
+      neovim \
+      slugify-cli \
+      prettier
+else
+    printf "\n${C_PURPLE}[Yarn] ${C_RED}Couldn't find Yarn!${C_RESTORE}\n"
+fi

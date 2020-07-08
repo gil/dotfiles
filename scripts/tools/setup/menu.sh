@@ -8,11 +8,10 @@ options=(
   #"Command Line Tools (If you don't want XCode)"
   "Homebrew (OSX)"
   "yum (Linux)"
-  "NVM + NodeJS"
-  "Yarn"
+  "Vim & tmux"
+  "NVM + NodeJS + Yarn + Global modules"
   "pyenv (Python)"
   "rbenv + Ruby"
-  "Vim & tmux"
   "Quit"
 )
 
@@ -48,12 +47,12 @@ do
         $OH_MY_GIL_SH/scripts/tools/setup/yum.sh
         break
         ;;
-      "NVM + NodeJS")
-        $OH_MY_GIL_SH/scripts/tools/setup/nvm.sh
+      "Vim & tmux")
+        $OH_MY_GIL_SH/scripts/tools/setup/vim.sh
         break
         ;;
-      "Yarn")
-        $OH_MY_GIL_SH/scripts/tools/setup/yarn.sh
+      "NVM + NodeJS + Yarn + Global modules")
+        $OH_MY_GIL_SH/scripts/tools/setup/node.sh
         break
         ;;
       "pyenv (Python)")
@@ -62,10 +61,6 @@ do
         ;;
       "rbenv + Ruby")
         $OH_MY_GIL_SH/scripts/tools/setup/rbenv.sh
-        break
-        ;;
-      "Vim & tmux")
-        $OH_MY_GIL_SH/scripts/tools/setup/vim.sh
         break
         ;;
       "Quit")
