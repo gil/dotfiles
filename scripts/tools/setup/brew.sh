@@ -94,7 +94,8 @@ if hash brew 2>/dev/null; then
     # Not work-related Casks
     vared -p 'Would you like to install/update not work-related Casks? [y/n]' -c REPLY1
     if [[ $REPLY1 =~ ^[Yy]$ ]]; then
-      for package in handbrake; do
+      for package in handbrake \
+        jdownloader; do
           _caskInstallOrUpdate $package
       done
     fi
