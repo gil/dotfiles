@@ -87,6 +87,7 @@ if hash brew 2>/dev/null; then
       spectacle \
       imageoptim \
       iterm2 \
+      keka \
       vlc; do
         _caskInstallOrUpdate $package
     done
