@@ -193,6 +193,7 @@ Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' ", { 'on': ['FZF', 'History'] }
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/tmuxline.vim'
 Plug 'w0rp/ale'
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }
@@ -249,6 +250,7 @@ endif
 call plug#end()
 
 " tmuxline.vim
+" Update with :Tmuxline airline
 let g:tmuxline_preset = {
       \'a'    : '#W',
       \'win'  : '#I #W',
@@ -258,7 +260,11 @@ let g:tmuxline_preset = {
       \'z'    : '%R \ue385 ',
       \'options' : {'status-justify' : 'left'}}
 
+let g:airline#extensions#tmuxline#enabled = 1
+let g:airline#extensions#tmuxline#snapshot_file = $OH_MY_GIL_SH . "/scripts/tools/assets/tmux-statusline-colors.conf"
+
 " vim-airline
+let g:airline_theme='base16_gruvbox_dark_hard'
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#whitespace#enabled = 0
@@ -268,9 +274,6 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#show_close_button = 0
-
-let g:airline#extensions#tmuxline#enabled = 1
-let g:airline#extensions#tmuxline#snapshot_file = $OH_MY_GIL_SH . "/scripts/tools/assets/tmux-statusline-colors.conf"
 
 " vim-snipmate
 "imap <leader><tab> <Plug>snipMateNextOrTrigger
