@@ -88,6 +88,7 @@ if hash brew 2>/dev/null; then
       imageoptim \
       iterm2 \
       keka \
+      typora \
       vlc; do
         _caskInstallOrUpdate $package
     done
