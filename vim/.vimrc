@@ -214,7 +214,8 @@ Plug 'tpope/vim-fugitive', { 'on': ['Gblame', 'GV'] }
 Plug 'junegunn/gv.vim', { 'on': 'GV' }
 Plug 'airblade/vim-gitgutter'
 "Plug 'altercation/vim-colors-solarized'
-Plug 'w0ng/vim-hybrid'
+"Plug 'w0ng/vim-hybrid'
+Plug 'morhetz/gruvbox'
 Plug 'benmills/vimux', { 'on': 'VimuxRunCommand' }
 Plug 'christoomey/vim-tmux-navigator'
 "Plug 'chaoren/vim-wordmotion'
@@ -342,8 +343,9 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 " activate color scheme (theme)
 set background=dark
 "colorscheme solarized
-let g:hybrid_custom_term_colors = 1
-colorscheme hybrid
+"let g:hybrid_custom_term_colors = 1
+"colorscheme hybrid
+autocmd vimenter * colorscheme gruvbox
 
 " spell check
 set spellfile=$HOME/.vim/spell/en.utf-8.add
