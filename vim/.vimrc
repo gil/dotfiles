@@ -158,6 +158,7 @@ call NERDTreeHighlightFile('md', '#3366FF')
 call NERDTreeHighlightFile('html', '#E34F26')
 call NERDTreeHighlightFile('css', '#3C9AD1')
 call NERDTreeHighlightFile('js', '#F7DF1E')
+call NERDTreeHighlightFile('ts', '#548FD1')
 call NERDTreeHighlightFile('jsx', '#61DAFB')
 call NERDTreeHighlightFile('rb', '#CC342D')
 call NERDTreeHighlightFile('py', '#4B90C6')
@@ -281,6 +282,10 @@ let g:gundo_prefer_python3 = 1
 if exists("g:loaded_webdevicons")
     call webdevicons#refresh() " don't break on refresh
 endif
+
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {} " needed
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*\.test\.js$'] = 'ﮒ' " ﴫ'
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*\.test\.ts$'] = 'ﮒ' " ﴫ'
 
 " fzf
 map <C-p> :Files<CR>
