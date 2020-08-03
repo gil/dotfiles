@@ -193,7 +193,7 @@ Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' ", { 'on': ['FZF', 'History'] }
 Plug 'vim-airline/vim-airline'
-Plug 'gil/base16-themes', { 'rtp': 'output/base16-vim-airline' }
+Plug '$OH_MY_GIL_SH/scripts/themes/base16-themes', { 'rtp': 'output/base16-vim-airline' }
 Plug 'edkolev/tmuxline.vim'
 Plug 'w0rp/ale'
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }

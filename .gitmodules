@@ -7,3 +7,6 @@
 [submodule "scripts/themes/powerlevel10k"]
 	path = scripts/themes/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
+[submodule "scripts/themes/base16-themes"]
+	path = scripts/themes/base16-themes
+	url = https://github.com/gil/base16-themes.git
