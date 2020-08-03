@@ -193,7 +193,7 @@ Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' ", { 'on': ['FZF', 'History'] }
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'gil/base16-themes', { 'rtp': 'output/base16-vim-airline' }
 Plug 'edkolev/tmuxline.vim'
 Plug 'w0rp/ale'
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }
@@ -264,7 +264,7 @@ let g:airline#extensions#tmuxline#enabled = 1
 let g:airline#extensions#tmuxline#snapshot_file = $OH_MY_GIL_SH . "/scripts/tools/assets/tmux-statusline-colors.conf"
 
 " vim-airline
-let g:airline_theme='base16_gruvbox_dark_hard'
+let g:airline_theme='base16_gruvbox_dark_medium'
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#whitespace#enabled = 0
