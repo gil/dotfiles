@@ -8,4 +8,9 @@ git -c rebase.autoStash=true pull --rebase
 git submodule update --init --recursive --rebase
 sh ./oh-my-zsh/tools/upgrade.sh
 cd - >/dev/null 2>&1
+
+if hash bat 2>/dev/null; then
+  bat cache --build
+fi
+
 printf "\n${C_BLUE}Done!${C_RESTORE}\n"
