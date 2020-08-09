@@ -52,6 +52,7 @@ if hash brew 2>/dev/null; then
       aria2 \
       ranger \
       fd \
+      ifstat \
       htop; do
         _brewInstallOrUpdate $package
     done
@@ -67,6 +68,7 @@ if hash brew 2>/dev/null; then
       ack \
       the_silver_searcher \
       ripgrep \
+      jq \
       cmake; do
         _brewInstallOrUpdate $package
     done
@@ -89,6 +91,7 @@ if hash brew 2>/dev/null; then
       iterm2 \
       keka \
       typora \
+      bitbar \
       vlc; do
         _caskInstallOrUpdate $package
     done

@@ -12,6 +12,7 @@ options=(
   "NVM + NodeJS + Yarn + Global modules"
   "pyenv (Python)"
   "rbenv + Ruby"
+  "BitBar"
   "Quit"
 )
 
@@ -61,6 +62,10 @@ do
         ;;
       "rbenv + Ruby")
         $OH_MY_GIL_SH/scripts/tools/setup/rbenv.sh
+        break
+        ;;
+      "BitBar")
+        $OH_MY_GIL_SH/scripts/tools/setup/bitbar.sh
         break
         ;;
       "Quit")
