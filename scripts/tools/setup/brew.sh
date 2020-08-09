@@ -100,6 +100,7 @@ if hash brew 2>/dev/null; then
     vared -p 'Would you like to install/update not work-related Casks? [y/n]' -c REPLY1
     if [[ $REPLY1 =~ ^[Yy]$ ]]; then
       for package in handbrake \
+        makemkv \
         jdownloader; do
           _caskInstallOrUpdate $package
       done
