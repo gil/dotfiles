@@ -9,7 +9,7 @@
 
 TEMPERATURE=$( curl -s https://data.buienradar.nl/2.0/feed/json | /usr/local/bin/jq '.actual.stationmeasurements[] | select(.regio == "Amsterdam")' )
 ICON_URL=$( echo $TEMPERATURE | /usr/local/bin/jq .iconurl | cut -d "\"" -f 2 )
-echo "$( echo $TEMPERATURE | /usr/local/bin/jq .temperature )|image=$( curl -s "$ICON_URL" | base64 )"
+echo "$( echo $TEMPERATURE | /usr/local/bin/jq .temperature )º|image=$( curl -s "$ICON_URL" | base64 )"
 echo ---
 echo "Feels like: $( echo $TEMPERATURE | /usr/local/bin/jq .feeltemperature )º"
 echo "Precipitation: $( echo $TEMPERATURE | /usr/local/bin/jq .precipitation ) mm"
