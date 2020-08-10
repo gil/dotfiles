@@ -22,3 +22,16 @@ temp=$(/usr/local/bin/istats cpu|awk '{print $3}')
 # fan=$(/usr/local/bin/istats fan speed|awk '{print $4, $5}')
 
 echo "🚀 $load% 🔥 $temp" #, $fan"
+
+# This part was borrowed and adapted from:
+# https://github.com/matryer/bitbar-plugins/blob/master/System/cpu-usage-kill.5s.sh
+# <bitbar.author>Alex M.</bitbar.author>
+# <bitbar.author.github>Aleksandern</bitbar.author.github>
+
+echo "---"
+ps c -Ao pcpu,command,pid -r | head -n 6 | awk 'NR>1'\
+  | while read -r pcpu command pid ; do
+    echo "$pcpu% $command ($pid) | bash='kill -9 ${pid//[!0-9]/} ; exit' terminal=true"
+done
+echo "---"
+echo "Refresh | refresh=true terminal=false root=true"
