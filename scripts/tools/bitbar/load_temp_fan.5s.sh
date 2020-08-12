@@ -17,11 +17,11 @@
 
 #load=$(uptime|sed 's/.*ages: //')
 #load=$(uptime | sed 's/.*ages: //' | awk '{print $1" "$2}')
-load=$(top -l 2 | grep -E "^CPU" | tail -1 | awk '{print $3+$5}')
-temp=$(/usr/local/bin/istats cpu|awk '{print $3}')
+load=$(top -l 2 | grep -E "^CPU" | tail -1 | awk '{print int($3+$5)}')
+temp=$(/usr/local/bin/istats cpu | awk '{print int($3)}') # | cut -d. -f1
 # fan=$(/usr/local/bin/istats fan speed|awk '{print $4, $5}')
 
-echo "🚀 $load% 🔥 $temp" #, $fan"
+echo ":rocket: $load% :fire: $tempº" #, $fan"
 
 # This part was borrowed and adapted from:
 # https://github.com/matryer/bitbar-plugins/blob/master/System/cpu-usage-kill.5s.sh

@@ -22,7 +22,7 @@ fi
 
 function kilo_to_mega {
   # in networking 1 mbit is 1000 kilobits (not 1024)
-  printf "%0.2f\n" "$(bc -q <<< scale=3\;"${1}"/1000)"
+  printf "%0.1f\n" "$(bc -q <<< scale=3\;"${1}"/1000)"
 }
 
 function get_ifstat {
