@@ -92,6 +92,7 @@ if hash brew 2>/dev/null; then
       keka \
       typora \
       bitbar \
+      oracle-jdk \
       vlc; do
         _caskInstallOrUpdate $package
     done
