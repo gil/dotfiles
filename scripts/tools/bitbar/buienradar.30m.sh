@@ -19,5 +19,16 @@ echo "Wind speed: $( echo $TEMPERATURE | /usr/local/bin/jq .windspeed ) km/h"
 
 echo ---
 echo "☔️ Chance of rain:"
-curl -s "https://gpsgadget.buienradar.nl/data/raintext/?lat=$( echo $TEMPERATURE | /usr/local/bin/jq .lat )&lon=$( echo $TEMPERATURE | /usr/local/bin/jq .lon )" | tr "|" "-"  
+#curl -s "https://gpsgadget.buienradar.nl/data/raintext/?lat=$( echo $TEMPERATURE | /usr/local/bin/jq .lat )&lon=$( echo $TEMPERATURE | /usr/local/bin/jq .lon )" | tr "|" "-"
+curl -s "https://gpsgadget.buienradar.nl/data/raintext/?lat=$( echo $TEMPERATURE | /usr/local/bin/jq .lat )&lon=$( echo $TEMPERATURE | /usr/local/bin/jq .lon )" | ~/.pyenv/shims/python -c '
+import sys
+import math
+for line in sys.stdin:
+  parts = line.strip().split("|")
+  total = math.ceil(int(parts[0]) / 15)
+  bars = "▕"
+  for _ in range(total):
+    bars = bars + "█"
+  print(parts[1] + bars + "|font=Courier color=blue")
+'
 echo "Refresh... | refresh=true"
