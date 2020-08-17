@@ -31,7 +31,7 @@ echo ":rocket: $load% :fire: $tempº" #, $fan"
 echo "---"
 ps c -Ao pcpu,command,pid -r | head -n 6 | awk 'NR>1'\
   | while read -r pcpu command pid ; do
-    echo "$pcpu% $command ($pid) | bash='kill -9 ${pid//[!0-9]/} ; exit' terminal=true"
+    echo "$pcpu% $command $pid | bash='kill -9 ${pid//[!0-9]/} ; exit' terminal=true"
 done
 echo "---"
 echo "Refresh | refresh=true terminal=false root=true"
