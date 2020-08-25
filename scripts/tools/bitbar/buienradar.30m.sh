@@ -16,6 +16,7 @@ echo "Precipitation: $( echo $TEMPERATURE | /usr/local/bin/jq .precipitation ) m
 echo "Humidity: $( echo $TEMPERATURE | /usr/local/bin/jq .humidity )%"
 echo "Air pressure: $( echo $TEMPERATURE | /usr/local/bin/jq .airpressure ) hPa"
 echo "Wind speed: $( echo $TEMPERATURE | /usr/local/bin/jq .windspeed ) km/h"
+echo "|image=$( curl -sL "https://api.buienradar.nl/image/1.0/RadarMapNL?w=215&h=155" | base64)"
 
 echo ---
 echo "☔️ Chance of rain:"
@@ -31,4 +32,5 @@ for line in sys.stdin:
     bars = bars + "█"
   print(parts[1] + bars + "|font=Courier color=blue")
 '
-echo "Refresh... | refresh=true"
+echo "Open details...|href=https://www.buienradar.nl/weer/Amsterdam/NL/2759794"
+echo "Refresh...|refresh=true"
