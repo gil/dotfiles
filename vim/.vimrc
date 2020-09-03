@@ -304,8 +304,8 @@ elseif executable('ag') && !exists('g:ackprg') " The Silver Searcher(ag)
     let g:ackprg = 'ag --vimgrep --silent' " --max-count 1'
 endif
 " Keep the trailing space bellow
-map <leader>a :Ack 
-map <leader>A :Ack  <C-R>=expand('%:h')<CR><C-Left><Left>
+map <leader>a :Ack!  <C-R>=expand('%:h')<CR><C-Left><Left>
+map <leader>A :Ack!  <C-R>=fnamemodify(findfile('package.json', expand('%:p:h').';'), ':p:h')<CR><C-Left><Left>
 
 " MatchTagAlways
 let g:mta_filetypes = {
