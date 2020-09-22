@@ -53,6 +53,7 @@ if hash brew 2>/dev/null; then
       ranger \
       fd \
       ifstat \
+      osx-cpu-temp \
       htop; do
         _brewInstallOrUpdate $package
     done
