@@ -12,7 +12,7 @@
 load=$(top -l 2 | grep -E "^CPU" | tail -1 | awk '{print int($3+$5)}')
 
 if [ -f /usr/local/bin/osx-cpu-temp ]; then
-  temp=$(/usr/local/bin/osx-cpu-temp | cut -c -4)
+  temp=$(/usr/local/bin/osx-cpu-temp | awk '{print int($1)}')
 else
   temp=$(sysctl machdep.xcpm.cpu_thermal_level | awk -F'[ ]' '{print $2}')
 fi
