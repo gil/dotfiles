@@ -5,9 +5,17 @@
 # <bitbar.author>Andre Gil</bitbar.author>
 # <bitbar.author.github>gil</bitbar.author.github>
 # <bitbar.desc>This plugin displays the current CPU load and CPU temperature without dependencies.</bitbar.desc>
+#
+# If temperature is always zero:
+#   brew install osx-cpu-temp
 
 load=$(top -l 2 | grep -E "^CPU" | tail -1 | awk '{print int($3+$5)}')
-temp=$(sysctl machdep.xcpm.cpu_thermal_level | awk -F'[ ]' '{print $2}')
+
+if [ -f /usr/local/bin/osx-cpu-temp ]; then
+  temp=$(/usr/local/bin/osx-cpu-temp | cut -c -4)
+else
+  temp=$(sysctl machdep.xcpm.cpu_thermal_level | awk -F'[ ]' '{print $2}')
+fi
 
 echo ":rocket: $load% :fire: $tempº" #, $fan"
 
