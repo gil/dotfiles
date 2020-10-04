@@ -40,7 +40,6 @@ if hash brew 2>/dev/null; then
       wget \
       curl \
       figlet \
-      youtube-dl \
       fpp \
       fdupes \
       ncdu \
@@ -98,9 +97,14 @@ if hash brew 2>/dev/null; then
         _caskInstallOrUpdate $package
     done
 
-    # Not work-related Casks
-    vared -p 'Would you like to install/update not work-related Casks? [y/n]' -c REPLY1
+    # Not work-related formulas
+    vared -p 'Would you like to install/update not work-related formulas? [y/n]' -c REPLY1
     if [[ $REPLY1 =~ ^[Yy]$ ]]; then
+      for package in handbrake \
+        youtube-dl; do
+          _brewInstallOrUpdate $package
+      done
+
       for package in handbrake \
         makemkv \
         jdownloader; do
