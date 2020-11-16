@@ -6,6 +6,7 @@ jeff() {
     selected=($(
       fc -rl 1 |
         perl -ne 'print if !$seen{(/^\s*[0-9]+\s+(.*)/, $1)}++' |
+        grep -v '  \(jeff\|exit\)$' |
         FZF_DEFAULT_OPTS="-n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort --query=${(qqq)LBUFFER} +m" fzf
     ))
     local ret=$?
