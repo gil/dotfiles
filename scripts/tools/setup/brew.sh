@@ -78,6 +78,7 @@ if hash brew 2>/dev/null; then
     for package in graphicsmagick \
       ffmpeg \
       lame \
+      atomicparsley \
       moreutils \
       libdvdcss \
       openssh; do
