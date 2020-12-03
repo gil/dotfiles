@@ -11,7 +11,7 @@ function ytdl {
         --embed-thumbnail \
         --format "bestvideo[height<=?1080]+bestaudio/best[height<=?1080]/best" \
         --merge-output-format mkv \
-        --output "%(uploader)s - %(title)s - %(id)s.%(ext)s" \
+        --output "%(title)s - %(uploader)s [%(id)s].%(ext)s" \
         --exec "$OH_MY_GIL_SH/scripts/plugins/youtube-dl/embed_mkv_thumb.sh {}" \
         "$@"
 }
