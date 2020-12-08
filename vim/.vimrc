@@ -154,6 +154,8 @@ function! NERDTreeHighlightFile(extension, guifg)
     exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
+let NERDTreeWinSize = 50
+
 call NERDTreeHighlightFile('md', '#3366FF')
 call NERDTreeHighlightFile('html', '#E34F26')
 call NERDTreeHighlightFile('css', '#3C9AD1')
