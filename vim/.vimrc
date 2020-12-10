@@ -238,12 +238,13 @@ Plug 'sjl/gundo.vim', { 'on': ['GundoToggle'] }
 "Plug 'leafgarland/typescript-vim'
 "Plug 'HerringtonDarkholme/yats.vim'
 
+let load_nvm = 'source ~/.dotfiles/scripts/plugins/nvm/nvm.plugin.zsh ; load_nvm ;'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': load_nvm . 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': load_nvm . 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': load_nvm . 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-snippets', {'do': load_nvm . 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-vetur', {'do': load_nvm . 'yarn install --frozen-lockfile'}
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
