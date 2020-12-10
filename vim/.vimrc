@@ -155,6 +155,7 @@ function! NERDTreeHighlightFile(extension, guifg)
 endfunction
 
 let NERDTreeWinSize = 50
+let NERDTreeHighlightCursorline = 0
 
 call NERDTreeHighlightFile('md', '#3366FF')
 call NERDTreeHighlightFile('html', '#E34F26')
