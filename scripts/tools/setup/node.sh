@@ -61,7 +61,8 @@ npm install -g yarn
 
 if hash yarn 2>/dev/null; then
     printf "\n${C_PURPLE}[Yarn] ${C_GREEN}Installing/Updating modules...${C_RESTORE}\n"
-    yarn global add karma-cli \
+    yarn global add \
+      karma-cli \
       nodemon \
       csscomb \
       eslint \
@@ -70,6 +71,7 @@ if hash yarn 2>/dev/null; then
       typescript \
       neovim \
       slugify-cli \
+      neovim \
       prettier
 else
     printf "\n${C_PURPLE}[Yarn] ${C_RED}Couldn't find Yarn!${C_RESTORE}\n"
