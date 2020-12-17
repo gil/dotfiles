@@ -9,7 +9,7 @@ if [ "$1" = "back" ]; then
   do-not-disturb off
 
   echo "📂 Unhiding Desktop icons..."
-  defaults write com.apple.finder CreateDesktop false
+  defaults write com.apple.finder CreateDesktop true
   killall Finder
 
   echo "↘️  Unhiding all windows..."
