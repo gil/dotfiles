@@ -1,4 +1,15 @@
-# Idea from Pliim: https://github.com/zehfernandes/pliim
+# Script inspiration from Pliim: https://github.com/zehfernandes/pliim
+
+if [ "$1" = "back" ]; then
+  echo "❓ Are you sure you wanna get out of meeting mode? [y/n]"
+else
+  echo "❓ Are you sure you wanna go into meeting mode? [y/n]"
+fi
+read
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+fi
+
 if ! hash do-not-disturb 2>/dev/null; then
   yarn global add do-not-disturb-cli
 fi
