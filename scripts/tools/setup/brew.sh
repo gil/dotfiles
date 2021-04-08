@@ -49,6 +49,8 @@ if hash brew 2>/dev/null; then
       socat \
       weechat \
       aria2 \
+      pandoc \
+      poppler \
       ranger \
       fd \
       ifstat \
@@ -68,6 +70,7 @@ if hash brew 2>/dev/null; then
       ack \
       the_silver_searcher \
       ripgrep \
+      rga \
       jq \
       cmake; do
         _brewInstallOrUpdate $package
