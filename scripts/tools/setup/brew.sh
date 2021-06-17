@@ -95,7 +95,7 @@ if hash brew 2>/dev/null; then
       iterm2 \
       keka \
       typora \
-      bitbar \
+      xbar \
       oracle-jdk \
       vlc; do
         _caskInstallOrUpdate $package

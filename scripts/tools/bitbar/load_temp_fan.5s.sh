@@ -30,4 +30,4 @@ ps c -Ao pcpu,command,pid -r | head -n 6 | awk 'NR>1'\
     echo "$pcpu% $command $pid | bash='kill -9 ${pid//[!0-9]/} ; exit' terminal=true"
 done
 echo "---"
-echo "Refresh | refresh=true terminal=false root=true"
+echo "Refresh | refresh=true terminal=false"
