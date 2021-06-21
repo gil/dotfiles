@@ -42,7 +42,7 @@ function progressFor(originalPct, size = 20) {
 
 const font = '|font=Courier size=14';
 
-console.log(`⏳${qLeft}d`);
+console.log(`⏳${Math.ceil(qLeft/7*10)/10}w`);
 console.log('---');
 console.log(`Quarter:  ${progressFor(qPct)}${font}`);
 console.log(`Semester: ${progressFor(sPct)}${font}`);
