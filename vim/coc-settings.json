@@ -1,0 +1,5 @@
+{
+  "workspace.bottomUpFiletypes": ["javascript", "typescript", "vue"],
+  "snippets.userSnippetsDirectory": "~/.vim/UltiSnips",
+  "vetur.ignoreProjectWarning": true
+}
