@@ -3,6 +3,13 @@ if ! hash brew 2>/dev/null; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
+if ! xcode-select -p 1>/dev/null; then
+  xcode-select --install
+  echo
+  echo Please run this again after XCode installation is finished!
+  exit 0
+fi
+
 function _brewInstallOrUpdate {
     printf "\n${C_PURPLE}[Brew] ${C_GREEN}Checking for package \"$1\"...${C_RESTORE}\n"
     if brew ls --versions "$1" >/dev/null; then
