@@ -46,6 +46,11 @@ au WinLeave * set nocursorline "nocursorcolumn
 au WinEnter * set cursorline "cursorcolumn
 set cursorline "cursorcolumn
 
+" better diff
+if has('nvim-0.3.2') || has("patch-8.1.0360")
+    set diffopt=filler,internal,algorithm:histogram,indent-heuristic
+endif
+
 " remove some input delay (for quicker escape)
 if !has('nvim') && &ttimeoutlen == -1
   set ttimeout
