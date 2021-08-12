@@ -61,7 +61,7 @@ endif
 inoremap jj <Esc>
 "let mapleader = "\<Space>"
 let mapleader = ","
-map <C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeCWD<CR>
 nmap <leader>nf :NERDTreeFind<CR>
 nmap <leader>h :noh<CR>
 "map <leader>t :bufdo tab split<CR>
@@ -117,25 +117,6 @@ let s:undos = split(globpath(&undodir, '*'), "\n")
 call filter(s:undos, 'getftime(v:val) < localtime() - (60 * 60 * 24 * 90)')
 call map(s:undos, 'delete(v:val)')
 
-" ale
-let g:ale_linters = {
-\   'vue': ['eslint'],
-\   'javascript': ['eslint'],
-\   'typescript': ['eslint'],
-\}
-
-let g:ale_fixers = {
-\   'vue': ['eslint'],
-\   'javascript': ['eslint'],
-\   'typescript': ['eslint'],
-\}
-
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %code: %%s [%severity%]'
-
-nmap <leader>f :ALEFix<CR>
-
 " YouCompleteMe
 "let g:ycm_auto_trigger = 0
 "let g:ycm_key_invoke_completion = '<C-j>'
@@ -153,7 +134,7 @@ let g:multi_cursor_prev_key            = 'P'
 let g:multi_cursor_skip_key            = 'X'
 let g:multi_cursor_quit_key            = '<Esc>'
 
-" NERDTress File highlighting
+" NERDTree File highlighting
 function! NERDTreeHighlightFile(extension, guifg)
     exec 'autocmd FileType nerdtree highlight ' . a:extension .' guifg='. a:guifg
     exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
@@ -197,13 +178,12 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeCWD', 'NERDTreeFind'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' ", { 'on': ['FZF', 'History'] }
 Plug 'vim-airline/vim-airline'
 Plug '$OH_MY_GIL_SH/scripts/themes/base16-themes', { 'rtp': 'output/base16-vim-airline' }
 Plug 'edkolev/tmuxline.vim'
-Plug 'w0rp/ale'
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'tpope/vim-surround'
@@ -224,7 +204,8 @@ Plug 'junegunn/gv.vim', { 'on': 'GV' }
 Plug 'airblade/vim-gitgutter'
 "Plug 'altercation/vim-colors-solarized'
 "Plug 'w0ng/vim-hybrid'
-Plug 'morhetz/gruvbox'
+Plug 'rktjmp/lush.nvim' " required by gruvbox
+Plug 'npxbr/gruvbox.nvim'
 Plug 'benmills/vimux', { 'on': 'VimuxRunCommand' }
 Plug 'christoomey/vim-tmux-navigator'
 "Plug 'chaoren/vim-wordmotion'
@@ -243,14 +224,14 @@ Plug 'ryanoasis/vim-devicons', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'sjl/gundo.vim', { 'on': ['GundoToggle'] }
 "Plug 'leafgarland/typescript-vim'
 "Plug 'HerringtonDarkholme/yats.vim'
+Plug 'voldikss/vim-floaterm'
+Plug 'airblade/vim-rooter'
 
-let load_nvm = 'source ~/.dotfiles/scripts/plugins/nvm/nvm.plugin.zsh ; load_nvm ;'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-tsserver', {'do': load_nvm . 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': load_nvm . 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': load_nvm . 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-snippets', {'do': load_nvm . 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-vetur', {'do': load_nvm . 'yarn install --frozen-lockfile'}
+" LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-compe'
+Plug 'ray-x/lsp_signature.nvim'
+Plug 'simrat39/symbols-outline.nvim'
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
@@ -358,7 +339,7 @@ set background=dark
 "colorscheme solarized
 "let g:hybrid_custom_term_colors = 1
 "colorscheme hybrid
-autocmd vimenter * colorscheme gruvbox
+colorscheme gruvbox
 
 " spell check
 set spellfile=$HOME/.vim/spell/en.utf-8.add
@@ -370,84 +351,148 @@ let g:vim_notes_repo_path = "~/dev/notes"
 command! NoteSave execute ("saveas " . substitute(system("slugify \"" . getline(1) . "\""), '\n\+$', '', '') . ".md")
 command! NoteSync VimuxRunCommand("cd " . g:vim_notes_repo_path . " && glr && git add . && gc -a -m \"Updating notes: $(date)\" && gp")
 
-" -------------
-" vim-coc
+" vim-rooter
+let g:rooter_patterns = ['package.json', '=node_modules', '.git']
+let g:rooter_silent_chdir = 1
 
-" TextEdit might fail if hidden is not set.
-set hidden
+" LSP
 
-" Give more space for displaying messages.
-set cmdheight=2
+lua << EOF
+require "lsp_signature".setup()
 
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
+vim.o.completeopt = "menuone,noselect"
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  resolve_timeout = 800;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = {
+    border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
+    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+    max_width = 120,
+    min_width = 60,
+    max_height = math.floor(vim.o.lines * 0.3),
+    min_height = 1,
+  };
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    vsnip = true;
+    ultisnips = true;
+    luasnip = true;
+  };
+}
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
 
-" Use <c-j> to trigger completion.
-inoremap <silent><expr> <c-j> coc#refresh()
+local check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+end
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
+-- Use (s-)tab to:
+--- move to prev/next item in completion menuone
+--- jump to prev/next snippet's placeholder
+_G.tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-n>"
+  elseif vim.fn['vsnip#available'](1) == 1 then
+    return t "<Plug>(vsnip-expand-or-jump)"
+  elseif check_back_space() then
+    return t "<Tab>"
   else
-    call CocAction('doHover')
-  endif
-endfunction
+    return vim.fn['compe#complete']()
+  end
+end
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+  elseif vim.fn['vsnip#jumpable'](-1) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
+  else
+    -- If <S-Tab> is not working in your terminal, change it to <C-h>
+    return t "<S-Tab>"
+  end
+end
 
-" Scroll the float 'panel'
-nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+--local capabilities = vim.lsp.protocol.make_client_capabilities()
+--capabilities.textDocument.completion.completionItem.snippetSupport = true
+--capabilities.textDocument.completion.completionItem.resolveSupport = {
+--  properties = {
+--    'documentation',
+--    'detail',
+--    'additionalTextEdits',
+--  }
+--}
 
-nmap <leader>ca :CocAction<CR>
-nmap <leader>cc :CocCommand<CR>
-nmap <leader>cf :CocFix<CR>
+-- Languages
 
-" /vim-coc
-" -------------
+require'lspconfig'.tsserver.setup{
+--  capabilities = capabilities,
+}
+
+require'lspconfig'.vuels.setup{
+--  capabilities = capabilities,
+  init_options = {
+    config = {
+      vetur = {
+        ignoreProjectWarning = true,
+        validation = {
+          interpolation = false,
+        },
+      },
+    },
+  },
+}
+
+local eslint = {
+  lintCommand = "eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}",
+  lintIgnoreExitCode = true,
+  lintStdin = true,
+  lintFormats = {
+    "%f(%l,%c): %tarning %m",
+    "%f(%l,%c): %rror %m",
+  },
+}
+
+require'lspconfig'.efm.setup {
+  init_options = { documentFormatting = false },
+  filetypes = { "javascript", "vue" },
+  settings = {
+    rootMarkers = { ".git/" },
+    languages = {
+      javascript = { eslint },
+      vue = { eslint },
+    },
+  }
+}
+EOF
+
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+"nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> <C-]> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent> <C-[> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
