@@ -79,6 +79,7 @@ if hash brew 2>/dev/null; then
       ripgrep \
       rga \
       jq \
+      efm-langserver \
       cmake; do
         _brewInstallOrUpdate $package
     done

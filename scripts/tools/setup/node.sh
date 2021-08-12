@@ -69,9 +69,10 @@ if hash yarn 2>/dev/null; then
       eslint_d \
       http-server \
       typescript \
+      typescript-language-server \
+      vls \
       neovim \
       slugify-cli \
-      neovim \
       prettier
 else
     printf "\n${C_PURPLE}[Yarn] ${C_RED}Couldn't find Yarn!${C_RESTORE}\n"
