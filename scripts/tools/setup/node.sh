@@ -52,7 +52,7 @@ fi
 ## Install Yarn from latest NodeJS
 #####
 
-printf "\n${C_PURPLE}[Yarn] ${C_GREEN}Installing latest NPM for this version...${C_RESTORE}\n"
+printf "\n${C_PURPLE}[Yarn] ${C_GREEN}Installing latest Yarn for this version...${C_RESTORE}\n"
 npm install -g yarn
 
 #####
