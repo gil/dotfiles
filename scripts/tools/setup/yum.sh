@@ -19,7 +19,7 @@ if hash yum 2>/dev/null; then
   # Create dirs to compile stuff
   printf "\n${C_PURPLE}[yum] ${C_GREEN}Creating directories for dev...${C_RESTORE}\n"
   mkdir -p ~/dev
-  mkdir -p ~/.local
+  mkdir -p ~/.local/bin
 
   # The Silver Searcher (ag)
   if ! hash ag 2>/dev/null; then
@@ -33,54 +33,68 @@ if hash yum 2>/dev/null; then
     cd -
   fi
 
-  ## Install Python with pyenv (needed to compile vim)
-  if hash pyenv 2>/dev/null; then
-    printf "\n${C_PURPLE}[yum] ${C_GREEN}Installing Python to compile Vim...${C_RESTORE}\n"
-    cd $(pyenv root)
-    git pull
-    pyenv install --skip-existing 2.7.16
-    pyenv install --skip-existing 3.7.4
-    pyenv global 3.7.4 2.7.16
-    pyenv rehash
+  # Neovim
+  if ! hash nvim 2>/dev/null; then
+    printf "\n${C_PURPLE}[nvim] ${C_GREEN}Installing Neovim...${C_RESTORE}\n"
+
+    mkdir -p ~/.nvim
+    cd ~/.nvim
+
+    wget https://github.com/neovim/neovim/releases/download/v0.5.0/nvim.appimage
+    chmod u+x nvim.appimage
+    ./nvim.appimage --appimage-extract
+    ln -s ~/.nvim/squashfs-root/usr/bin/nvim ~/.local/bin/nvim
   fi
 
-  printf "\n${C_PURPLE}[yum] ${C_GREEN}Installing pip...${C_RESTORE}\n"
-  easy_install --user pip
+
+  ## Install Python with pyenv (needed to compile vim)
+  #if hash pyenv 2>/dev/null; then
+    #printf "\n${C_PURPLE}[yum] ${C_GREEN}Installing Python to compile Vim...${C_RESTORE}\n"
+    #cd $(pyenv root)
+    #git pull
+    #pyenv install --skip-existing 2.7.16
+    #pyenv install --skip-existing 3.7.4
+    #pyenv global 3.7.4 2.7.16
+    #pyenv rehash
+  #fi
+
+  #printf "\n${C_PURPLE}[yum] ${C_GREEN}Installing pip...${C_RESTORE}\n"
+  #easy_install --user pip
 
   # Compile more recent vim
-  cd ~/dev
-  if [ ! -d vim ]; then
-    printf "\n${C_PURPLE}[yum] ${C_GREEN}Clonning Vim...${C_RESTORE}\n"
-    git clone https://github.com/vim/vim.git
-  fi
-  printf "\n${C_PURPLE}[yum] ${C_GREEN}Updating Vim...${C_RESTORE}\n"
-  cd vim
-  git pull
-  printf "\n${C_PURPLE}[yum] ${C_GREEN}Cleaning old Vim build files...${C_RESTORE}\n"
-  rm auto/config.log 2>/dev/null
-  make distclean
-  printf "\n${C_PURPLE}[yum] ${C_GREEN}Configuring Vim...${C_RESTORE}\n"
-  ./configure --with-features=huge \
-            --enable-multibyte \
-            --enable-rubyinterp \
-            --enable-pythoninterp \
-            --enable-perlinterp \
-            --enable-luainterp \
-            --enable-gui=auto \
-            --enable-gui=gtk2 \
-            --enable-gtk2-check \
-            --enable-gnome-check \
-            --enable-cscope \
-            --prefix=$HOME/.local
-  if [ $? -eq 0 ]; then
-    printf "\n${C_PURPLE}[yum] ${C_GREEN}Making Vim...${C_RESTORE}\n"
-    make -j8
-  fi
-  if [ $? -eq 0 ]; then
-    printf "\n${C_PURPLE}[yum] ${C_GREEN}Installing Vim...${C_RESTORE}\n"
-    make install
-  fi
-  if [ $? -eq 0 ]; then
-    printf "\n${C_PURPLE}[yum] ${C_GREEN}Vim installed!${C_RESTORE}\n"
-  fi
+  #cd ~/dev
+  #if [ ! -d vim ]; then
+    #printf "\n${C_PURPLE}[yum] ${C_GREEN}Clonning Vim...${C_RESTORE}\n"
+    #git clone https://github.com/vim/vim.git
+  #fi
+  #printf "\n${C_PURPLE}[yum] ${C_GREEN}Updating Vim...${C_RESTORE}\n"
+  #cd vim
+  #git pull
+  #printf "\n${C_PURPLE}[yum] ${C_GREEN}Cleaning old Vim build files...${C_RESTORE}\n"
+  #rm auto/config.log 2>/dev/null
+  #make distclean
+  #printf "\n${C_PURPLE}[yum] ${C_GREEN}Configuring Vim...${C_RESTORE}\n"
+  #./configure --with-features=huge \
+            #--enable-multibyte \
+            #--enable-rubyinterp \
+            #--enable-pythoninterp \
+            #--enable-perlinterp \
+            #--enable-luainterp \
+            #--enable-gui=auto \
+            #--enable-gui=gtk2 \
+            #--enable-gtk2-check \
+            #--enable-gnome-check \
+            #--enable-cscope \
+            #--prefix=$HOME/.local
+  #if [ $? -eq 0 ]; then
+    #printf "\n${C_PURPLE}[yum] ${C_GREEN}Making Vim...${C_RESTORE}\n"
+    #make -j8
+  #fi
+  #if [ $? -eq 0 ]; then
+    #printf "\n${C_PURPLE}[yum] ${C_GREEN}Installing Vim...${C_RESTORE}\n"
+    #make install
+  #fi
+  #if [ $? -eq 0 ]; then
+    #printf "\n${C_PURPLE}[yum] ${C_GREEN}Vim installed!${C_RESTORE}\n"
+  #fi
 fi
