@@ -78,7 +78,7 @@ nmap <leader>l :redraw!<CR>:syntax sync fromstart<CR>
 nmap <leader>e :e<CR>
 nmap <leader>E :e!<CR>
 nmap <leader>3 :windo e!<CR>
-nmap <leader>p :set paste!<CR>
+nmap <leader>P :set paste!<CR>
 
 " Make ctrl+c behave as ESC and also trigger InsertLeave. Trying to get used
 " to it because of the annoying Macbook touchbar
@@ -230,8 +230,10 @@ Plug 'airblade/vim-rooter'
 " LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
+Plug 'onsails/lspkind-nvim'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'simrat39/symbols-outline.nvim'
+Plug 'folke/trouble.nvim'
 
 if !empty(glob('$OH_MY_GIL_SH/custom/.vimrc'))
   so $OH_MY_GIL_SH/custom/.vimrc
@@ -285,6 +287,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*\.test\.ts$'] = 'ﮒ'
 " fzf
 map <C-p> :Files<CR>
 map <leader>o :History<CR>
+map <leader>p :Buffers<CR>
 "map <C-p> :call fzf#run({ 'source' : 'ag --hidden --ignore .git -g ""' })<CR>
 
 " ack.vim
@@ -314,6 +317,10 @@ let g:mta_filetypes = {
 
 " CSScomb
 let g:CSScombArguments = '--config ~/.csscomb.json'
+
+" vim-windowswap
+let g:windowswap_map_keys = 0 "prevent default bindings
+nnoremap <silent> <leader>ww :call WindowSwap#EasyWindowSwap()<CR>
 
 " EasyMotion
 let g:EasyMotion_do_mapping = 0
@@ -355,10 +362,21 @@ command! NoteSync VimuxRunCommand("cd " . g:vim_notes_repo_path . " && glr && gi
 let g:rooter_patterns = ['package.json', '=node_modules', '.git']
 let g:rooter_silent_chdir = 1
 
+" vim-floaterm
+nmap <leader>tt :FloatermToggle<CR>
+nmap <leader>tN :FloatermNew<CR>
+nmap <leader>tn :FloatermNext<CR>
+nmap <leader>tp :FloatermPrev<CR>
+
+" trouble.nvim
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+
 " LSP
 
 lua << EOF
-require "lsp_signature".setup()
+require"lsp_signature".setup()
+require"lspkind".init()
+require"trouble".setup {}
 
 vim.o.completeopt = "menuone,noselect"
 
@@ -411,8 +429,8 @@ end
 _G.tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t "<C-n>"
-  elseif vim.fn['vsnip#available'](1) == 1 then
-    return t "<Plug>(vsnip-expand-or-jump)"
+  --elseif vim.fn['vsnip#available'](1) == 1 then
+    --return t "<Plug>(vsnip-expand-or-jump)"
   elseif check_back_space() then
     return t "<Tab>"
   else
@@ -422,8 +440,8 @@ end
 _G.s_tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t "<C-p>"
-  elseif vim.fn['vsnip#jumpable'](-1) == 1 then
-    return t "<Plug>(vsnip-jump-prev)"
+  --elseif vim.fn['vsnip#jumpable'](-1) == 1 then
+    --return t "<Plug>(vsnip-jump-prev)"
   else
     -- If <S-Tab> is not working in your terminal, change it to <C-h>
     return t "<S-Tab>"
@@ -476,16 +494,21 @@ local eslint = {
 }
 
 require'lspconfig'.efm.setup {
-  init_options = { documentFormatting = false },
+  init_options = {
+    documentFormatting = false,
+    lintDebounce = 1000000000,
+  },
   filetypes = { "javascript", "vue" },
   settings = {
-    rootMarkers = { ".git/" },
+    rootMarkers = { "package.json", "node_modules/", ".git/" },
     languages = {
       javascript = { eslint },
       vue = { eslint },
     },
   }
 }
+
+-- require'lspconfig'.perlls.setup{}
 EOF
 
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
