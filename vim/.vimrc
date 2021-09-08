@@ -225,6 +225,7 @@ Plug 'ryanoasis/vim-devicons', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'sjl/gundo.vim', { 'on': ['GundoToggle'] }
 "Plug 'leafgarland/typescript-vim'
 "Plug 'HerringtonDarkholme/yats.vim'
+Plug 'rrethy/vim-illuminate'
 Plug 'voldikss/vim-floaterm'
 Plug 'airblade/vim-rooter'
 
@@ -348,6 +349,13 @@ set background=dark
 "let g:hybrid_custom_term_colors = 1
 "colorscheme hybrid
 colorscheme gruvbox
+
+" vim-illuminate
+ hi illuminatedWord cterm=underline gui=underline
+augroup illuminate_augroup
+  autocmd!
+  autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
+augroup END
 
 " spell check
 set spellfile=$HOME/.vim/spell/en.utf-8.add
