@@ -178,6 +178,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeCWD', 'NERDTreeFind'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' ", { 'on': ['FZF', 'History'] }
@@ -185,7 +186,7 @@ Plug 'vim-airline/vim-airline'
 Plug '$OH_MY_GIL_SH/scripts/themes/base16-themes', { 'rtp': 'output/base16-vim-airline' }
 Plug 'edkolev/tmuxline.vim'
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+"Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
 "Plug 'MarcWeber/vim-addon-mw-utils' " for vim-snipmate
@@ -197,7 +198,7 @@ Plug 'honza/vim-snippets'
 "Plug 'tpope/vim-dispatch'
 "Plug 'tpope/vim-sleuth'
 "Plug 'ciaranm/detectindent'
-Plug 'othree/html5.vim'
+"Plug 'othree/html5.vim'
 Plug 'valloric/MatchTagAlways'
 Plug 'tpope/vim-fugitive', { 'on': ['Gblame', 'GV'] }
 Plug 'junegunn/gv.vim', { 'on': 'GV' }
@@ -212,7 +213,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'gil/vim-csscomb', { 'on': 'CSScomb' }
 Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'posva/vim-vue', { 'for': 'vue' }
+"Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'easymotion/vim-easymotion'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
