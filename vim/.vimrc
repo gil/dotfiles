@@ -61,6 +61,7 @@ endif
 inoremap jj <Esc>
 "let mapleader = "\<Space>"
 let mapleader = ","
+nmap <Space> ,
 map <C-n> :NERDTreeCWD<CR>
 nmap <leader>nf :NERDTreeFind<CR>
 nmap <leader>h :noh<CR>
@@ -200,7 +201,7 @@ Plug 'honza/vim-snippets'
 "Plug 'ciaranm/detectindent'
 "Plug 'othree/html5.vim'
 Plug 'valloric/MatchTagAlways'
-Plug 'tpope/vim-fugitive', { 'on': ['Gblame', 'GV'] }
+Plug 'tpope/vim-fugitive', { 'on': ['Git', 'GV'] }
 Plug 'junegunn/gv.vim', { 'on': 'GV' }
 Plug 'airblade/vim-gitgutter'
 "Plug 'altercation/vim-colors-solarized'
@@ -222,6 +223,7 @@ Plug 'xolox/vim-session'
 Plug 'wesq3/vim-windowswap'
 Plug 'ryanoasis/vim-devicons', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 "Plug 'ap/vim-css-color', { 'for': 'css' }
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'sjl/gundo.vim', { 'on': ['GundoToggle'] }
 "Plug 'leafgarland/typescript-vim'
 "Plug 'HerringtonDarkholme/yats.vim'
@@ -360,6 +362,9 @@ augroup END
 " spell check
 set spellfile=$HOME/.vim/spell/en.utf-8.add
 set complete+=kspell
+
+" nvim-colorizer.lua
+lua require'colorizer'.setup()
 
 " Note taking
 " For now, we need: npm install --global slugify-cli
