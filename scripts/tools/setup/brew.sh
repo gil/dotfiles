@@ -119,6 +119,7 @@ if hash brew 2>/dev/null; then
 
       for package in handbrake \
         makemkv \
+        calibre \
         jdownloader; do
           _caskInstallOrUpdate $package
       done
