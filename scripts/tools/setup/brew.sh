@@ -14,10 +14,10 @@ function _brewInstallOrUpdate {
     printf "\n${C_PURPLE}[Brew] ${C_GREEN}Checking for package \"$1\"...${C_RESTORE}\n"
     if brew ls --versions "$1" >/dev/null; then
         printf "${C_PURPLE}[Brew] ${C_BLUE}Package \"$1\" found! Upgrading...${C_RESTORE}\n"
-        HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade "$1"
+        brew upgrade "$1"
     else
         printf "${C_PURPLE}[Brew] ${C_BLUE}Package \"$1\" not found! Installing...${C_RESTORE}\n"
-        HOMEBREW_NO_AUTO_UPDATE=1 brew install "$@"
+        brew install "$@"
     fi
 }
 
@@ -25,10 +25,10 @@ function _caskInstallOrUpdate {
     printf "\n${C_PURPLE}[Cask] ${C_GREEN}Checking for package \"$1\"...${C_RESTORE}\n"
     if brew ls --cask --versions "$1" >/dev/null; then
         printf "${C_PURPLE}[Cask] ${C_BLUE}Package \"$1\" found! Upgrading...${C_RESTORE}\n"
-        HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade --cask "$1"
+        brew upgrade --cask "$1"
     else
         printf "${C_PURPLE}[Cask] ${C_BLUE}Package \"$1\" not found! Installing...${C_RESTORE}\n"
-        HOMEBREW_NO_AUTO_UPDATE=1 brew install --cask "$@"
+        brew install --cask "$@"
     fi
 }
 
