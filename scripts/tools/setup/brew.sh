@@ -80,6 +80,7 @@ if hash brew 2>/dev/null; then
       rga \
       jq \
       efm-langserver \
+      uptech/oss/alt \
       cmake; do
         _brewInstallOrUpdate $package
     done
