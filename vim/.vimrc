@@ -537,3 +537,5 @@ nnoremap <silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
 "nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> <C-]> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 nnoremap <silent> <C-[> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+
+nnoremap <silent> <leader>ga <cmd>call fzf#run(fzf#wrap({'source': 'alt ' . expand('%@'), 'sink': 'split'}))<CR>
