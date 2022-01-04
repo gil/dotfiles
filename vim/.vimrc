@@ -189,7 +189,9 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }
 "Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdcommenter'
+Plug 'Shougo/context_filetype.vim' " required by caw.vim to support multiple filetypes in a single file
+Plug 'tyru/caw.vim'
+"Plug 'scrooloose/nerdcommenter'
 "Plug 'MarcWeber/vim-addon-mw-utils' " for vim-snipmate
 "Plug 'tomtom/tlib_vim' " for vim-snipmate
 "Plug 'garbas/vim-snipmate'
@@ -304,6 +306,10 @@ endif
 " Keep the trailing space bellow
 map <leader>a :Ack!  <C-R>=expand('%:h')<CR><C-Left><Left>
 map <leader>A :Ack!  <C-R>=fnamemodify(findfile('package.json', expand('%:p:h').';'), ':p:h')<CR><C-Left><Left>
+
+" caw.vim
+nmap <Leader>c <Plug>(caw:prefix)
+xmap <Leader>c <Plug>(caw:prefix)
 
 " MatchTagAlways
 let g:mta_filetypes = {
