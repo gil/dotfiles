@@ -33,12 +33,14 @@ export NVM_DIR="$HOME/.nvm"
 ## Install latest NodeJS with NVM
 #####
 
+NODE_VERSION="node"
+
 if which nvm 2>&1 >/dev/null; then
 
-    printf "\n${C_PURPLE}[NVM] ${C_GREEN}Installing latest node...${C_RESTORE}\n"
-    nvm install node
-    nvm use node
-    nvm alias default node
+    printf "\n${C_PURPLE}[NVM] ${C_GREEN}Installing $NODE_VERSION...${C_RESTORE}\n"
+    nvm install $NODE_VERSION
+    nvm use $NODE_VERSION
+    nvm alias default $NODE_VERSION
 
     printf "\n${C_PURPLE}[NVM] ${C_GREEN}Installing latest NPM for this version...${C_RESTORE}\n"
     nvm install-latest-npm
