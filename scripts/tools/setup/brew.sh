@@ -114,6 +114,7 @@ if hash brew 2>/dev/null; then
     vared -p 'Would you like to install/update not work-related formulas? [y/n]' -c REPLY1
     if [[ $REPLY1 =~ ^[Yy]$ ]]; then
       for package in handbrake \
+        yt-dlp \
         youtube-dl; do
           _brewInstallOrUpdate $package
       done

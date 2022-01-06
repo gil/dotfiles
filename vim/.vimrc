@@ -487,6 +487,7 @@ vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm('<CR>')", {expr = true})
 --}
 
 -- Languages
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 
 require'lspconfig'.tsserver.setup{
 --  capabilities = capabilities,
@@ -530,6 +531,8 @@ require'lspconfig'.efm.setup {
     },
   }
 }
+
+require'lspconfig'.tailwindcss.setup{}
 
 -- require'lspconfig'.perlls.setup{}
 EOF

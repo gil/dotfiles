@@ -72,6 +72,7 @@ if hash yarn 2>/dev/null; then
       http-server \
       typescript \
       typescript-language-server \
+      @tailwindcss/language-server \
       vls \
       neovim \
       slugify-cli \
