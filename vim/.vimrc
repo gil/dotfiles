@@ -202,7 +202,8 @@ Plug 'honza/vim-snippets'
 "Plug 'tpope/vim-sleuth'
 "Plug 'ciaranm/detectindent'
 "Plug 'othree/html5.vim'
-Plug 'valloric/MatchTagAlways'
+" Plug 'valloric/MatchTagAlways'
+Plug 'andymass/vim-matchup'
 Plug 'tpope/vim-fugitive', { 'on': ['Git', 'GV'] }
 Plug 'junegunn/gv.vim', { 'on': 'GV' }
 Plug 'airblade/vim-gitgutter'
@@ -267,6 +268,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#parts#ffenc#skip_expected_string = '[unix]'
+let g:airline_highlighting_cache = 1 " enable cache to try to speed things up a bit
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_splits = 0
