@@ -2,7 +2,7 @@ function ytdl {
     # --external-downloader aria2c \
     # --external-downloader-args "-c -j 4 -x 4 -s 4 -k 5M --file-allocation=none" \
 
-    youtube-dl \
+    yt-dlp \
         --download-archive "youtube-dl-archive.log" \
         --ignore-errors \
         --add-metadata \
