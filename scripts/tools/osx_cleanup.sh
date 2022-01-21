@@ -26,6 +26,21 @@ echo "Cleaning iTunes iPhone/iPad updates..."
 sudo rm -rfv ~/Library/iTunes/iPhone\ Software\ Updates &>/dev/null
 sudo rm -rfv ~/Library/iTunes/iPad\ Software\ Updates &>/dev/null
 
+echo "Cleaning Xcode simulator data..."
+xcrun simctl delete unavailable
+
+echo "Cleaning Xcode derived data..."
+sudo rm -rfv ~/Library/Developer/Xcode/DerivedData &>/dev/null
+
+echo "Cleaning Android Studio cache..."
+sudo rm -rfv ~/.android/build-cache &>/dev/null
+sudo rm -rfv ~/.android/cache &>/dev/null
+
+echo "Cleaning Gradle..."
+sudo rm -rfv ~/.gradle/caches &>/dev/null
+sudo rm -rfv ~/.gradle/daemon &>/dev/null
+sudo rm -rfv ~/.gradle/wrapper &>/dev/null
+
 echo "Cleaning Homebrew Cache..."
 brew cleanup -s &>/dev/null
 sudo rm -rfv /Library/Caches/Homebrew/* &>/dev/null
@@ -37,6 +52,9 @@ gem cleanup &>/dev/null
 echo "Cleaning NPM cache..."
 npm cache clean &>/dev/null
 
+echo "Cleaning Yarn cache..."
+yarn cache clean &>/dev/null
+
 echo "Cleaning system cache..."
 sudo rm -rfv ~/Library/Caches/* &>/dev/null
 sudo rm -rfv /Library/Caches/* &>/dev/null
@@ -47,8 +65,11 @@ docker info &>/dev/null
 
 if [ $? -eq 0 ]; then
     echo "Cleaning old Docker container/images (spotify/docker-gc)..."
-    docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /etc:/etc:ro spotify/docker-gc
+    docker image prune
 fi
+
+echo "Searching for old node_modules that can be deleted..."
+npx npkill --directory ~/dev
 
 echo "Running periodic jobs..."
 sudo periodic daily weekly monthly
@@ -56,11 +77,11 @@ sudo periodic daily weekly monthly
 echo "Purge inactive memory..."
 sudo purge
 
-if [ ! -d /Applications/OmniDiskSweeper.app ]; then
-    echo "Installing OmniDiskSweeper..."
-    brew cask uninstall omnidisksweeper &> /dev/null
-    brew cask install omnidisksweeper
-fi
+# if [ ! -d /Applications/OmniDiskSweeper.app ]; then
+#     echo "Installing OmniDiskSweeper..."
+#     brew cask uninstall omnidisksweeper &> /dev/null
+#     brew cask install omnidisksweeper
+# fi
 
 echo "Success!"
 
@@ -68,5 +89,10 @@ newAvailable=$(df -h / | tail -1 | awk '{print $4}')
 
 echo "Previous space available: $oldAvailable"
 echo "New space available: $newAvailable"
+echo
+echo Press any key to scan for big files...
+read
 
-open -a OmniDiskSweeper
+sudo ncdu -rx --exclude-firmlinks /
+
+# open -a OmniDiskSweeper
