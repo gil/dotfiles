@@ -80,6 +80,9 @@ nmap <leader>e :e<CR>
 nmap <leader>E :e!<CR>
 nmap <leader>3 :windo e!<CR>
 nmap <leader>P :set paste!<CR>
+nmap <leader>d :bd<CR>
+nmap <leader>z :setlocal foldmethod=syntax<CR>
+nmap <leader>Z :setlocal foldmethod=manual<CR>zE<CR>
 
 " Make ctrl+c behave as ESC and also trigger InsertLeave. Trying to get used
 " to it because of the annoying Macbook touchbar
