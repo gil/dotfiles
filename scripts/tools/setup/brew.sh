@@ -44,6 +44,8 @@ if hash brew 2>/dev/null; then
 
     # General tools
     for package in tmux \
+      bash \
+      zsh \
       wget \
       curl \
       figlet \
