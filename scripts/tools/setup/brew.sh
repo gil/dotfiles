@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 if ! hash brew 2>/dev/null; then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 if ! xcode-select -p 1>/dev/null; then
