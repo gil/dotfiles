@@ -1,3 +1,6 @@
 .DS_Store
 oh-my-zsh/
 custom/
+node_modules/
+package-lock.json
+package.json
