@@ -4,15 +4,19 @@ if [ -f ~/.nvm/nvm.sh ]; then
     ###
 
     declare -a NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
+    NODE_GLOBALS+=(`find ~/.yarn/bin -maxdepth 1 -type l -wholename '*' | xargs -n1 basename | sort | uniq`)
 
     NODE_GLOBALS+=("node")
     NODE_GLOBALS+=("nvm")
+    NODE_GLOBALS+=("vim")
+    NODE_GLOBALS+=("nvim")
     #NODE_GLOBALS+=("yarn")
 
     load_nvm () {
         export NVM_DIR=~/.nvm
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
         [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+        export PATH="$PATH:$(yarn global bin)"
     }
 
     for cmd in "${NODE_GLOBALS[@]}"; do
