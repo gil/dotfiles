@@ -8,7 +8,7 @@ fi
 
 # Force loading for now
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 eval "$(pyenv init -)"
 
 # Update pyenv
@@ -22,13 +22,13 @@ pyenv global 3.9.6 2.7.18
 
 # Upgrade pip
 pip install --upgrade pip
-pip2.7 install --upgrade pip
+pip2 install --upgrade pip
 
 # Install packages
-pip install    pudb neovim
-pip2.7 install pudb neovim
+pip install pudb neovim
+pip2 install pudb neovim
 
 if [[ $OSTYPE == darwin* ]]; then
-  pip install    pyobjc-framework-Quartz
-  pip2.7 install pyobjc-framework-Quartz
+  pip install pyobjc-framework-Quartz
+  pip2 install pyobjc-framework-Quartz
 fi
