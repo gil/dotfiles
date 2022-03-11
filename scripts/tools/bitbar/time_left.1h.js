@@ -1,4 +1,4 @@
-#!/usr/bin/env /usr/local/bin/node
+#!/usr/bin/env node
 //
 //  <xbar.title>Time Left</xbar.title>
 //  <xbar.version>v1.0</xbar.version>

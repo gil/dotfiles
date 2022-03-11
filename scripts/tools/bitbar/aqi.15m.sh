@@ -14,6 +14,7 @@
 
 # TODO: Find a way of resolving $OH_MY_GIL_SH, so maybe this is not even needed
 source ~/.dotfiles/custom/.zshrc # To read $AQI_TOKEN
+PATH=/usr/local/bin:/opt/homebrew/bin:$PATH
 
 COLORS=("#0ed812" "#ffde33" "#ff9933" "#cc0033" "#660099" "#7e0023" "#404040")
 
@@ -25,7 +26,7 @@ URL="http://aqicn.org/city/${CITY}/"
 DATA=$(curl -s http://api.waqi.info/feed/${CITY}/?token=${AQI_TOKEN})
 
 # how to install jq -> https://stedolan.github.io/jq/download/
-AQI=$(echo "${DATA}" | /usr/local/bin/jq '.data.aqi' | sed -e "s/\"//g")
+AQI=$(echo "${DATA}" | jq '.data.aqi' | sed -e "s/\"//g")
 
 function colorize {
   if [ "$AQI" = "-" ]; then

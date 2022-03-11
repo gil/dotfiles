@@ -14,11 +14,7 @@
 # only gather stats from interface en0
 # no need to samlpe unused interfaces
 INTERFACE="en0"
-
-if [ ! -e /usr/local/bin/ifstat ]; then
-    echo "Please install ifstat or change the path to it in the script."
-    exit 1
-fi
+PATH=/usr/local/bin:/opt/homebrew/bin:$PATH
 
 function kilo_to_mega {
   # in networking 1 mbit is 1000 kilobits (not 1024)
@@ -29,7 +25,7 @@ function get_ifstat {
     interface=$1
     # 1 sample for 0.5 second interval
     # outputs two values (in/out) in kilobits per second
-    /usr/local/bin/ifstat -n -w -i "${interface}" -b 0.5 1 | tail -n 1
+    ifstat -n -w -i "${interface}" -b 0.5 1 | tail -n 1
 }
 
 function print_ifstat {
