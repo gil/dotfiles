@@ -110,6 +110,7 @@ if hash brew 2>/dev/null; then
       xbar \
       oracle-jdk \
       balance-lock \
+      dozer \
       vlc; do
         _caskInstallOrUpdate $package
     done
