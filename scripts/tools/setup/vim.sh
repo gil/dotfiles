@@ -14,7 +14,7 @@ _symlinkIfNeeded ~/.config/nvim/init.vim $OH_MY_GIL_SH/vim/init.vim
 _symlinkIfNeeded ~/.config/nvim/coc-settings.json $OH_MY_GIL_SH/vim/coc-settings.json
 
 printf "${C_BLUE}Installing Vim plugins...${C_RESTORE}\n"
-vim +PlugInstall +qall
+nvim +PlugInstall +qall # TODO: Fallback for vim?
 
 ### TMUX ###
 
