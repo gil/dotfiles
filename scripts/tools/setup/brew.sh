@@ -65,6 +65,7 @@ if hash brew 2>/dev/null; then
       ifstat \
       osx-cpu-temp \
       karabiner-elements \
+      rsync \
       htop; do
         _brewInstallOrUpdate $package
     done
