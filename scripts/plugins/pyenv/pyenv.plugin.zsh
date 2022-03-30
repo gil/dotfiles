@@ -1,3 +1,5 @@
+ZSH_PYENV_QUIET=true
+
 pyenv_config_warning() {
   [[ "$ZSH_PYENV_QUIET" != true ]] || return 0
 
@@ -57,7 +59,7 @@ if [[ $FOUND_PYENV -ne 1 ]]; then
     eval "$(pyenv init --path)"
 
     # Show warning due to bad pyenv configuration
-    # pyenv_config_warning 'pyenv command not found in $PATH'
+    pyenv_config_warning 'pyenv command not found in $PATH'
   fi
 fi
 
@@ -71,7 +73,7 @@ if [[ $FOUND_PYENV -eq 1 ]]; then
   # Add pyenv shims to $PATH if not already added
   if [[ -z "${path[(Re)$(pyenv root)/shims]}" ]]; then
     eval "$(pyenv init --path)"
-    # pyenv_config_warning 'missing pyenv shims in $PATH'
+    pyenv_config_warning 'missing pyenv shims in $PATH'
   fi
 
   # Load pyenv
