@@ -4,7 +4,10 @@ if [ -f ~/.nvm/nvm.sh ]; then
     ###
 
     declare -a NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
-    NODE_GLOBALS+=(`find ~/.yarn/bin -maxdepth 1 -type l -wholename '*' | xargs -n1 basename | sort | uniq`)
+
+    if [ -d ~/.yarn/bin ]; then
+        NODE_GLOBALS+=(`find ~/.yarn/bin -maxdepth 1 -type l -wholename '*' | xargs -n1 basename | sort | uniq`)
+    fi
 
     NODE_GLOBALS+=("node")
     NODE_GLOBALS+=("nvm")
