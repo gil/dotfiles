@@ -392,6 +392,8 @@ nmap <leader>tt :FloatermToggle<CR>
 nmap <leader>tN :FloatermNew<CR>
 nmap <leader>tn :FloatermNext<CR>
 nmap <leader>tp :FloatermPrev<CR>
+let g:floaterm_width = 0.9
+let g:floaterm_height = 0.9
 
 " trouble.nvim
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
