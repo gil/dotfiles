@@ -103,7 +103,7 @@ if hash brew 2>/dev/null; then
 
     # Cask
     for package in xquartz \
-      spectacle \
+      rectangle \
       imageoptim \
       iterm2 \
       keka \
