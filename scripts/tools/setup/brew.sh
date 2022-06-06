@@ -52,7 +52,6 @@ if hash brew 2>/dev/null; then
       fpp \
       fdupes \
       ncdu \
-      mosh \
       clipper \
       reattach-to-user-namespace \
       socat \
@@ -64,7 +63,7 @@ if hash brew 2>/dev/null; then
       fd \
       ifstat \
       osx-cpu-temp \
-      karabiner-elements \
+      cheat \
       rsync \
       htop; do
         _brewInstallOrUpdate $package
@@ -112,6 +111,7 @@ if hash brew 2>/dev/null; then
       oracle-jdk \
       balance-lock \
       dozer \
+      karabiner-elements \
       vlc; do
         _caskInstallOrUpdate $package
     done
