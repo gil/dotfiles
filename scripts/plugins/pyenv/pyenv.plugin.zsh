@@ -1,5 +1,12 @@
 ZSH_PYENV_QUIET=true
 
+if [ "$PYENV_SCRIPT_RAN" -eq "1" ]; then
+  return 0 2> /dev/null || exit 0
+fi
+export PYENV_SCRIPT_RAN=1
+
+## original stuff below
+
 pyenv_config_warning() {
   [[ "$ZSH_PYENV_QUIET" != true ]] || return 0
 
@@ -91,7 +98,7 @@ if [[ $FOUND_PYENV -eq 1 ]]; then
 else
   # Fall back to system python
   function pyenv_prompt_info() {
-    local version="$(python -V 2>&1 | cut -d' ' -f2)"
+    local version="$(python3 -V 2>&1 | cut -d' ' -f2)"
     echo "system: ${version:gs/%/%%}"
   }
 fi

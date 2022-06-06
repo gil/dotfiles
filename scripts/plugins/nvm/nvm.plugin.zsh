@@ -1,7 +1,8 @@
-if [ -f ~/.nvm/nvm.sh ]; then
+if [ -f ~/.nvm/nvm.sh ] && [ "$NVM_LAZY_ALIAS_SET" -ne "1" ]; then
     ##
     # This will try to lazy load NVM only when needed, since initializing it could be slow
     ###
+    export NVM_LAZY_ALIAS_SET=1
 
     declare -a NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
 
