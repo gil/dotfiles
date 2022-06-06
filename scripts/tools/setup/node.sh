@@ -33,7 +33,7 @@ export NVM_DIR="$HOME/.nvm"
 ## Install latest NodeJS with NVM
 #####
 
-NODE_VERSION="node"
+NODE_VERSION="lts/*"
 
 if which nvm 2>&1 >/dev/null; then
 
