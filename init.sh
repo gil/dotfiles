@@ -76,7 +76,7 @@ if [ -z "$OH_MY_GIL_SH_OLD_PATH" ]; then
     export OH_MY_GIL_SH_OLD_PATH="$PATH"
 fi
 
-export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$OH_MY_GIL_SH/bin:$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 if [ -z "$OH_MY_GIL_SH_PATH_APPENDED" ]; then
@@ -119,10 +119,6 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
 if [[ $OSTYPE == darwin* ]]; then
   ulimit -n 10240
 fi
-
-alias setup_dotfiles="sh $OH_MY_GIL_SH/scripts/tools/setup/menu.sh && refresh_dotfiles"
-alias upgrade_dotfiles="sh $OH_MY_GIL_SH/scripts/tools/upgrade-dotfiles.sh && source ~/.zshrc"
-alias refresh_dotfiles="source ~/.zshrc"
 
 alias dev_chrome="open -n -a \"Google Chrome\" --args --profile-directory=\"Debug Profile\""
 alias simple_server="python -m SimpleHTTPServer 8080"

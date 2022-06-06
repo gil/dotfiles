@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+printf "${C_BLUE}Refreshing dotfiles...${C_RESTORE}\n"
+source ~/.zshrc

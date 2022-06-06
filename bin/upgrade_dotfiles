@@ -18,3 +18,4 @@ if hash bat 2>/dev/null; then
 fi
 
 printf "\n${C_BLUE}Done!${C_RESTORE}\n"
+$OH_MY_GIL_SH/bin/refresh_dotfiles
