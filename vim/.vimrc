@@ -297,8 +297,8 @@ let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*\.test\.ts$'] = 'ﮒ'
 
 " fzf
 map <C-p> :Files<CR>
-map <leader>o :History<CR>
-map <leader>p :Buffers<CR>
+map <leader>p :History<CR>
+map <leader>o :Buffers<CR>
 "map <C-p> :call fzf#run({ 'source' : 'ag --hidden --ignore .git -g ""' })<CR>
 
 " ack.vim
@@ -388,7 +388,16 @@ let g:rooter_patterns = ['package.json', '=node_modules', '.git']
 let g:rooter_silent_chdir = 1
 
 " vim-floaterm
-nmap <leader>tt :FloatermToggle<CR>
+function! QuickTerm()
+  try
+    buffer term\:\/\/
+  catch /^Vim\%((\a\+)\)\=:E94/
+    term
+  endtry
+endfunction
+
+" nmap <leader>tt :FloatermToggle<CR>
+nmap <leader>tt <cmd>call QuickTerm()<CR>
 nmap <leader>tN :FloatermNew<CR>
 nmap <leader>tn :FloatermNext<CR>
 nmap <leader>tp :FloatermPrev<CR>
