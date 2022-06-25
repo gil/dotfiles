@@ -61,6 +61,7 @@ if hash brew 2>/dev/null; then
       poppler \
       ranger \
       fd \
+      p7zip \
       ifstat \
       osx-cpu-temp \
       cheat \
@@ -77,6 +78,7 @@ if hash brew 2>/dev/null; then
       node \
       pipenv \
       bat \
+      diff-so-fancy \
       ack \
       the_silver_searcher \
       ripgrep \
