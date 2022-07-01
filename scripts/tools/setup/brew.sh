@@ -86,6 +86,7 @@ if hash brew 2>/dev/null; then
       jq \
       efm-langserver \
       uptech/oss/alt \
+      watchman \
       cmake; do
         _brewInstallOrUpdate $package
     done
