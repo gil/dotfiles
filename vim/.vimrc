@@ -89,7 +89,8 @@ nmap <leader>Z :setlocal foldmethod=manual<CR>:set foldcolumn=0<CR>zE<CR>
 inoremap <C-c> <ESC>
 
 " Send last yank to Clipper
-nnoremap <leader>y :call system('nc localhost 8377', @0)<CR>
+" nnoremap <leader>y :call system('nc localhost 8377', @0)<CR>
+vnoremap <leader>y "+y
 
 " Some key maps to make it easier to work with legacy code
 nmap <leader><Space> :set ts=2 sw=2 expandtab<CR>
