@@ -74,6 +74,7 @@ if hash yarn 2>/dev/null; then
       typescript-language-server \
       @tailwindcss/language-server \
       vls \
+      vscode-langservers-extracted \
       neovim \
       slugify-cli \
       prettier

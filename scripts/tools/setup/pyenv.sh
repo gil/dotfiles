@@ -25,8 +25,8 @@ pip install --upgrade pip
 pip2 install --upgrade pip
 
 # Install packages
-pip install pudb neovim
-pip2 install pudb neovim
+pip install pudb neovim python-lsp-server
+pip2 install pudb neovim python-lsp-server
 
 if [[ $OSTYPE == darwin* ]]; then
   pip install pyobjc-framework-Quartz

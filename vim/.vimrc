@@ -547,6 +547,14 @@ require'lspconfig'.efm.setup {
   }
 }
 
+require'lspconfig'.pylsp.setup{}
+
+require'lspconfig'.html.setup{
+  filetypes = { "html", "htmldjango" },
+}
+
+require'lspconfig'.cssls.setup{}
+
 require'lspconfig'.tailwindcss.setup{}
 
 -- require'lspconfig'.perlls.setup{}
