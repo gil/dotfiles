@@ -491,8 +491,8 @@ vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm('<CR>')", {expr = true})
 
---local capabilities = vim.lsp.protocol.make_client_capabilities()
---capabilities.textDocument.completion.completionItem.snippetSupport = true
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 --capabilities.textDocument.completion.completionItem.resolveSupport = {
 --  properties = {
 --    'documentation',
@@ -551,9 +551,12 @@ require'lspconfig'.pylsp.setup{}
 
 require'lspconfig'.html.setup{
   filetypes = { "html", "htmldjango" },
+  capabilities = capabilities,
 }
 
-require'lspconfig'.cssls.setup{}
+require'lspconfig'.cssls.setup{
+  capabilities = capabilities,
+}
 
 require'lspconfig'.tailwindcss.setup{}
 
