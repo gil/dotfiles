@@ -228,7 +228,7 @@ Plug 'xolox/vim-session'
 "Plug 'terryma/vim-multiple-cursors'
 "Plug 'Valloric/YouCompleteMe', { 'do': 'git submodule sync --recursive && git -c fetch.fsckobjects=false -c transfer.fsckobjects=false -c receive.fsckobjects=false submodule update --init --recursive && ./install.py --ts-completer' }
 Plug 'wesq3/vim-windowswap'
-Plug 'ryanoasis/vim-devicons', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'ryanoasis/vim-devicons', { 'on': ['NERDTreeCWD', 'NERDTreeFind'] }
 "Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'sjl/gundo.vim', { 'on': ['GundoToggle'] }
@@ -295,6 +295,8 @@ endif
 let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {} " needed
 let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*\.test\.js$'] = 'ﮒ' " ﴫ'
 let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*\.test\.ts$'] = 'ﮒ' " ﴫ'
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*\.spec\.js$'] = 'ﮒ' " ﴫ'
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*\.spec\.ts$'] = 'ﮒ' " ﴫ'
 
 " fzf
 map <C-p> :Files<CR>
