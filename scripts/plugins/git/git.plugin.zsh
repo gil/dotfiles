@@ -75,7 +75,7 @@ alias gmt='git mergetool --no-prompt'
 alias gd='git diff --ignore-all-space --color-moved'
 alias gds='gd --staged'
 alias gff='git ls-files | grep -i'
-alias gm='git merge --no-ff'
+alias gme='git merge --no-ff'
 
 alias findorig="find . -name '*.orig'"
 alias deleteorig="find . -name '*.orig' -delete"
