@@ -409,6 +409,8 @@ let g:floaterm_height = 0.9
 
 " trouble.nvim
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>ff <cmd>!eslint_d --fix "%:p"<cr>
+nnoremap <leader>F <cmd>!eslint_d --cache --fix 'index*.js' './src/**/*.{js,vue}'<cr>
 
 " LSP
 
