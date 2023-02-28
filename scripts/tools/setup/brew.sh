@@ -116,6 +116,7 @@ if hash brew 2>/dev/null; then
       dozer \
       karabiner-elements \
       iina \
+      stats \
       vlc; do
         _caskInstallOrUpdate $package
     done
