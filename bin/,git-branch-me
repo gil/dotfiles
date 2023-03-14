@@ -5,5 +5,5 @@ _slugify() {
     echo "$1" | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z
 }
 
-BRANCH_NAME=$(_slugify "$(shuf -n1 ./branch-names)")
+BRANCH_NAME=$(_slugify "$(shuf -n1 $(dirname "$0")/branch-names)")
 git checkout -b "$BRANCH_NAME_PREFIX$BRANCH_NAME"
