@@ -4,3 +4,4 @@ custom/
 node_modules/
 package-lock.json
 package.json
+scripts/tools/setup/*.lock.json

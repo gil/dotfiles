@@ -4,139 +4,30 @@ if ! hash brew 2>/dev/null; then
 fi
 
 if ! xcode-select -p 1>/dev/null; then
-  xcode-select --install
-  echo
-  echo Please run this again after XCode installation is finished!
-  exit 0
+    xcode-select --install
+    echo
+    echo Please run this again after XCode installation is finished!
+    exit 0
 fi
 
-function _brewInstallOrUpdate {
-    printf "\n${C_PURPLE}[Brew] ${C_GREEN}Checking for package \"$1\"...${C_RESTORE}\n"
-    if brew ls --versions "$1" >/dev/null; then
-        printf "${C_PURPLE}[Brew] ${C_BLUE}Package \"$1\" found! Upgrading...${C_RESTORE}\n"
-        brew upgrade "$1"
-    else
-        printf "${C_PURPLE}[Brew] ${C_BLUE}Package \"$1\" not found! Installing...${C_RESTORE}\n"
-        brew install "$@"
-    fi
-}
-
-function _caskInstallOrUpdate {
-    printf "\n${C_PURPLE}[Cask] ${C_GREEN}Checking for package \"$1\"...${C_RESTORE}\n"
-    if brew ls --cask --versions "$1" >/dev/null; then
-        printf "${C_PURPLE}[Cask] ${C_BLUE}Package \"$1\" found! Upgrading...${C_RESTORE}\n"
-        brew upgrade --cask "$1"
-    else
-        printf "${C_PURPLE}[Cask] ${C_BLUE}Package \"$1\" not found! Installing...${C_RESTORE}\n"
-        brew install --cask "$@"
-    fi
-}
+if [ "$TERM_PROGRAM" = tmux ]; then
+    printf "\n${C_PURPLE}[Brew] ${C_RED}Please don't run from tmux and an upgrade may break it!${C_RESTORE}\n"
+    exit 1
+fi
 
 if hash brew 2>/dev/null; then
     printf "\n${C_PURPLE}[Brew] ${C_GREEN}Updating Homebrew...${C_RESTORE}\n"
-    # Repos
-    #brew tap homebrew/dupes
-    #brew tap homebrew/versions
-    #brew tap homebrew/homebrew-php
-
-    # Update formulas
     brew update
 
-    # General tools
-    for package in tmux \
-      bash \
-      zsh \
-      wget \
-      curl \
-      figlet \
-      fpp \
-      fdupes \
-      ncdu \
-      clipper \
-      reattach-to-user-namespace \
-      socat \
-      weechat \
-      aria2 \
-      pandoc \
-      poppler \
-      ranger \
-      fd \
-      p7zip \
-      ifstat \
-      osx-cpu-temp \
-      cheat \
-      rsync \
-      htop; do
-        _brewInstallOrUpdate $package
-    done
+    printf "\n${C_PURPLE}[Brew] ${C_GREEN}Installing and updating packages...${C_RESTORE}\n"
+    brew bundle --file=$OH_MY_GIL_SH/scripts/tools/setup/Brewfile
 
-    # Dev tools
-    for package in git \
-      vim \
-      neovim \
-      nginx \
-      node \
-      pipenv \
-      bat \
-      diff-so-fancy \
-      ack \
-      the_silver_searcher \
-      ripgrep \
-      rga \
-      jq \
-      efm-langserver \
-      uptech/oss/alt \
-      watchman \
-      cmake; do
-        _brewInstallOrUpdate $package
-    done
     git config --global credential.helper osxkeychain # Is there a btter place for this?
-
-    # Dependencies
-    for package in graphicsmagick \
-      ffmpeg \
-      lame \
-      atomicparsley \
-      moreutils \
-      libdvdcss \
-      openssh; do
-        _brewInstallOrUpdate $package
-    done
-
-    # Cask
-    for package in xquartz \
-      rectangle \
-      imageoptim \
-      iterm2 \
-      keka \
-      typora \
-      xbar \
-      oracle-jdk \
-      balance-lock \
-      dozer \
-      karabiner-elements \
-      iina \
-      stats \
-      shottr \
-      vlc; do
-        _caskInstallOrUpdate $package
-    done
 
     # Not work-related formulas
     vared -p 'Would you like to install/update not work-related formulas? [y/n]' -c REPLY1
     if [[ $REPLY1 =~ ^[Yy]$ ]]; then
-      for package in handbrake \
-        yt-dlp \
-        youtube-dl; do
-          _brewInstallOrUpdate $package
-      done
-
-      for package in handbrake \
-        makemkv \
-        calibre \
-        jdownloader; do
-          _caskInstallOrUpdate $package
-      done
+      brew bundle --file=$OH_MY_GIL_SH/scripts/tools/setup/Brewfile-nonwork
     fi
 
     vared -p 'Would you like to update all brew packages installed manualy as well? [y/n]' -c REPLY2

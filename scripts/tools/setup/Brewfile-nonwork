@@ -1,0 +1,13 @@
+brew "yt-dlp"
+brew "youtube-dl"
+brew "handbrake", link: false
+brew "ccd2iso"
+brew "mkvtoolnix"
+
+cask "handbrake"
+cask "makemkv"
+cask "calibre"
+cask "jdownloader"
+cask "openemu"
+cask "transmission"
+cask "yacreader"
