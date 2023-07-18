@@ -6,15 +6,11 @@ source $OH_MY_GIL_SH/scripts/utils.zsh
 
 _symlinkIfNeeded ~/.vimrc $OH_MY_GIL_SH/vim/.vimrc
 _createDirectoryIfNeeded ~/.vim/
-_symlinkIfNeeded ~/.vim/ftplugin $OH_MY_GIL_SH/vim/ftplugin/
-_symlinkIfNeeded ~/.vim/UltiSnips $OH_MY_GIL_SH/vim/UltiSnips/
-_symlinkIfNeeded ~/.vim/spell $OH_MY_GIL_SH/vim/spell/
+#_symlinkIfNeeded ~/.vim/ftplugin $OH_MY_GIL_SH/vim/ftplugin/
+#_symlinkIfNeeded ~/.vim/UltiSnips $OH_MY_GIL_SH/vim/UltiSnips/
+#_symlinkIfNeeded ~/.vim/spell $OH_MY_GIL_SH/vim/spell/
 _createDirectoryIfNeeded ~/.config/nvim
-_symlinkIfNeeded ~/.config/nvim/init.vim $OH_MY_GIL_SH/vim/init.vim
-_symlinkIfNeeded ~/.config/nvim/coc-settings.json $OH_MY_GIL_SH/vim/coc-settings.json
-
-printf "${C_BLUE}Installing Vim plugins...${C_RESTORE}\n"
-nvim +PlugInstall +qall # TODO: Fallback for vim?
+_symlinkIfNeeded ~/.config/nvim/init.lua $OH_MY_GIL_SH/vim/init.lua
 
 ### TMUX ###
 
