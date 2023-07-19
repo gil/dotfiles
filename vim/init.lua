@@ -4,7 +4,6 @@
 
 vim.o.syntax = false
 vim.o.diffopt = 'filler,internal,algorithm:histogram,indent-heuristic' -- better diff
-vim.o.undofile = true -- store undo history in files on `undodir`, to remember after vim closes
 vim.wo.number = true -- show line numbers
 
 -- Indentation
@@ -29,8 +28,9 @@ vim.api.nvim_create_autocmd('WinLeave', {
 })
 vim.wo.cursorline = true
 
--- Remove undo history older than 1 year
-vim.fn.system(string.format('find "%s" -type f -mtime 365 -execdir rm -- "{}" \\;', vim.o.undodir))
+-- Store undo history in files on `undodir`, to remember after vim closes
+vim.o.undofile = true
+vim.fn.system(string.format('find "%s" -type f -mtime 365 -execdir rm -- "{}" \\;', vim.o.undodir)) -- remove older than 1 year
 
 --
 -- General key maps
