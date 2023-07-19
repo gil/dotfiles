@@ -154,6 +154,18 @@ require('lazy').setup({
   -- For iTerm2, enable: "Terminal may enable paste bracketing"
   { 'ConradIrwin/vim-bracketed-paste' },
 
+  -- Show changed lines from git
+  {
+    'lewis6991/gitsigns.nvim',
+    config = function ()
+      require('gitsigns').setup({
+        watch_gitdir = {
+          enable = false -- don't watch repo, it can be super slow on huge repos!
+        },
+      })
+    end,
+  },
+
   -- Super fast CSS colorizer
   {
     'norcalli/nvim-colorizer.lua',
@@ -168,6 +180,19 @@ require('lazy').setup({
     version = '*',
     config = function()
       require('mini.comment').setup()
+    end,
+  },
+
+  -- Show changed lines from git
+  {
+    'echasnovski/mini.surround',
+    version = '*',
+    config = function ()
+      require('mini.surround').setup({
+        mappings = {
+          replace = 'cs', -- replace surrounding
+        },
+      })
     end,
   },
 
