@@ -151,6 +151,7 @@ require('lazy').setup({
   { 'christoomey/vim-tmux-navigator' },
 
   -- Allow pasting directly into Neovim without needing to run `:set paste!` before
+  -- For iTerm2, enable: "Terminal may enable paste bracketing"
   { 'ConradIrwin/vim-bracketed-paste' },
 
   -- Super fast CSS colorizer
@@ -161,11 +162,31 @@ require('lazy').setup({
     end,
   },
 
+  -- Comment lines easily with: gc/gcc
+  {
+    'echasnovski/mini.comment',
+    version = '*',
+    config = function()
+      require('mini.comment').setup()
+    end,
+  },
+
+  -- Snippets
+  {
+    'L3MON4D3/LuaSnip',
+    version = '2.*',
+    build = 'make install_jsregexp',
+    dependencies = { 'rafamadriz/friendly-snippets' }, -- nice collection of snippets
+    config = function()
+      require('luasnip.loaders.from_vscode').lazy_load()
+    end,
+  },
+
   -- Use Treesitter for better syntax highlight
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    config = function ()
+    config = function()
       local configs = require('nvim-treesitter.configs')
 
       configs.setup({
@@ -291,15 +312,22 @@ require('lazy').setup({
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       { 'onsails/lspkind.nvim' }, -- vscode-like icons
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
+      {
+        'saadparwaiz1/cmp_luasnip',
+        dependencies = { 'L3MON4D3/LuaSnip' },
+      },
     },
     config = function()
       local cmp = require('cmp')
+      local luasnip = require('luasnip')
       local lspkind = require('lspkind')
 
       local has_words_before = function()
         unpack = unpack or table.unpack
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
       end
 
       cmp.setup({
@@ -307,39 +335,65 @@ require('lazy').setup({
           ['<C-u>'] = cmp.mapping.scroll_docs(-4),
           ['<C-d>'] = cmp.mapping.scroll_docs(4),
 
-          ['<Tab>'] = function(fallback)
-            if not cmp.select_next_item() then
-              if vim.bo.buftype ~= 'prompt' and has_words_before() then
-                cmp.complete()
+          -- If something has explicitly been selected by the user, select it, otherwise just add a new line
+          ['<CR>'] = cmp.mapping({
+            i = function(fallback)
+              if cmp.visible() and cmp.get_active_entry() then
+                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
               else
                 fallback()
               end
-            end
-          end,
+            end,
+            s = cmp.mapping.confirm({ select = true }),
+            c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+          }),
 
-          ['<S-Tab>'] = function(fallback)
-            if not cmp.select_prev_item() then
-              if vim.bo.buftype ~= 'prompt' and has_words_before() then
-                cmp.complete()
-              else
-                fallback()
-              end
+          ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            elseif has_words_before() then
+              cmp.complete()
+            else
+              fallback()
             end
-          end,
+          end, { 'i', 's' }),
+
+          ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
+        },
+
+        snippet = {
+          expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+          end
         },
 
         formatting = {
           format = lspkind.cmp_format({ -- add the nice icons
             menu = { -- show where the autocomplete item came from, after the icons (LSP, snippet, etc)
-              buffer = "[Buffer]",
-              nvim_lsp = "[LSP]",
+              buffer = '[Buffer]',
+              nvim_lsp = '[LSP]',
+              luasnip = '[LuaSnip]',
             },
           }),
         },
 
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
-        })
+          { name = 'luasnip' },
+        }, {
+          { name = 'buffer' },
+          { name = 'path' },
+        }),
       })
     end,
   },
