@@ -99,9 +99,9 @@ require('lazy').setup({
             a       = '#W',
             win     = '#I #W',
             cwin    = '#I #W',
-            x       = '#H \\uf98c',
-            y       = "#(uptime | awk '{print $3}' | sed 's/,//g') \\uFa51",
-            z       = '%R \\ue385 ',
+            x       = '#H 󰒍 ',
+            y       = "#(uptime | awk '{print $3}' | sed 's/,//g')  ",
+            z       = '%R  ',
             options = { ['status-justify'] = 'left' }
           }
         end,
