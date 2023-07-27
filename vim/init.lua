@@ -90,6 +90,7 @@ require('lazy').setup({
     'vim-airline/vim-airline',
     dependencies = {
       { dir = '$OH_MY_GIL_SH/scripts/themes/base16-themes/output/base16-vim-airline' },
+      { 'ryanoasis/vim-devicons' },
       {
         'edkolev/tmuxline.vim', -- Generate a tmux theme based on the same them used on airline
         config = function()
@@ -174,6 +175,9 @@ require('lazy').setup({
     end,
   },
 
+  -- Highlighting words similar to where the cursor is
+  { 'RRethy/vim-illuminate' },
+
   -- Comment lines easily with: gc/gcc
   {
     'echasnovski/mini.comment',
@@ -183,7 +187,7 @@ require('lazy').setup({
     end,
   },
 
-  -- Show changed lines from git
+  -- Easily surround / wrap selection with something like parenthesis or quotes.
   {
     'echasnovski/mini.surround',
     version = '*',
@@ -325,6 +329,19 @@ require('lazy').setup({
       vim.keymap.set('n', 'gD', vim.lsp.buf.declaration)
       vim.keymap.set('n', 'K', vim.lsp.buf.hover)
       vim.keymap.set('n', '<leader>k', vim.diagnostic.open_float)
+    end,
+  },
+
+  -- Show errors/warnings from LSP
+  {
+    'folke/trouble.nvim',
+    config = function()
+      require("trouble").setup({
+        icons = false,
+      })
+      vim.keymap.set('n', '<leader>xx', function() require('trouble').open() end)
+      vim.keymap.set('n', '<leader>xw', function() require('trouble').open('workspace_diagnostics') end)
+      vim.keymap.set('n', '<leader>xd', function() require('trouble').open('document_diagnostics') end)
     end,
   },
 
