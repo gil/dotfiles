@@ -1,15 +1,15 @@
-NODE_GLOBALS="vim nvim"
-
-if [ -d ~/.nvm/versions/node ]; then
-  NODE_GLOBALS="$NODE_GLOBALS $(find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq | xargs echo -n)"
-fi
-
-if [ -d ~/.yarn/bin ]; then
-  NODE_GLOBALS="$NODE_GLOBALS $(find ~/.yarn/bin -maxdepth 1 -type l -wholename '*' | xargs -n1 basename | sort | uniq | xargs echo -n)"
-fi
-
 # remove duplicates defined below, otherwise it'll break
-NODE_GLOBALS="$(echo " $NODE_GLOBALS " | sed -E 's/ /  /g' | sed -E 's/ (pnpm|npm|npx|yarn) //g')"
+NODE_GLOBALS_IGNORE="pnpm|npm|npx|yarn"
+
+# find global node bin installed in multiple places
+NODE_GLOBALS="$(
+  (
+    echo vim nvim ;
+    find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' 2>/dev/null ;
+    find ~/.yarn/bin -maxdepth 1 -type l -wholename '*' 2>/dev/null ;
+    find /usr/local/bin -lname '*yarn*' 2>/dev/null ;
+  ) | xargs -n1 basename | sort | uniq | grep -v -i -w -E "$NODE_GLOBALS_IGNORE" | xargs echo -n
+)"
 
 zstyle ':omz:plugins:nvm' lazy yes
 zstyle ':omz:plugins:nvm' lazy-cmd $NODE_GLOBALS
