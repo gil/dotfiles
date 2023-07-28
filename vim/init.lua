@@ -320,7 +320,11 @@ require('lazy').setup({
       })
 
       -- ESlint
-      config.eslint.setup({})
+      config.eslint.setup({
+        settings = {
+          workingDirectory = { mode = 'auto' }, -- helps find the eslintrc when it's placed in a subfolder instead of the cwd root
+        },
+      })
 
       -- Lua
       config.lua_ls.setup({
@@ -350,7 +354,7 @@ require('lazy').setup({
   {
     'folke/trouble.nvim',
     config = function()
-      require("trouble").setup({
+      require('trouble').setup({
         icons = false,
       })
       vim.keymap.set('n', '<leader>xx', function() require('trouble').open() end)
