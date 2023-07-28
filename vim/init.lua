@@ -5,6 +5,7 @@
 vim.o.syntax = false
 vim.o.diffopt = 'filler,internal,algorithm:histogram,indent-heuristic' -- better diff
 vim.wo.number = true -- show line numbers
+vim.wo.wrap = false -- dont wrap lines
 
 -- Indentation
 vim.o.expandtab = true -- expand tabs into spaces
@@ -40,6 +41,7 @@ vim.g.mapleader = ','
 vim.keymap.set('n', '<Space>', ',', { remap = true }) -- <Space> as alternative leader
 vim.keymap.set('n', '<leader>h', ':noh<CR>') -- remove highlgihts from search
 vim.keymap.set('n', '<leader>d', ':bd<CR>') -- delete buffer
+vim.keymap.set('n', '<leader>w', ':set wrap!<CR>') -- toggle line wrap
 vim.keymap.set('v', '<leader>y', '"+y') -- yank to system clipboard
 vim.keymap.set('i', 'jj', '<Esc>') -- repeated jj is same as <Esc> to exist insert mode 
 
@@ -135,6 +137,14 @@ require('lazy').setup({
       vim.keymap.set('', '<C-p>', ':Files<CR>')
       vim.keymap.set('', '<leader>p', ':History<CR>')
       vim.keymap.set('', '<leader>o', ':Buffers<CR>')
+    end,
+  },
+
+  -- Change cwd automatically when it finds some specific files
+  {
+    'airblade/vim-rooter',
+    config = function()
+      vim.g.rooter_patterns = { 'package.json', 'deno.json*', '=node_modules', '.git' }
     end,
   },
 
