@@ -64,17 +64,11 @@ npm install -g yarn
 if hash yarn 2>/dev/null; then
     printf "\n${C_PURPLE}[Yarn] ${C_GREEN}Installing/Updating modules...${C_RESTORE}\n"
     yarn global add \
-      karma-cli \
       nodemon \
       csscomb \
-      eslint \
       eslint_d \
       http-server \
       typescript \
-      typescript-language-server \
-      @tailwindcss/language-server \
-      vls \
-      vscode-langservers-extracted \
       neovim \
       slugify-cli \
       prettier
