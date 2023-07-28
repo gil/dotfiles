@@ -1,11 +1,15 @@
-NODE_GLOBALS="`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq | xargs echo -n`"
+NODE_GLOBALS="vim nvim"
 
-if [ -d ~/.yarn/bin ]; then
-  NODE_GLOBALS="$NODE_GLOBALS `find ~/.yarn/bin -maxdepth 1 -type l -wholename '*' | xargs -n1 basename | sort | uniq | xargs echo -n`"
+if [ -d ~/.nvm/versions/node ]; then
+  NODE_GLOBALS="$NODE_GLOBALS $(find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq | xargs echo -n)"
 fi
 
-NODE_GLOBALS="$NODE_GLOBALS vim nvim"
-NODE_GLOBALS="$(echo " $NODE_GLOBALS " | sed -E 's/ /  /g' | sed -E 's/ (pnpm|npm|npx|yarn) //g')" # remove duplicates from below
+if [ -d ~/.yarn/bin ]; then
+  NODE_GLOBALS="$NODE_GLOBALS $(find ~/.yarn/bin -maxdepth 1 -type l -wholename '*' | xargs -n1 basename | sort | uniq | xargs echo -n)"
+fi
+
+# remove duplicates defined below, otherwise it'll break
+NODE_GLOBALS="$(echo " $NODE_GLOBALS " | sed -E 's/ /  /g' | sed -E 's/ (pnpm|npm|npx|yarn) //g')"
 
 zstyle ':omz:plugins:nvm' lazy yes
 zstyle ':omz:plugins:nvm' lazy-cmd $NODE_GLOBALS
