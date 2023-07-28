@@ -269,6 +269,7 @@ require('lazy').setup({
           'cssls',
           'vuels',
           'lua_ls',
+          'eslint',
         },
       })
     end,
@@ -317,6 +318,9 @@ require('lazy').setup({
           },
         },
       })
+
+      -- ESlint
+      config.eslint.setup({})
 
       -- Lua
       config.lua_ls.setup({
