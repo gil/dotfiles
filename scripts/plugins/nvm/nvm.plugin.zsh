@@ -5,7 +5,7 @@ if [ -d ~/.yarn/bin ]; then
 fi
 
 NODE_GLOBALS="$NODE_GLOBALS vim nvim"
-NODE_GLOBALS="$(echo $NODE_GLOBALS | sed -E 's/pnpm|npm|npx|yarn//g')" # remove duplicates from below
+NODE_GLOBALS="$(echo " $NODE_GLOBALS " | sed -E 's/ /  /g' | sed -E 's/ (pnpm|npm|npx|yarn) //g')" # remove duplicates from below
 
 zstyle ':omz:plugins:nvm' lazy yes
 zstyle ':omz:plugins:nvm' lazy-cmd $NODE_GLOBALS
