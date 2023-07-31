@@ -28,6 +28,7 @@ brew "rsync"
 brew "htop"
 brew "hyperfine"
 brew "imagemagick"
+brew "mas"
 # brew "spek"
 
 # Dev tools
@@ -96,4 +97,5 @@ cask "spotify"
 cask "sublime-text"
 cask "mediainfo"
 cask "shottr"
+cask "obsidian"
 # cask "oversight"
