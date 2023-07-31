@@ -4,7 +4,7 @@ NODE_GLOBALS_IGNORE="pnpm|npm|npx|yarn"
 # find global node bin installed in multiple places
 NODE_GLOBALS="$(
   (
-    echo vim nvim ;
+    echo vim nvim ,upgrade_everything ;
     find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' 2>/dev/null ;
     find ~/.yarn/bin -maxdepth 1 -type l -wholename '*' 2>/dev/null ;
     find /usr/local/bin -lname '*yarn*' 2>/dev/null ;
