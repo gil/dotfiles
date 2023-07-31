@@ -8,7 +8,7 @@ printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Starting with dotfiles...${C_RESTORE}\n
 
 printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Updating Homebrew...${C_RESTORE}\n\n"
 brew update
-printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Upgrading Homebrew...${C_RESTORE}\n\n"
+printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Upgrading Homebrew formulas/casks...${C_RESTORE}\n\n"
 brew pin tmux ## to avoid breaking session
 brew upgrade
 brew unpin tmux
