@@ -9,8 +9,8 @@ printf '\033[0;34m%s\033[0m\n' "Upgrading submodules..."
 git submodule update --init --remote --recursive --rebase
 
 printf '\033[0;34m%s\033[0m\n' "Running oh-my-zsh upgrade script..."
-sh ./oh-my-zsh/tools/upgrade.sh
-cd - >/dev/null 2>&1
+./oh-my-zsh/tools/upgrade.sh
+cd $OH_MY_GIL_SH
 
 printf '\033[0;34m%s\033[0m\n' "Generate bar theme cache..."
 if hash bat 2>/dev/null; then
