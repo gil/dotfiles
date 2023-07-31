@@ -1,4 +1,8 @@
 #!/usr/bin/env zsh
+
+# Ask for the administrator password upfront
+sudo -v
+
 if ! hash brew 2>/dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
