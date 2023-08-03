@@ -11,7 +11,8 @@ fi
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-export EDITOR="vim"
+export EDITOR="nvim"
+export VISUAL="nvim"
 export KEYTIMEOUT=1
 
 # Path to your oh-my-zsh installation.
