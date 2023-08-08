@@ -40,7 +40,12 @@ vim.fn.system(string.format('find "%s" -type f -mtime 365 -execdir rm -- "{}" \\
 vim.g.mapleader = ','
 vim.keymap.set('n', '<Space>', ',', { remap = true }) -- <Space> as alternative leader
 vim.keymap.set('n', '<leader>h', ':noh<CR>') -- remove highlgihts from search
-vim.keymap.set('n', '<leader>d', ':bd<CR>') -- delete buffer
+vim.keymap.set('n', '<leader>d', function()
+  -- ugh, workaround for https://github.com/folke/trouble.nvim/issues/134
+  -- no need to call is_open() as close() will also do it.
+  require('trouble').close()
+  vim.cmd(':bd')
+end) -- delete buffer
 vim.keymap.set('n', '<leader>w', ':set wrap!<CR>') -- toggle line wrap
 vim.keymap.set('v', '<leader>y', '"+y') -- yank to system clipboard
 vim.keymap.set('i', 'jj', '<Esc>') -- repeated jj is same as <Esc> to exist insert mode 
