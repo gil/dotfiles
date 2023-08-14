@@ -1,5 +1,10 @@
 alias y="yarn"
-alias yroot="yarn --cwd='\$\(git rev-parse --show-toplevel\)'"
+# alias yroot="yarn --cwd='\$\(git rev-parse --show-toplevel\)'"
+yroot() {
+  cd "$(git rev-parse --show-toplevel)"
+  yarn "$@"
+  cd -
+}
 #alias ya="yarn add"
 #alias yad="yarn add --dev"
 #alias yap="yarn add --peer"
