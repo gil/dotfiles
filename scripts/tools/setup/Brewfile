@@ -61,6 +61,7 @@ brew "ghostscript"
 brew "ffmpeg"
 brew "lame"
 brew "atomicparsley"
+brew "coreutils"
 brew "moreutils", conflicts_with: ["parallel"]
 brew "parallel"
 brew "libdvdcss"
