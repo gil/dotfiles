@@ -8,6 +8,7 @@ printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Starting with dotfiles...${C_RESTORE}\n
 
 printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Updating Homebrew...${C_RESTORE}\n\n"
 brew update
+
 printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Upgrading Homebrew formulas/casks...${C_RESTORE}\n\n"
 brew pin tmux ## to avoid breaking session
 brew upgrade
@@ -15,6 +16,7 @@ brew unpin tmux
 brew cleanup
 
 printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Upgrading Mac App Store...${C_RESTORE}\n\n"
+mas outdated # if this is not called, upgrade may fail
 mas upgrade
 
 printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}NPM...${C_RESTORE}\n\n"
@@ -25,3 +27,11 @@ yarn global upgrade
 
 printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Tmux plugins...${C_RESTORE}\n\n"
 ~/.tmux/plugins/tpm/bin/update_plugins all
+
+printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Neovim Lazy plugins...${C_RESTORE}\n\n"
+nvim +"lua require('lazy').sync({wait=true})" +qa
+
+printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Neovim Mason plugins (hacky, :qa when done)...${C_RESTORE}\n\n"
+nvim +"lua require('mason-core.platform').is_headless = true" +MasonUpdate +Mason +"call feedkeys('U')"
+
+printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Done!${C_RESTORE}\n\n"
