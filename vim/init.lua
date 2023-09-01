@@ -50,6 +50,25 @@ vim.keymap.set('n', '<leader>w', ':set wrap!<CR>') -- toggle line wrap
 vim.keymap.set('v', '<leader>y', '"+y') -- yank to system clipboard
 vim.keymap.set('i', 'jj', '<Esc>') -- repeated jj is same as <Esc> to exist insert mode 
 
+-- upgrade all plugins and dependencies
+function UpgradeEverything()
+  -- Install, clean and update Lazy plugins
+  require('lazy').sync({ wait=true })
+  require('lazy.view').view:close()
+
+  -- Update Mason registry, then all packages
+  local registry = require('mason-registry')
+  registry.refresh(function ()
+    require('mason.ui').open()
+    -- vim.cmd('call feedkeys("U")')
+    for _, pkg in pairs(registry.get_installed_packages()) do
+      pkg:install(pkg)
+    end
+  end)
+end
+
+vim.keymap.set('n', '<leader>U', UpgradeEverything)
+
 --
 -- Plugins
 --
