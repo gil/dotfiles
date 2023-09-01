@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Ask for the administrator password upfront
-sudo -v
+sudo -v || exit 1
 
 printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Starting with dotfiles...${C_RESTORE}\n\n"
 ,upgrade_dotfiles
