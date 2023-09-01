@@ -16,7 +16,7 @@ brew unpin tmux
 brew cleanup
 
 printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Upgrading Mac App Store...${C_RESTORE}\n\n"
-mas outdated # if this is not called, upgrade may fail
+mas outdated # shouldn't be needed if this gets fixed: https://github.com/mas-cli/mas/issues/485
 mas upgrade
 
 printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}NPM...${C_RESTORE}\n\n"
