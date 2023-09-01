@@ -28,8 +28,8 @@ yarn global upgrade
 printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Tmux plugins...${C_RESTORE}\n\n"
 ~/.tmux/plugins/tpm/bin/update_plugins all
 
-printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Neovim lazy.nvim and mason.nvim plugins... (:qa when done)${C_RESTORE}\n\n"
-nvim +"lua UpgradeEverything()"
+printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Neovim lazy.nvim and mason.nvim plugins...${C_RESTORE}\n\n"
+nvim +"lua UpgradeEverything(true)"
 
 # printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Neovim Lazy plugins...${C_RESTORE}\n\n"
 # nvim +"lua require('lazy').sync({wait=true})" +qa

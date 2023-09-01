@@ -51,7 +51,7 @@ vim.keymap.set('v', '<leader>y', '"+y') -- yank to system clipboard
 vim.keymap.set('i', 'jj', '<Esc>') -- repeated jj is same as <Esc> to exist insert mode 
 
 -- upgrade all plugins and dependencies
-function UpgradeEverything()
+function UpgradeEverything(close_after)
   -- Install, clean and update Lazy plugins
   require('lazy').sync({ wait=true })
   require('lazy.view').view:close()
@@ -60,8 +60,23 @@ function UpgradeEverything()
   local registry = require('mason-registry')
   registry.refresh(function ()
     require('mason.ui').open()
-    -- vim.cmd('call feedkeys("U")')
+
+    local packages_waiting = 0
+    registry:on('package:install:success', function()
+      packages_waiting = packages_waiting - 1
+      if packages_waiting == 0 then
+        vim.schedule(function()
+          if close_after == true then
+            vim.cmd('qa')
+          else
+            require('mason.ui.instance').window.close()
+          end
+        end)
+      end
+    end)
+
     for _, pkg in pairs(registry.get_installed_packages()) do
+      packages_waiting = packages_waiting + 1
       pkg:install(pkg)
     end
   end)
