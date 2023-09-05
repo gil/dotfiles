@@ -304,6 +304,7 @@ require('lazy').setup({
         -- List from: https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
         ensure_installed = {
           'tsserver',
+          'denols',
           'html',
           'cssls',
           'vuels',
@@ -331,7 +332,18 @@ require('lazy').setup({
       -- Javascript / Typescript
       config.tsserver.setup({
         capabilities = capabilities,
+        single_file_support = false
       })
+
+      -- Deno
+      config.denols.setup({
+        capabilities = capabilities,
+        root_dir = config.util.root_pattern('deno.json', 'deno.jsonc'),
+      })
+
+      vim.g.markdown_fenced_languages = {
+        'ts=typescript'
+      }
 
       -- HTML
       config.html.setup({
