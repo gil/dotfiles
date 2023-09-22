@@ -179,6 +179,17 @@ require('lazy').setup({
     end,
   },
 
+  -- Simple file explorer
+  {
+    'echasnovski/mini.files',
+    version = '*',
+    config = function()
+      local files = require('mini.files')
+      files.setup()
+      vim.keymap.set('n', '<C-n>', files.open)
+    end,
+  },
+
   -- Change cwd automatically when it finds some specific files
   {
     'airblade/vim-rooter',
