@@ -243,7 +243,13 @@ require('lazy').setup({
     'echasnovski/mini.comment',
     version = '*',
     config = function()
-      require('mini.comment').setup()
+      require('mini.comment').setup({
+          mappings = {
+          comment = '<leader>c',
+          comment_line = '<leader>cc',
+          textobject = '<leader>c',
+        },
+      })
     end,
   },
 
