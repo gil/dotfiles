@@ -224,7 +224,16 @@ require('lazy').setup({
         watch_gitdir = {
           enable = false -- don't watch repo, it can be super slow on huge repos!
         },
+        current_line_blame = true,
+        current_line_blame_formatter = '<abbrev_sha>: <summary> (<author_time:%Y-%m-%d> <author>)',
       })
+
+      vim.keymap.set('n', '<leader>b', function()
+        vim.print(vim.b.gitsigns_blame_line)
+        for hash in string.gmatch(vim.b.gitsigns_blame_line, '(%w+):') do
+          vim.fn.system('pbcopy -', hash)
+        end
+      end)
     end,
   },
 
