@@ -187,6 +187,7 @@ require('lazy').setup({
       local files = require('mini.files')
       files.setup()
       vim.keymap.set('n', '<C-n>', files.open)
+      vim.keymap.set('n', '<leader>n', function() files.open(vim.api.nvim_buf_get_name(0)) end)
     end,
   },
 
