@@ -14,14 +14,18 @@ if ! xcode-select -p 1>/dev/null; then
     exit 0
 fi
 
-if [ "$TERM_PROGRAM" = tmux ]; then
-    printf "\n${C_PURPLE}[Brew] ${C_RED}Please don't run from tmux and an upgrade may break it!${C_RESTORE}\n"
-    exit 1
-fi
+#if [ "$TERM_PROGRAM" = tmux ]; then
+#    printf "\n${C_PURPLE}[Brew] ${C_RED}Please don't run from tmux and an upgrade may break it!${C_RESTORE}\n"
+#    exit 1
+#fi
 
 if hash brew 2>/dev/null; then
     printf "\n${C_PURPLE}[Brew] ${C_GREEN}Updating Homebrew...${C_RESTORE}\n"
     brew update
+
+    if [ "$TERM_PROGRAM" = tmux ]; then
+      brew pin tmux ## to avoid breaking session
+    fi
 
     printf "\n${C_PURPLE}[Brew] ${C_GREEN}Installing and updating packages...${C_RESTORE}\n"
     brew bundle --file=$OH_MY_GIL_SH/scripts/tools/setup/Brewfile
@@ -38,6 +42,8 @@ if hash brew 2>/dev/null; then
     if [[ $REPLY2 =~ ^[Yy]$ ]]; then
         brew upgrade
     fi
+
+    brew unpin tmux
 
     printf "\n${C_PURPLE}[Brew] ${C_GREEN}Removing old packages...${C_RESTORE}\n"
     brew cleanup

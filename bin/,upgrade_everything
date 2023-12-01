@@ -10,7 +10,9 @@ printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Updating Homebrew...${C_RESTORE}\n\n"
 brew update
 
 printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Upgrading Homebrew formulas/casks...${C_RESTORE}\n\n"
-brew pin tmux ## to avoid breaking session
+if [ "$TERM_PROGRAM" = tmux ]; then
+  brew pin tmux ## to avoid breaking session
+fi
 brew upgrade
 brew unpin tmux
 brew cleanup
