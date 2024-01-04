@@ -257,6 +257,7 @@ require('lazy').setup({
           mappings = {
           comment = '<leader>c',
           comment_line = '<leader>cc',
+          comment_visual = '<leader>c',
           textobject = '<leader>c',
         },
       })
