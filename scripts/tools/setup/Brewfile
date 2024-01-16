@@ -1,4 +1,5 @@
 tap "uptech/oss"
+tap "hmarr/tap"
 
 # General tools
 brew "tmux"
@@ -29,6 +30,7 @@ brew "htop"
 brew "hyperfine"
 brew "imagemagick"
 brew "mas"
+brew "vitals"
 # brew "spek"
 
 # Dev tools
