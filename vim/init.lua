@@ -232,6 +232,7 @@ require('lazy').setup({
         vim.print(vim.b.gitsigns_blame_line)
         for hash in string.gmatch(vim.b.gitsigns_blame_line, '(%w+):') do
           vim.fn.system('pbcopy -', hash)
+          break
         end
       end)
     end,
@@ -310,7 +311,7 @@ require('lazy').setup({
         sync_install = false,
         auto_install = true,
         highlight = { enable = true },
-        indent = { enable = true },
+        -- indent = { enable = true },
       })
     end
   },
