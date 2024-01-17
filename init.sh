@@ -77,7 +77,7 @@ if [ -z "$OH_MY_GIL_SH_OLD_PATH" ]; then
     export OH_MY_GIL_SH_OLD_PATH="$PATH"
 fi
 
-export PATH="$OH_MY_GIL_SH/bin:$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$OH_MY_GIL_SH/bin:$HOME/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 if [ -z "$OH_MY_GIL_SH_PATH_APPENDED" ]; then

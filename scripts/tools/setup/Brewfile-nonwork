@@ -1,5 +1,5 @@
 brew "yt-dlp"
-brew "youtube-dl"
+# brew "youtube-dl"
 brew "handbrake", link: false
 brew "ccd2iso"
 brew "mkvtoolnix"
