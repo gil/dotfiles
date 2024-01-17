@@ -30,7 +30,7 @@ brew "htop"
 brew "hyperfine"
 brew "imagemagick"
 brew "mas"
-brew "vitals"
+brew "hmarr/tap/vitals"
 # brew "spek"
 
 # Dev tools
