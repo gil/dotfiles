@@ -85,6 +85,10 @@ if [ -z "$OH_MY_GIL_SH_PATH_APPENDED" ]; then
     export PATH="$PATH:$OH_MY_GIL_SH_OLD_PATH"
 fi
 
+# bracketed-paste-magic and url-quote-magic are two Zsh utilities that are known buggy
+# More info: https://github.com/ohmyzsh/ohmyzsh/wiki/Settings
+DISABLE_MAGIC_FUNCTIONS=true
+
 source $ZSH/oh-my-zsh.sh
 source $OH_MY_GIL_SH/scripts/utils.zsh
 
