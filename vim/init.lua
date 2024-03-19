@@ -466,6 +466,14 @@ require('lazy').setup({
     end,
   },
 
+  -- Better TypeScript errors
+  {
+    'dmmulroy/ts-error-translator.nvim',
+    config = function()
+      require('ts-error-translator').setup()
+    end,
+  },
+
   -- Support for additional LSP capabilities that Neovim doesn't by default
   { 'hrsh7th/cmp-nvim-lsp' },
 
