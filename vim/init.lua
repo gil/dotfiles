@@ -6,6 +6,7 @@ vim.o.syntax = false
 vim.o.diffopt = 'filler,internal,algorithm:histogram,indent-heuristic' -- better diff
 vim.wo.number = true -- show line numbers
 vim.wo.wrap = false -- dont wrap lines
+vim.o.updatetime = 250 -- reduce updatetime for CursorHold event (added becaues of nvim-lspconfig diagnostics on hover)
 
 -- Indentation
 vim.o.expandtab = true -- expand tabs into spaces
@@ -426,6 +427,22 @@ require('lazy').setup({
             telemetry = { enable = false },
           },
         },
+      })
+
+      -- Error on hover
+      vim.api.nvim_create_autocmd('CursorHold', {
+        buffer = bufnr,
+        callback = function()
+          local opts = {
+            focusable = false,
+            close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
+            border = 'rounded',
+            source = 'always',
+            prefix = ' ',
+            scope = 'cursor',
+          }
+          vim.diagnostic.open_float(nil, opts)
+        end
       })
 
       -- Keymaps
