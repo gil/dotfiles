@@ -144,7 +144,7 @@ require('lazy').setup({
             cwin    = '#I #W',
             x       = '#H 󰒍 ',
             y       = "#(uptime | awk '{print $3}' | sed 's/,//g')  ",
-            z       = '%R  ',
+            z       = '%R  #($HOME/.tmux/plugins/tmux-continuum/scripts/continuum_save.sh)',
             options = { ['status-justify'] = 'left' }
           }
         end,
