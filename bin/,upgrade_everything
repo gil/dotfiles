@@ -44,4 +44,7 @@ nvim +"lua UpgradeEverything(true)"
 # printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Neovim Mason plugins (hacky, :qa when done)...${C_RESTORE}\n\n"
 # nvim +"lua require('mason-core.platform').is_headless = true" +MasonUpdate +Mason +"call feedkeys('U')"
 
+printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Check Latest app for more updates...${C_RESTORE}\n\n"
+open -a Latest
+
 printf "\n${C_PURPLE}[Upgrade] ${C_GREEN}Done!${C_RESTORE}\n\n"
