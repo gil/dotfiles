@@ -93,6 +93,6 @@ echo
 echo Press any key to scan for big files...
 read
 
-sudo ncdu -rx $(cut -f1 /usr/share/firmlinks | while read DIR; do /bin/echo -n "--exclude $DIR "; done) /
+gdu-go --no-cross --no-delete / || sudo ncdu -rx $(cut -f1 /usr/share/firmlinks | while read DIR; do /bin/echo -n "--exclude $DIR "; done) /
 
 # open -a OmniDiskSweeper
