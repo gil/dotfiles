@@ -39,17 +39,17 @@ vim.fn.system(string.format('find "%s" -type f -mtime 365 -execdir rm -- "{}" \\
 --
 
 vim.g.mapleader = ','
-vim.keymap.set('n', '<Space>', ',', { remap = true }) -- <Space> as alternative leader
-vim.keymap.set('n', '<leader>h', ':noh<CR>') -- remove highlgihts from search
+vim.keymap.set('n', '<Space>', ',', { remap = true, desc = '<Space> as alternative leader' })
+vim.keymap.set('n', '<leader>h', ':noh<CR>', { desc = 'Hide highlgihts' })
 vim.keymap.set('n', '<leader>d', function()
   -- ugh, workaround for https://github.com/folke/trouble.nvim/issues/134
   -- no need to call is_open() as close() will also do it.
   require('trouble').close()
   vim.cmd(':bd')
-end) -- delete buffer
-vim.keymap.set('n', '<leader>w', ':set wrap!<CR>') -- toggle line wrap
-vim.keymap.set('v', '<leader>y', '"+y') -- yank to system clipboard
-vim.keymap.set('i', 'jj', '<Esc>') -- repeated jj is same as <Esc> to exist insert mode 
+end, { desc = 'Delete buffer' })
+vim.keymap.set('n', '<leader>w', ':set wrap!<CR>', { desc = 'Toggle line wrap' })
+vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Yank to system clipboard' })
+vim.keymap.set('i', 'jj', '<Esc>', { desc = 'Repeated jj is same as <Esc> to exist insert mode' })
 
 -- upgrade all plugins and dependencies
 function UpgradeEverything(close_after)
@@ -83,7 +83,7 @@ function UpgradeEverything(close_after)
   end)
 end
 
-vim.keymap.set('n', '<leader>U', UpgradeEverything)
+vim.keymap.set('n', '<leader>U', UpgradeEverything, { desc = 'Upgrade plugins' })
 
 --
 -- Plugins
@@ -174,9 +174,9 @@ require('lazy').setup({
       },
     },
     config = function()
-      vim.keymap.set('', '<C-p>', ':Files<CR>')
-      vim.keymap.set('', '<leader>p', ':History<CR>')
-      vim.keymap.set('', '<leader>o', ':Buffers<CR>')
+      vim.keymap.set('', '<C-p>', ':Files<CR>', { desc = 'Search files' })
+      vim.keymap.set('', '<leader>p', ':History<CR>', { desc = 'File history' })
+      vim.keymap.set('', '<leader>o', ':Buffers<CR>', { desc = 'Show buffers' })
     end,
   },
 
@@ -187,8 +187,8 @@ require('lazy').setup({
     config = function()
       local files = require('mini.files')
       files.setup()
-      vim.keymap.set('n', '<C-n>', files.open)
-      vim.keymap.set('n', '<leader>n', function() files.open(vim.api.nvim_buf_get_name(0)) end)
+      vim.keymap.set('n', '<C-n>', files.open, { desc = 'File browser' })
+      vim.keymap.set('n', '<leader>n', function() files.open(vim.api.nvim_buf_get_name(0)) end, { desc = 'File browser from this path' })
     end,
   },
 
@@ -206,7 +206,7 @@ require('lazy').setup({
     branch = 'v2',
     config = function()
       require('hop').setup()
-      vim.keymap.set('n', 's', ':HopChar2MW<CR>')
+      vim.keymap.set('n', 's', ':HopChar2MW<CR>', { desc = 'Hop+2 chars' })
     end,
   },
 
@@ -235,7 +235,7 @@ require('lazy').setup({
           vim.fn.system('pbcopy -', hash)
           break
         end
-      end)
+      end, { desc = 'Copy git line blame hash' })
     end,
   },
 
@@ -283,6 +283,23 @@ require('lazy').setup({
         },
       })
     end,
+  },
+
+  {
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
+    opts = {
+      preset = 'modern',
+    },
+    keys = {
+      {
+        '<leader>?',
+        function()
+          require('which-key').show({ global = false })
+        end,
+        desc = 'Buffer Local Keymaps (which-key)',
+      },
+    },
   },
 
   -- Snippets
@@ -446,10 +463,10 @@ require('lazy').setup({
       })
 
       -- Keymaps
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
-      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration)
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover)
-      vim.keymap.set('n', '<leader>k', vim.diagnostic.open_float)
+      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Find definition' })
+      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'Find declaration' })
+      vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Hover symbol info' })
+      vim.keymap.set('n', '<leader>k', vim.diagnostic.open_float, { desc = 'Show diagnostics' })
     end,
   },
 
@@ -460,9 +477,9 @@ require('lazy').setup({
       require('trouble').setup({
         icons = false,
       })
-      vim.keymap.set('n', '<leader>xx', function() require('trouble').open() end)
-      vim.keymap.set('n', '<leader>xw', function() require('trouble').open('workspace_diagnostics') end)
-      vim.keymap.set('n', '<leader>xd', function() require('trouble').open('document_diagnostics') end)
+      vim.keymap.set('n', '<leader>xx', function() require('trouble').open() end, { desc = 'Trouble diagnostics' })
+      vim.keymap.set('n', '<leader>xw', function() require('trouble').open('workspace_diagnostics') end, { desc = 'Trouble workspace diagnostics' })
+      vim.keymap.set('n', '<leader>xd', function() require('trouble').open('document_diagnostics') end, { desc = 'Trouble document diagnostics' })
     end,
   },
 
