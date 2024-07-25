@@ -2,7 +2,7 @@
 -- Global configs
 --
 
-vim.o.syntax = false
+vim.o.syntax = off
 vim.o.diffopt = 'filler,internal,algorithm:histogram,indent-heuristic' -- better diff
 vim.wo.number = true -- show line numbers
 vim.wo.wrap = false -- dont wrap lines
