@@ -66,8 +66,8 @@ brew "ffmpeg"
 brew "lame"
 brew "atomicparsley"
 brew "coreutils"
-brew "moreutils", conflicts_with: ["parallel"]
-brew "parallel"
+brew "moreutils"
+brew "parallel", conflicts_with: ["moreutils"]
 brew "libdvdcss"
 brew "openssh"
 brew "gnutls"

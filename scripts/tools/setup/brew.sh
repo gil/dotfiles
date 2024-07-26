@@ -45,6 +45,9 @@ if hash brew 2>/dev/null; then
 
     brew unpin tmux
 
+    printf "\n${C_PURPLE}[Brew] ${C_GREEN}Overriding conflicting links...${C_RESTORE}\n"
+    brew link --overwrite parallel # looks like Brewfile can't handle overrides
+
     printf "\n${C_PURPLE}[Brew] ${C_GREEN}Removing old packages...${C_RESTORE}\n"
     brew cleanup
 
