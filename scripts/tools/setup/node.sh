@@ -1,60 +1,26 @@
 #!/usr/bin/env zsh
 
-# _npmInstallOrUpdate() {
-  #printf "\n${C_PURPLE}[NPM] ${C_GREEN}Checking for package \"$1\"...${C_RESTORE}\n"
-  #if npm list --depth 0 --global $1 > /dev/null 2>&1 ; then
-    #printf "${C_PURPLE}[NPM] ${C_BLUE}Package \"$1\" found! Updating...${C_RESTORE}\n"
-    #npm update --global $1
-  #else
-    #printf "${C_PURPLE}[NPM] ${C_BLUE}Package \"$1\" not found! Installing...${C_RESTORE}\n"
-    #npm install --global $1
-  #fi
-#}
-
 #####
-## Install/Update NVM
+## Install latest NodeJS with FNM
 #####
 
-printf "\n${C_PURPLE}[NVM] ${C_GREEN}Installing or updating NVM...${C_RESTORE}\n"
+if which fnm 2>&1 >/dev/null; then
 
-if ! command grep -qc '/nvm.sh' ~/.zshrc; then
-    echo "# This line is here to prevent NVM from adding its code during installation and sourcing /nvm.sh and \$NVM_DIR/bash_completion automatically, since we'll lazy load it later. You can probably remove this if you want." >> ~/.zshrc
-fi
-if ! command grep -qc '/nvm.sh' ~/.bashrc; then
-    echo "# This line is here to prevent NVM from adding its code during installation and sourcing /nvm.sh and \$NVM_DIR/bash_completion automatically, since we'll lazy load it later. You can probably remove this if you want." >> ~/.bashrc
-fi
+    printf "\n${C_PURPLE}[FNM] ${C_GREEN}Installing NodeJS LTS...${C_RESTORE}\n"
+    fnm install --lts
+    fnm default lts-latest
 
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-#####
-## Install latest NodeJS with NVM
-#####
-
-NODE_VERSION="lts/*"
-
-if which nvm 2>&1 >/dev/null; then
-
-    printf "\n${C_PURPLE}[NVM] ${C_GREEN}Installing $NODE_VERSION...${C_RESTORE}\n"
-    nvm install $NODE_VERSION
-    nvm use $NODE_VERSION
-    nvm alias default $NODE_VERSION
-
-    printf "\n${C_PURPLE}[NVM] ${C_GREEN}Installing latest NPM for this version...${C_RESTORE}\n"
-    nvm install-latest-npm
-
-    printf "\n${C_PURPLE}[NVM] ${C_GREEN}Done! If NVM is not working, run refresh_dotfiles manually now.${C_RESTORE}\n"
+    printf "\n${C_PURPLE}[FNM] ${C_GREEN}Upgrading NPM...${C_RESTORE}\n"
+    npm update -g npm
 else
-    printf "\n${C_PURPLE}[NVM] ${C_RED}Couldn't find NVM!${C_RESTORE}\n"
+    printf "\n${C_PURPLE}[FNM] ${C_RED}Couldn't find FNM!${C_RESTORE}\n"
 fi
 
 #####
 ## Install Yarn from latest NodeJS
 #####
 
-printf "\n${C_PURPLE}[Yarn] ${C_GREEN}Installing latest Yarn for this version...${C_RESTORE}\n"
+printf "\n${C_PURPLE}[Yarn] ${C_GREEN}Installing latest Yarn...${C_RESTORE}\n"
 npm install -g yarn
 
 #####

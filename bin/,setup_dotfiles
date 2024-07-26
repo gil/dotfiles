@@ -9,7 +9,7 @@ menu_options=(
   "Homebrew (OSX)"
   "yum (Linux)"
   "Vim & tmux"
-  "NVM + NodeJS + Yarn + Global modules"
+  "Node.js"
   "pyenv (Python)"
   "rbenv + Ruby"
   "xbar"
@@ -52,7 +52,7 @@ do
         $OH_MY_GIL_SH/scripts/tools/setup/vim.sh
         break
         ;;
-      "NVM + NodeJS + Yarn + Global modules")
+      "Node.js")
         $OH_MY_GIL_SH/scripts/tools/setup/node.sh
         break
         ;;
