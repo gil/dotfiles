@@ -114,7 +114,7 @@ if zstyle -t ':omz:plugins:nvm' lazy; then
       _omz_load_nvm_completion
       _omz_setup_autoload
       export PATH=\"\$PATH:\$(yarn global bin)\"
-      cd -
+      cd - > /dev/null
       \"\$0\" \"\$@\"
     }
   "
