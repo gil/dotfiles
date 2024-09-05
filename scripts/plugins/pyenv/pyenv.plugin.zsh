@@ -1,12 +1,3 @@
-ZSH_PYENV_QUIET=true
-
-if [ "$PYENV_SCRIPT_RAN" -eq "1" ]; then
-  return 0 2> /dev/null || exit 0
-fi
-export PYENV_SCRIPT_RAN=1
-
-## original stuff below
-
 pyenv_config_warning() {
   [[ "$ZSH_PYENV_QUIET" != true ]] || return 0
 
