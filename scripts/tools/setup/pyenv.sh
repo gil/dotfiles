@@ -16,19 +16,15 @@ cd $(pyenv root)
 git pull
 
 # Install python and update pip
-pyenv install --skip-existing 2.7.18
-pyenv install --skip-existing 3.9.6
-pyenv global 3.9.6 2.7.18
+pyenv install --skip-existing 3.11
+pyenv global 3.11
 
 # Upgrade pip
 pip install --upgrade pip
-pip2 install --upgrade pip
 
 # Install packages
 pip install pudb neovim python-lsp-server
-pip2 install pudb neovim python-lsp-server
 
 if [[ $OSTYPE == darwin* ]]; then
   pip install pyobjc-framework-Quartz
-  pip2 install pyobjc-framework-Quartz
 fi
