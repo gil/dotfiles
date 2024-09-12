@@ -356,7 +356,7 @@ require('lazy').setup({
         -- Automatically install the following servers, with Mason.
         -- List from: https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
         ensure_installed = {
-          'tsserver',
+          'ts_ls',
           'denols',
           'html',
           'cssls',
@@ -383,7 +383,7 @@ require('lazy').setup({
       -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 
       -- Javascript / Typescript
-      config.tsserver.setup({
+      config.ts_ls.setup({
         capabilities = capabilities,
         single_file_support = false
       })
