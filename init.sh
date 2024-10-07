@@ -70,8 +70,8 @@ ZSH_CUSTOM=$OH_MY_GIL_SH/scripts
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rbenv rails gem node npm yarn fnm z docker docker-compose osx extract tmux fzf virtualenv zsh-autosuggestions zsh-syntax-highlighting taskwarrior youtube-dl vi-mode jeff bat mediakeys meeting)
-plugins+=(brew pyenv) # keep these last
+plugins=(git rbenv rails gem node npm yarn z docker docker-compose osx extract tmux fzf virtualenv zsh-autosuggestions zsh-syntax-highlighting taskwarrior youtube-dl vi-mode jeff bat mediakeys meeting)
+plugins+=(brew fnm pyenv) # keep these last
 
 # User configuration
 if [ -z "$OH_MY_GIL_SH_OLD_PATH" ]; then
