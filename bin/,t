@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# ---------------------
+# Inspired by: https://github.com/gma/tmux-fuzzy-launcher
+# ---------------------
+
+TM_ROOT="${TM_ROOT:-$HOME/dev}"
+TM_DEPTH=${TM_DEPTH:-4}
+TM_EDITOR="${TM_EDITOR:-${EDITOR:-vim}}"
+
+## Functions
+
+err()
+{
+    echo "ERROR: $(basename "$0"): $*" 1>&2
+    exit 1
+}
+
+
+running_within_tmux()
+{
+    [ -n "$TMUX" ]
+}
+
+
+## Main program
+
+[ -n "$DEBUG" ] && set -x
+
+DIR=$(
+    fd -d $TM_DEPTH "package.json|.git" -E "/node_modules/" $TM_ROOT | \
+        sed "s,^$HOME/,,;" | \
+        xargs dirname | \
+        fzf
+)
+
+FZF_RC=$?
+
+if [ -z "$DIR" ]; then
+    if [ $FZF_RC -eq 1 ]; then
+        err "no matching path"
+    else
+        exit $FZF_RC
+    fi
+fi
+
+SESSION="$(basename "$DIR" | tr '[:punct:]' '-')"
+
+if ! tmux has-session -t "=$SESSION" 2>/dev/null; then
+    tmux new-session -d -s "$SESSION" -c "$TM_ROOT/$DIR" -n editor "$TM_EDITOR"
+fi
+
+if running_within_tmux; then
+    tmux switch-client -t "$SESSION"
+else
+    tmux attach-session -t "$SESSION"
+fi
