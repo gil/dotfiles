@@ -27,7 +27,7 @@ running_within_tmux()
 [ -n "$DEBUG" ] && set -x
 
 DIR=$(
-    fd -d $TM_DEPTH "(package.json|.git)$" -E "/node_modules/" $TM_ROOT | \
+    fd --hidden --max-depth $TM_DEPTH "(package.json|.git)$" --exclude "/node_modules/" $TM_ROOT | \
         sort | \
         uniq | \
         sed "s,^$HOME/,,;" | \
