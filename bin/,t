@@ -6,7 +6,6 @@
 
 TM_ROOT="${TM_ROOT:-$HOME/dev}"
 TM_DEPTH=${TM_DEPTH:-4}
-TM_EDITOR="${TM_EDITOR:-${EDITOR:-vim}}"
 
 ## Functions
 
@@ -28,7 +27,9 @@ running_within_tmux()
 [ -n "$DEBUG" ] && set -x
 
 DIR=$(
-    fd -d $TM_DEPTH "package.json|.git" -E "/node_modules/" $TM_ROOT | \
+    fd -d $TM_DEPTH "(package.json|.git)$" -E "/node_modules/" $TM_ROOT | \
+        sort | \
+        uniq | \
         sed "s,^$HOME/,,;" | \
         xargs dirname | \
         fzf
@@ -47,7 +48,10 @@ fi
 SESSION="$(basename "$DIR" | tr '[:punct:]' '-')"
 
 if ! tmux has-session -t "=$SESSION" 2>/dev/null; then
-    tmux new-session -d -s "$SESSION" -c "$TM_ROOT/$DIR" -n editor "$TM_EDITOR"
+    tmux new-session -d -s "$SESSION" -c "$HOME/$DIR" # -n editor "$EDITOR"
+    tmux send-keys -t "$SESSION" $EDITOR Enter
+    tmux new-window -t "$SESSION" -c "$HOME/$DIR"
+    tmux select-window -t "$SESSION:0"
 fi
 
 if running_within_tmux; then
