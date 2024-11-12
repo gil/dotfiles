@@ -19,7 +19,7 @@ vim.o.smartcase = true -- do not ignore if search pattern has CAPS
 
 -- Show tabs and trailing spaces
 vim.o.list = true
-vim.o.listchars = 'tab:>·,trail:·'
+vim.o.listchars = 'tab:>·,trail:■'
 
 -- Highlight current line
 vim.api.nvim_create_autocmd('WinEnter', {
