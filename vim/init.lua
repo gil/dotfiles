@@ -166,16 +166,44 @@ require('lazy').setup({
 
   -- fzf
   {
+    'junegunn/fzf',
+    build = function() vim.fn['fzf#install']() end,
+  },
+  {
     'junegunn/fzf.vim',
-    dependencies = {
-      {
-        'junegunn/fzf',
-        build = function() vim.fn['fzf#install']() end,
-      },
-    },
+    dependencies = { 'junegunn/fzf' },
     config = function()
+      vim.api.nvim_create_user_command("FZFMru", function()
+        local function mru_files()
+          -- Get v:oldfiles and filter out unwanted entries (only updated on vim close)
+          local oldfiles = vim.tbl_filter(function(val)
+            return not string.match(val, 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/')
+          end, vim.fn.copy(vim.v.oldfiles))
+
+          -- Get list of all buffers, with non-empty names, including closed
+          local buffers = vim.tbl_map(function(val)
+            return vim.fn.bufname(val)
+          end, vim.tbl_filter(function(val)
+            return vim.fn.bufname(val) ~= ""
+          end, vim.fn.range(1, vim.fn.bufnr('$'))))
+
+          return vim.list_extend(buffers, oldfiles)
+        end
+
+        -- Run fzf using the retrieved files list
+        vim.fn['fzf#run'](
+          vim.fn['fzf#vim#with_preview'](
+            vim.fn['fzf#wrap']({
+              source = mru_files(),
+              sink = 'edit',
+              options = '--multi --extended --no-sort',
+            })
+          )
+        )
+      end, {})
+
       vim.keymap.set('', '<C-p>', ':Files<CR>', { desc = 'Search files' })
-      vim.keymap.set('', '<leader>p', ':History<CR>', { desc = 'File history' })
+      vim.keymap.set('', '<leader>p', ':FZFMru<CR>', { desc = 'MRU Files' })
       vim.keymap.set('', '<leader>o', ':Buffers<CR>', { desc = 'Show buffers' })
     end,
   },
