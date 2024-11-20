@@ -125,6 +125,9 @@ if [[ $OSTYPE == darwin* ]]; then
   ulimit -n 10240
 fi
 
+# Don't close terminal with CTRL-D
+set -o ignoreeof
+
 alias dev_chrome="open -n -a \"Google Chrome\" --args --profile-directory=\"Debug Profile\""
 alias simple_server="python -m SimpleHTTPServer 8080"
 
