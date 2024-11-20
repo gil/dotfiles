@@ -4,7 +4,7 @@ KEEP_MENU_OPEN=true
 PS3='Please enter your choice: '
 menu_options=(
   #"OSX Settings"
-  "Fonts and Terminal Theme (OSX)"
+  "Terminal (OSX)"
   #"Command Line Tools (If you don't want XCode)"
   "Homebrew (OSX)"
   "yum (Linux)"
@@ -29,9 +29,9 @@ do
         #$OH_MY_GIL_SH/scripts/tools/setup/osx.sh
         #break
         #;;
-      "Fonts and Terminal Theme (OSX)")
+      "Terminal (OSX)")
         echo ""
-        $OH_MY_GIL_SH/scripts/tools/setup/fonts-and-themes.sh
+        $OH_MY_GIL_SH/scripts/tools/setup/terminal.sh
         break
         ;;
       #"Command Line Tools (If you don't want XCode)")
