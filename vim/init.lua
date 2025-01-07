@@ -131,7 +131,7 @@ require('lazy').setup({
   {
     'vim-airline/vim-airline',
     dependencies = {
-      { dir = '$OH_MY_GIL_SH/scripts/themes/base16-themes/output/base16-vim-airline' },
+      { dir = vim.fn.expand('$OH_MY_GIL_SH/scripts/themes/base16-themes/output/base16-vim-airline') },
       { 'ryanoasis/vim-devicons' },
       {
         'edkolev/tmuxline.vim', -- Generate a tmux theme based on the same them used on airline
