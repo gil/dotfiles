@@ -18,14 +18,13 @@ hash git >/dev/null 2>&1 && env git clone --depth=1 https://github.com/robbyruss
   exit
 }
 
-printf "${C_BLUE}Looking for an existing zsh config...${C_RESTORE}\n"
 if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
   printf "${C_YELLOW}Found ~/.zshrc.${C_RESTORE} ${C_GREEN}Backing up to ~/.zshrc.backup${C_RESTORE}\n"
   mv ~/.zshrc ~/.zshrc.backup;
 fi
 
-printf "${C_BLUE}Creating the zsh config...${C_RESTORE}\n"
-echo "export OH_MY_GIL_SH=$OH_MY_GIL_SH" >> ~/.zshrc
+printf "${C_BLUE}Creating a new .zshrc ...${C_RESTORE}\n"
+echo "export OH_MY_GIL_SH=$OH_MY_GIL_SH" > ~/.zshrc
 echo "source \$OH_MY_GIL_SH/init.sh" >> ~/.zshrc
 
 TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
