@@ -1,79 +1,21 @@
-#!/usr/bin/env zsh
+#!/bin/zsh
 
-KEEP_MENU_OPEN=true
-PS3='Please enter your choice: '
-menu_options=(
-  #"OSX Settings"
-  "Terminal (OSX)"
-  #"Command Line Tools (If you don't want XCode)"
-  "Homebrew (OSX)"
-  "yum (Linux)"
-  "Vim & tmux"
-  "Node.js"
-  "pyenv (Python)"
-  "rbenv + Ruby"
-  "xbar"
-  "Quit"
-)
+SCRIPT_DIR="$OH_MY_GIL_SH/scripts/tools/setup"
+scripts=($(find "$SCRIPT_DIR" -type f -perm +111)) # +111 = executable
 
-while $KEEP_MENU_OPEN
-do
+script_names=()
+for script in "${scripts[@]}"; do
+  script_names+=("$(basename "$script")")
+done
 
-  printf "${C_GREEN}\nSelect the script(s) you want to run to setup your environment:\n${C_RESTORE}\n"
+PS3="Select a script to run (or 0 to exit): "
+select script in "${script_names[@]}"; do
+  if [ "$script" ]; then
+    selected_script="${scripts[$REPLY]}"
 
-  select opt in "${menu_options[@]}"
-  do
-    case $opt in
-      #"OSX Settings")
-        #echo ""
-        #$OH_MY_GIL_SH/scripts/tools/setup/osx.sh
-        #break
-        #;;
-      "Terminal (OSX)")
-        echo ""
-        $OH_MY_GIL_SH/scripts/tools/setup/terminal.sh
-        break
-        ;;
-      #"Command Line Tools (If you don't want XCode)")
-        #echo ""
-        #xcode-select --install
-        #sudo xcodebuild -license
-        #break
-        #;;
-      "Homebrew (OSX)")
-        $OH_MY_GIL_SH/scripts/tools/setup/brew.sh
-        break
-        ;;
-      "yum (Linux)")
-        $OH_MY_GIL_SH/scripts/tools/setup/yum.sh
-        break
-        ;;
-      "Vim & tmux")
-        $OH_MY_GIL_SH/scripts/tools/setup/vim.sh
-        break
-        ;;
-      "Node.js")
-        $OH_MY_GIL_SH/scripts/tools/setup/node.sh
-        break
-        ;;
-      "pyenv (Python)")
-        $OH_MY_GIL_SH/scripts/tools/setup/pyenv.sh
-        break
-        ;;
-      "rbenv + Ruby")
-        $OH_MY_GIL_SH/scripts/tools/setup/rbenv.sh
-        break
-        ;;
-      "xbar")
-        $OH_MY_GIL_SH/scripts/tools/setup/xbar.sh
-        break
-        ;;
-      "Quit")
-        break
-        ;;
-      *) echo invalid option;;
-    esac
-  done
+    echo "Running $script..."
+    "$selected_script" # Execute the selected script
+  fi
 
-  KEEP_MENU_OPEN=false
+  break
 done
