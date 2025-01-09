@@ -10,7 +10,7 @@ I've based my system on [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh), 
 ## Install
 
 ```
-git clone --recursive --depth=1 https://github.com/gil/dotfiles.git ~/.dotfiles
+git clone --depth=1 https://github.com/gil/dotfiles.git ~/.dotfiles
 sh ~/.dotfiles/install.sh
 setup_dotfiles
 ```
