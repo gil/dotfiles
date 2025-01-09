@@ -27,6 +27,9 @@ printf "${C_BLUE}Creating a new .zshrc ...${C_RESTORE}\n"
 echo "export OH_MY_GIL_SH=$OH_MY_GIL_SH" > ~/.zshrc
 echo "source \$OH_MY_GIL_SH/init.sh" >> ~/.zshrc
 
+# Clone oh-my-gilsh dependencies
+$OH_MY_GIL_SH/scripts/tools/clone-dependencies.zsh
+
 TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
 if [ "$TEST_CURRENT_SHELL" != "zsh" ]; then
     printf "${C_BLUE}Time to change your default shell to zsh!${C_RESTORE}\n"

@@ -5,8 +5,8 @@ cd $OH_MY_GIL_SH
 printf '\033[0;34m%s\033[0m\n' "Upgrading dotfiles..."
 git -c rebase.autoStash=true pull --rebase
 
-printf '\033[0;34m%s\033[0m\n' "Upgrading submodules..."
-git submodule update --init --remote --recursive --rebase
+# Upgrade oh-my-gilsh dependencies
+$OH_MY_GIL_SH/scripts/tools/upgrade-dependencies.zsh
 
 printf '\033[0;34m%s\033[0m\n' "Running oh-my-zsh upgrade script..."
 ./oh-my-zsh/tools/upgrade.sh

@@ -5,3 +5,9 @@ node_modules/
 package-lock.json
 package.json
 scripts/tools/setup/*.lock.json
+
+# Dependencies
+scripts/plugins/zsh-autosuggestions
+scripts/plugins/zsh-syntax-highlighting
+scripts/themes/powerlevel10k
+scripts/themes/base16-themes
