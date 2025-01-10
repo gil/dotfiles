@@ -7,9 +7,9 @@ cp "$OH_MY_GIL_SH/scripts/tools/assets/InconsolataGoNerdFont-Regular.ttf" ~/Libr
 cp "$OH_MY_GIL_SH/scripts/tools/assets/Inconsolata[wdth,wght].ttf" ~/Library/Fonts
 
 ### Kitty ###
-_createDirectoryIfNeeded ~/.config/kitty
-_symlinkIfNeeded ~/.config/kitty/kitty.conf $OH_MY_GIL_SH/config/kitty/kitty.conf
-_symlinkIfNeeded ~/.config/kitty/kitty.app.icns $OH_MY_GIL_SH/config/kitty/kitty.app.icns
+# _createDirectoryIfNeeded ~/.config/kitty
+# _symlinkIfNeeded ~/.config/kitty/kitty.conf $OH_MY_GIL_SH/config/kitty/kitty.conf
+# _symlinkIfNeeded ~/.config/kitty/kitty.app.icns $OH_MY_GIL_SH/config/kitty/kitty.app.icns
 
 ## Mac Terminal ###
 open $OH_MY_GIL_SH/scripts/tools/assets/Solarized\ Dark\ 256.terminal
