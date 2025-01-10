@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 SCRIPT_DIR="$OH_MY_GIL_SH/scripts/tools/setup"
 scripts=($(find "$SCRIPT_DIR" -type f -perm +111)) # +111 = executable

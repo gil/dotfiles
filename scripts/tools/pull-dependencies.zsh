@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 source $OH_MY_GIL_SH/scripts/colors.zsh
 
