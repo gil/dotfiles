@@ -11,7 +11,7 @@ function _pullDependency {
 
 printf "${C_BLUE}Pulling dependency upgrades...${C_RESTORE}\n"
 
-_pullDependency scripts/plugins/zsh-autosuggestions
-_pullDependency scripts/plugins/zsh-syntax-highlighting
-_pullDependency scripts/themes/powerlevel10k
-_pullDependency scripts/themes/base16-themes
+file="$OH_MY_GIL_SH/scripts/tools/dependencies"
+while read -r repo dir; do
+  _pullDependency "$dir"
+done < "$file"
