@@ -1,0 +1,10 @@
+theme=GruvboxDark
+macos-non-native-fullscreen=true
+
+font-family=Inconsolata
+font-size=14
+
+# Disable ligatures, checked with: https://fontdrop.info/
+font-feature=-ccmp
+font-feature=-dlig
+font-feature=-ordn
