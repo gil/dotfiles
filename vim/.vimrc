@@ -264,7 +264,7 @@ let g:tmuxline_preset = {
       \'options' : {'status-justify' : 'left'}}
 
 let g:airline#extensions#tmuxline#enabled = 1
-let g:airline#extensions#tmuxline#snapshot_file = $OH_MY_GIL_SH . "/scripts/tools/assets/tmux-statusline-colors.conf"
+let g:airline#extensions#tmuxline#snapshot_file = $HOME . "/.tmux/tmux-statusline-colors.conf"
 
 " vim-airline
 let g:airline_theme='base16_gruvbox_dark_medium'

@@ -137,7 +137,7 @@ require('lazy').setup({
         'edkolev/tmuxline.vim', -- Generate a tmux theme based on the same them used on airline
         config = function()
           vim.g['airline#extensions#tmuxline#enabled'] = 1
-          vim.g['airline#extensions#tmuxline#snapshot_file'] = vim.fn.expand('$OH_MY_GIL_SH') .. '/scripts/tools/assets/tmux-statusline-colors.conf'
+          vim.g['airline#extensions#tmuxline#snapshot_file'] = vim.fn.expand('$HOME') .. '/.tmux/tmux-statusline-colors.conf'
           vim.g.tmuxline_preset = {
             a       = '#W',
             win     = '#I #W',
