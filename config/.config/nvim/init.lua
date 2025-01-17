@@ -34,17 +34,6 @@ vim.wo.cursorline = true
 vim.o.undofile = true
 vim.fn.system(string.format('find "%s" -type f -mtime 365 -execdir rm -- "{}" \\;', vim.o.undodir)) -- remove older than 1 year
 
--- Experimental highlight for BHC
-vim.filetype.add({
-  extension = {
-    inc = 'html',
-    tmpl = 'html',
-  },
-  pattern = {
-    ['.+/hoteladmin/extranet_ng/manage/.+.html'] = 'mason',
-  },
-})
-
 --
 -- General key maps
 --
@@ -61,12 +50,6 @@ end, { desc = 'Delete buffer' })
 vim.keymap.set('n', '<leader>w', ':set wrap!<CR>', { desc = 'Toggle line wrap' })
 vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Yank to system clipboard' })
 vim.keymap.set('i', 'jj', '<Esc>', { desc = 'Repeated jj is same as <Esc> to exist insert mode' })
-
-vim.keymap.set('n', '<leader>r', function()
-  local last_search = vim.fn.getreg('/')
-  -- vim.print(last_search)
-  vim.cmd.Rg(last_search)
-end, { desc = 'Rg from last search' })
 
 -- upgrade all plugins and dependencies
 function UpgradeEverything(close_after)
@@ -602,14 +585,6 @@ require('lazy').setup({
               fallback()
             end
           end, { 'i', 's' }),
-
-          ['<c-g>'] = cmp.mapping.complete {
-            config = {
-              sources = {
-                { name = 'cody' },
-              },
-            },
-          },
         },
 
         snippet = {
@@ -630,7 +605,6 @@ require('lazy').setup({
 
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
-          { name = 'cody' },
           { name = 'luasnip' },
         }, {
           { name = 'buffer' },
@@ -639,25 +613,4 @@ require('lazy').setup({
       })
     end,
   },
-
-  -- Sourcegraph/Cody plugin for Neovim
-  {
-    'sourcegraph/sg.nvim',
-    dependencies = {
-      'hrsh7th/nvim-cmp',
-      { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope.nvim' },
-    },
-    config = function()
-      require('sg').setup({
-        enable_cody = true,
-        event = 'InsertEnter',
-        auth_strategy = 'environment-variables',
-      })
-    end
-  }
-}, {
-    checker = {
-      enabled = false,
-    },
 })
