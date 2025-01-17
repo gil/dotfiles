@@ -25,6 +25,8 @@ create_symlink() {
   ln -s "$source_file" "$target_file"
 }
 
+find "$SOURCE_DIR" -name ".DS_Store" -type f -delete
+
 printf "${C_BLUE}Linking files...${C_RESTORE}\n"
 
 find "$SOURCE_DIR" -type f | while read -r source_file; do

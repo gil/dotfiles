@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env /opt/homebrew/bin/node
 //
 //  <xbar.title>Time Left</xbar.title>
 //  <xbar.version>v1.0</xbar.version>
