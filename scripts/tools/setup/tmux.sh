@@ -2,20 +2,6 @@
 
 source $OH_MY_GIL_SH/scripts/utils.zsh
 
-### Vim/Neovim ###
-
-_symlinkIfNeeded ~/.vimrc $OH_MY_GIL_SH/vim/.vimrc
-_createDirectoryIfNeeded ~/.vim/
-#_symlinkIfNeeded ~/.vim/ftplugin $OH_MY_GIL_SH/vim/ftplugin/
-#_symlinkIfNeeded ~/.vim/UltiSnips $OH_MY_GIL_SH/vim/UltiSnips/
-#_symlinkIfNeeded ~/.vim/spell $OH_MY_GIL_SH/vim/spell/
-_createDirectoryIfNeeded ~/.config/nvim
-_symlinkIfNeeded ~/.config/nvim/init.lua $OH_MY_GIL_SH/vim/init.lua
-
-### TMUX ###
-
-_symlinkIfNeeded ~/.tmux.conf $OH_MY_GIL_SH/vim/.tmux.conf
-
 if [ -d ~/.tmux/plugins/tpm ]; then
     printf "${C_BLUE}Updating Tmux Plugin Manager...${C_RESTORE}\n"
     cd ~/.tmux/plugins/tpm

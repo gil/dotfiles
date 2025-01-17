@@ -14,11 +14,6 @@ if ! xcode-select -p 1>/dev/null; then
     exit 0
 fi
 
-#if [ "$TERM_PROGRAM" = tmux ]; then
-#    printf "\n${C_PURPLE}[Brew] ${C_RED}Please don't run from tmux and an upgrade may break it!${C_RESTORE}\n"
-#    exit 1
-#fi
-
 if hash brew 2>/dev/null; then
     printf "\n${C_PURPLE}[Brew] ${C_GREEN}Updating Homebrew...${C_RESTORE}\n"
     brew update
@@ -30,7 +25,7 @@ if hash brew 2>/dev/null; then
     printf "\n${C_PURPLE}[Brew] ${C_GREEN}Installing and updating packages...${C_RESTORE}\n"
     brew bundle --file=$OH_MY_GIL_SH/scripts/tools/setup/Brewfile
 
-    git config --global credential.helper osxkeychain # Is there a btter place for this?
+    git config --global credential.helper osxkeychain # Is there a better place for this?
 
     # Not work-related formulas
     vared -p 'Would you like to install/update not work-related formulas? [y/n]' -c REPLY1
