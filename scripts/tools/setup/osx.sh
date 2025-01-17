@@ -51,6 +51,13 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 defaults write com.apple.dock wvous-br-corner -int 4
 defaults write com.apple.dock wvous-br-modifier -int 0
 
+# TextEdit: Use plain text mode for new documents
+defaults write com.apple.TextEdit RichText -int 0
+
+# TextEdit Open and save files as UTF-8
+defaults write com.apple.TextEdit PlainTextEncoding -int 4
+defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
+
 for app in "Dock" "Finder"; do
   killall "${app}" > /dev/null 2>&1
 done
