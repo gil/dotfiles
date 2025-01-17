@@ -24,7 +24,7 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 defaults write kCFPreferencesAnyApplication TSMLanguageIndicatorEnabled 0
 
 # Show the ~/Library folder
-chflags nohidden ~/Library
+# chflags nohidden ~/Library
 
 # Hot corners
 # Possible values:
