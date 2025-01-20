@@ -16,13 +16,28 @@ create_symlink() {
       return
     fi
 
+    source_inode=$(ls -i "$source_file" | awk '{print $1}')
+    target_inode=$(ls -i "$target_file" | awk '{print $1}')
+    if [ "$source_inode" -eq "$target_inode" ]; then
+      printf "${C_GREEN}Skipping $target_file, it's a hardlink to the right file.${C_RESTORE}\n"
+      return
+    fi
+
     local backup_file="${target_file}-$( date '+%Y%m%d%H%M' )"
     printf "${C_YELLOW}Backing up $target_file to $backup_file ${C_RESTORE}\n"
     mv "$target_file" "${backup_file}"
   fi
 
-  printf "${C_GREEN}Creating symlink: $source_file -> $target_file ${C_RESTORE}\n"
-  ln -s "$source_file" "$target_file"
+  target_dirname="$(dirname $target_file)"
+  relative_target_dir="${target_dirname#$TARGET_DIR/}"
+
+  if [[ "$relative_target_dir" == "Library/Fonts" ]]; then
+    printf "${C_GREEN}Creating hardlink for font: $source_file -> $target_file ${C_RESTORE}\n"
+    ln "$source_file" "$target_file"
+  else
+    printf "${C_GREEN}Creating symlink: $source_file -> $target_file ${C_RESTORE}\n"
+    ln -s "$source_file" "$target_file"
+  fi
 }
 
 find "$SOURCE_DIR" -name ".DS_Store" -type f -delete
