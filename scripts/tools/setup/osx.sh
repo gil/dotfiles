@@ -51,6 +51,9 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 defaults write com.apple.dock wvous-br-corner -int 4
 defaults write com.apple.dock wvous-br-modifier -int 0
 
+# Dock: Faster animation
+defaults write com.apple.dock autohide-time-modifier -float 0.15
+
 # TextEdit: Use plain text mode for new documents
 defaults write com.apple.TextEdit RichText -int 0
 
