@@ -9,11 +9,14 @@ defaults write -g NSWindowShouldDragOnGesture -bool true
 # Finder: Show path bar
 defaults write com.apple.finder ShowPathbar -bool true
 
-# Finder: show all filename extensions
+# Finder: Show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
-# Finder: show status bar
+# Finder: Show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
+
+# Finder: Sort folders on top
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
 # No .DS_Store on network storages and USB drives
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
@@ -22,6 +25,9 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 # Disable annoying keyboard popups
 defaults write -g ApplePressAndHoldEnabled -bool false
 defaults write kCFPreferencesAnyApplication TSMLanguageIndicatorEnabled 0
+
+# Tab navitgate all fields
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 2
 
 # Show the ~/Library folder
 # chflags nohidden ~/Library
@@ -51,8 +57,16 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 defaults write com.apple.dock wvous-br-corner -int 4
 defaults write com.apple.dock wvous-br-modifier -int 0
 
-# Dock: Faster animation
+# Dock: No delay and faster animation
+defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.15
+
+# Screenshot: No shadow
+defaults write com.apple.screencapture disable-shadow -bool true
+
+# Screenshot: Dedicated folder
+mkdir -p $HOME/Pictures/Screenshots
+defaults write com.apple.screencapture location -string "$HOME/Pictures/Screenshots"
 
 # TextEdit: Use plain text mode for new documents
 defaults write com.apple.TextEdit RichText -int 0
@@ -61,7 +75,7 @@ defaults write com.apple.TextEdit RichText -int 0
 defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
-for app in "Dock" "Finder"; do
+for app in "Dock" "Finder" "SystemUIServer"; do
   killall "${app}" > /dev/null 2>&1
 done
 
