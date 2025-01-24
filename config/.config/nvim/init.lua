@@ -139,7 +139,7 @@ require('lazy').setup({
           vim.g['airline#extensions#tmuxline#enabled'] = 1
           vim.g['airline#extensions#tmuxline#snapshot_file'] = vim.fn.expand('$HOME') .. '/.tmux/tmux-statusline-colors.conf'
           vim.g.tmuxline_preset = {
-            a       = '#W',
+            a       = '#S',
             win     = '#I #W',
             cwin    = '#I #W',
             x       = '#H 󰒍 ',
