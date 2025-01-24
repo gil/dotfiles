@@ -313,6 +313,16 @@ require('lazy').setup({
     end,
   },
 
+  -- Auto close pairs
+  {
+    'echasnovski/mini.pairs',
+    version = '*',
+    config = function ()
+      require('mini.pairs').setup()
+    end,
+  },
+
+  -- Show keymaps
   {
     'folke/which-key.nvim',
     event = 'VeryLazy',
