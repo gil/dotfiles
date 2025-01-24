@@ -545,6 +545,7 @@ require('lazy').setup({
         dependencies = { 'L3MON4D3/LuaSnip' },
       },
     },
+    event = { 'InsertEnter', 'CmdlineEnter' },
     config = function()
       local cmp = require('cmp')
       local luasnip = require('luasnip')
@@ -571,7 +572,7 @@ require('lazy').setup({
               end
             end,
             s = cmp.mapping.confirm({ select = true }),
-            c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+            --c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
           }),
 
           ['<Tab>'] = cmp.mapping(function(fallback)
