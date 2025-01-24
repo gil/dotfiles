@@ -205,6 +205,10 @@ require('lazy').setup({
       vim.keymap.set('', '<C-p>', ':Files<CR>', { desc = 'Search files' })
       vim.keymap.set('', '<leader>p', ':FZFMru<CR>', { desc = 'MRU Files' })
       vim.keymap.set('', '<leader>o', ':Buffers<CR>', { desc = 'Show buffers' })
+      vim.keymap.set('n', '<leader>r', function()
+        local last_search = vim.fn.getreg('/')
+        vim.cmd.Rg(last_search)
+      end, { desc = 'Rg from last search' })
     end,
   },
 
