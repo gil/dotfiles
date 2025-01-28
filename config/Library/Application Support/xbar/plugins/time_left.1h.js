@@ -1,5 +1,7 @@
-#!/usr/bin/env /opt/homebrew/bin/node
-//
+#!/bin/sh
+':' //; exec "$(PATH=/usr/bin:/opt/homebrew/bin:/usr/local/bin which node)" "$0" "$@"
+// ^^^ this is wild, I know. Based on: https://unix.stackexchange.com/a/65295/104243
+
 //  <xbar.title>Time Left</xbar.title>
 //  <xbar.version>v1.0</xbar.version>
 //  <xbar.author>Your Name, Another author name</xbar.author>
@@ -7,7 +9,9 @@
 //  <xbar.desc>Shows a progress bar and the percentage of time left for the year/semester/quarter.</xbar.desc>
 //  <xbar.dependencies>node</xbar.dependencies>
 //
-//  Use: /usr/local/bin/npm install moment
+//  Run:
+//    ARM   -> /opt/homebrew/bin/npm install moment
+//    Intel -> /usr/local/bin/npm install moment
 //
 
 const moment = require('moment');
