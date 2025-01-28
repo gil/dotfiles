@@ -1,0 +1,78 @@
+/**
+ * In 'Profile Directory' (Menu > Help > Troubleshooting Information > Profile Directory) create folder `chrome` with file `userChrome.css`
+ * Enable toolkit.legacyUserProfileCustomizations.stylesheets in about:config
+ */
+
+/**
+ * Decrease size of the sidebar header
+ */
+#sidebar-header {
+  font-size: 1.2em !important;
+  padding: 2px 6px 2px 3px !important;
+}
+#sidebar-header #sidebar-close {
+  padding: 3px !important;
+}
+#sidebar-header #sidebar-close .toolbarbutton-icon {
+  width: 14px !important;
+  height: 14px !important;
+  opacity: 0.6 !important;
+}
+
+/**
+ * Hide browser tabs when Sidebery is visible
+ * Empty unicode below <200b> copied from https://unicode-explorer.com/c/200B
+ */
+
+/* Source file https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/hide_tabs_toolbar_v2.css made available under Mozilla Public License v. 2.0
+See the above repository for updates as well as full license text. */
+
+/* This requires Firefox 133+ to work */
+
+@media (-moz-bool-pref: "sidebar.verticalTabs"){
+  #sidebar-main{
+    visibility: collapse;
+  }
+}
+@media (-moz-bool-pref: "userchrome.force-window-controls-on-left.enabled"){
+  #nav-bar > .titlebar-buttonbox-container{
+    order: -1 !important;
+    > .titlebar-buttonbox{
+      flex-direction: row-reverse;
+    }
+  }
+}
+
+@media not (-moz-bool-pref: "sidebar.verticalTabs"){
+  #main-window[titlepreface*="​"] #TabsToolbar:not([customizing]){
+    visibility: collapse;
+  }
+  #main-window[titlepreface*="​"] :root[sizemode="fullscreen"] #nav-bar > .titlebar-buttonbox-container{
+    display: flex !important;
+  }
+  #main-window[titlepreface*="​"] :root:is([tabsintitlebar],[customtitlebar]) #toolbar-menubar:not([autohide="false"]) ~ #nav-bar{
+    > .titlebar-buttonbox-container{
+      display: flex !important;
+    }
+    :root[sizemode="normal"] & {
+      > .titlebar-spacer{
+        display: flex !important;
+      }
+    }
+    :root[sizemode="maximized"] & {
+      > .titlebar-spacer[type="post-tabs"]{
+        display: flex !important;
+      }
+      @media (-moz-bool-pref: "userchrome.force-window-controls-on-left.enabled"),
+        (-moz-gtk-csd-reversed-placement),
+        (-moz-platform: macos){
+        > .titlebar-spacer[type="post-tabs"]{
+          display: none !important;
+        }
+        > .titlebar-spacer[type="pre-tabs"]{
+          display: flex !important;
+        }
+      }
+    }
+  }
+}
