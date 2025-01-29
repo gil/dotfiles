@@ -62,7 +62,7 @@ defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.15
 
 # Dock: Don't show recently used apps
-defaults write com.apple.dock show-recents -bool true
+defaults write com.apple.dock show-recents -bool false
 
 # Screenshot: No shadow
 defaults write com.apple.screencapture disable-shadow -bool true
