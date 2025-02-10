@@ -28,10 +28,10 @@ running_within_tmux()
 
 DIR=$(
     fd --hidden --max-depth $TM_DEPTH "(package.json|.git)$" --exclude "/node_modules/" $TM_ROOT | \
-        sort | \
-        uniq | \
         sed "s,^$HOME/,,;" | \
         xargs dirname | \
+        sort | \
+        uniq | \
         fzf
 )
 
