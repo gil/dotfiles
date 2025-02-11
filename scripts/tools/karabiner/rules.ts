@@ -1,22 +1,22 @@
 import fs from 'fs';
 import { KarabinerRules } from './types';
-import { createHyperSubLayers, app, open, shell } from './utils';
+import { createLeaderSubLayers, app, open, shell } from './utils';
 
 const rules: KarabinerRules[] = [
-  // Define the Hyper key itself
+  // Define the Leader key itself
   {
-    description: 'Tab → Hyper Key (⌃⌥⇧⌘) (Tab if alone)',
+    description: 'Tab → Leader Key (Tab if alone)',
     manipulators: [
       {
         from: { key_code: 'tab' },
-        to: [{ set_variable: { name: 'hyper', value: 1 }}],
-        to_after_key_up: [{ set_variable: { name: 'hyper', value: 0 }}],
+        to: [{ set_variable: { name: 'leader', value: 1 }}],
+        to_after_key_up: [{ set_variable: { name: 'leader', value: 0 }}],
         to_if_alone: [{ key_code: 'tab' }],
         type: 'basic',
       }
     ],
   },
-  ...createHyperSubLayers({
+  ...createLeaderSubLayers({
     // b = 'B'rowse
     b: {
       y: open('https://news.ycombinator.com'),

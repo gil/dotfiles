@@ -8,27 +8,27 @@ export interface LayerCommand {
   description?: string;
 }
 
-type HyperKeySublayer = {
+type LeaderKeySublayer = {
   // The ? is necessary, otherwise we'd have to define something for _every_ key code
   [key_code in KeyCode]?: LayerCommand;
 };
 
 /**
- * Create a Hyper Key sublayer, where every command is prefixed with a key
- * e.g. Hyper + O ("Open") is the "open applications" layer, I can press
- * e.g. Hyper + O + G ("Google Chrome") to open Chrome
+ * Create a Leader Key sublayer, where every command is prefixed with a key
+ * e.g. Leader + O ("Open") is the "open applications" layer, I can press
+ * e.g. Leader + O + G ("Google Chrome") to open Chrome
  */
-export function createHyperSubLayer(
+export function createLeaderSubLayer(
   sublayer_key: KeyCode,
-  commands: HyperKeySublayer,
+  commands: LeaderrKeySublayer,
   allSubLayerVariables: string[]
 ): Manipulator[] {
   const subLayerVariableName = generateSubLayerVariableName(sublayer_key);
 
   return [
-    // When Hyper + sublayer_key is pressed, set the variable to 1; on key_up, set it to 0 again
+    // When Leader + sublayer_key is pressed, set the variable to 1; on key_up, set it to 0 again
     {
-      description: `Toggle Hyper sublayer ${sublayer_key}`,
+      description: `Toggle Leader sublayer ${sublayer_key}`,
       type: "basic",
       from: {
         key_code: sublayer_key,
@@ -55,7 +55,7 @@ export function createHyperSubLayer(
         },
       ],
       // This enables us to press other sublayer keys in the current sublayer
-      // (e.g. Hyper + O > M even though Hyper + M is also a sublayer)
+      // (e.g. Leader + O > M even though Leader + M is also a sublayer)
       // basically, only trigger a sublayer if no other sublayer is active
       conditions: [
         ...allSubLayerVariables
@@ -69,7 +69,7 @@ export function createHyperSubLayer(
           })),
         {
           type: "variable_if",
-          name: "hyper",
+          name: "leader",
           value: 1,
         },
       ],
@@ -85,7 +85,7 @@ export function createHyperSubLayer(
             optional: ["any"],
           },
         },
-        // Only trigger this command if the variable is 1 (i.e., if Hyper + sublayer is held)
+        // Only trigger this command if the variable is 1 (i.e., if Leader + sublayer is held)
         conditions: [
           {
             type: "variable_if",
@@ -99,12 +99,12 @@ export function createHyperSubLayer(
 }
 
 /**
- * Create all hyper sublayers. This needs to be a single function, as well need to
- * have all the hyper variable names in order to filter them and make sure only one
+ * Create all leader sublayers. This needs to be a single function, as well need to
+ * have all the leader variable names in order to filter them and make sure only one
  * activates at a time
  */
-export function createHyperSubLayers(subLayers: {
-  [key_code in KeyCode]?: HyperKeySublayer | LayerCommand;
+export function createLeaderSubLayers(subLayers: {
+  [key_code in KeyCode]?: LeaderKeySublayer | LayerCommand;
 }): KarabinerRules[] {
   const allSubLayerVariables = (
     Object.keys(subLayers) as (keyof typeof subLayers)[]
@@ -113,7 +113,7 @@ export function createHyperSubLayers(subLayers: {
   return Object.entries(subLayers).map(([key, value]) =>
     "to" in value
       ? {
-          description: `Hyper Key + ${key}`,
+          description: `Leader Key + ${key}`,
           manipulators: [
             {
               ...value,
@@ -127,7 +127,7 @@ export function createHyperSubLayers(subLayers: {
               conditions: [
                 {
                   type: "variable_if",
-                  name: "hyper",
+                  name: "leader",
                   value: 1,
                 },
                 ...allSubLayerVariables.map((subLayerVariable) => ({
@@ -140,8 +140,8 @@ export function createHyperSubLayers(subLayers: {
           ],
         }
       : {
-          description: `Hyper Key sublayer "${key}"`,
-          manipulators: createHyperSubLayer(
+          description: `Leader Key sublayer "${key}"`,
+          manipulators: createLeaderSubLayer(
             key as KeyCode,
             value,
             allSubLayerVariables
@@ -151,7 +151,7 @@ export function createHyperSubLayers(subLayers: {
 }
 
 function generateSubLayerVariableName(key: KeyCode) {
-  return `hyper_sublayer_${key}`;
+  return `leader_sublayer_${key}`;
 }
 
 /**
