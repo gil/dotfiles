@@ -33,6 +33,7 @@ const rules: KarabinerRules[] = [
 
     // w = 'Window'
     w: {
+      // Using Rectangle keymap so I can switch to Raycast easily
       y: { description: 'Previous Display', to:[{ key_code: 'left_arrow', modifiers:['left_control', 'left_option', 'left_command'] }]},
       o: { description: 'Next Display', to:[{ key_code: 'right_arrow', modifiers:['left_control', 'left_option', 'left_command'] }]},
       k: { description: 'Top Half', to:[{ key_code: 'up_arrow', modifiers:['left_control', 'left_option'] }]},
@@ -41,11 +42,13 @@ const rules: KarabinerRules[] = [
       l: { description: 'Right Half', to:[{ key_code: 'right_arrow', modifiers:['left_control', 'left_option'] }]},
       f: { description: 'Maximize', to:[{ key_code: 'return_or_enter', modifiers:['left_control', 'left_option'] }]},
       g: { description: 'Almost Maximize', to:[{ key_code: 'return_or_enter', modifiers:['left_control', 'left_option', 'left_command'] }]},
+
       u: { description: 'Window: Previous Tab', to: [{ key_code: 'tab', modifiers: ['right_control', 'right_shift'] }] },
       i: { description: 'Window: Next Tab', to: [{ key_code: 'tab', modifiers: ['right_control'] }]},
+
       n: { description: 'Window: Next Window', to: [{ key_code: 'grave_accent_and_tilde', modifiers: ['right_command'] }]},
+
       b: { description: 'Window: Back', to: [{ key_code: 'open_bracket', modifiers: ['right_command'] }]},
-      // Note: No literal connection. Both f and n are already taken.
       m: { description: 'Window: Forward', to: [{ key_code: 'close_bracket', modifiers: ['right_command'] }]},
     },
 
@@ -73,10 +76,12 @@ const rules: KarabinerRules[] = [
 
     // r = 'Raycast'
     r: {
+      b: open('raycast://extensions/InteractiveNinja/linkding/search-bookmarks'),
       c: open('raycast://extensions/thomas/color-picker/pick-color'),
       n: open('raycast://script-commands/dismiss-notifications'),
       e: open('raycast://extensions/raycast/emoji-symbols/search-emoji-symbols'),
       p: open('raycast://extensions/raycast/raycast/confetti'),
+      q: open('raycast://extensions/gebeto/translate/quick-translate'),
       s: open('raycast://extensions/peduarte/silent-mention/index'),
       v: open('raycast://extensions/raycast/clipboard-history/clipboard-history'),
     },
