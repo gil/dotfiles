@@ -19,12 +19,13 @@ const rules: KarabinerRules[] = [
   ...createLeaderSubLayers({
     // b = 'B'rowse
     b: {
-      y: open('https://news.ycombinator.com'),
+      c: open('https://calendar.google.com/'),
     },
 
     // o = 'Open' applications
     o: {
       c: app('calendar'),
+      d: open('~/Downloads/'),
       f: app('firefox'),
       g: app('google chrome'),
       s: app('spotify'),
@@ -59,11 +60,8 @@ const rules: KarabinerRules[] = [
       i: { to: [{ key_code: 'display_brightness_increment' }]},
       k: { to: [{ key_code: 'display_brightness_decrement' }]},
       l: { to: [{ key_code: 'q', modifiers: ['right_control', 'right_command'] }] },
-      p: { to: [{ key_code: 'play_or_pause' }]},
-      semicolon: { to: [{ key_code: 'fastforward' }]},
       d: open('raycast://extensions/yakitrak/do-not-disturb/toggle?launchType=background'),
-      // 'T'heme
-      t: open('raycast://extensions/raycast/system/toggle-system-appearance'),
+      t: open('raycast://extensions/raycast/system/toggle-system-appearance'), // [t]heme
       c: open('raycast://extensions/raycast/system/open-camera'),
     },
 
@@ -78,12 +76,12 @@ const rules: KarabinerRules[] = [
     r: {
       b: open('raycast://extensions/InteractiveNinja/linkding/search-bookmarks'),
       c: open('raycast://extensions/thomas/color-picker/pick-color'),
-      n: open('raycast://script-commands/dismiss-notifications'),
+      // n: open('raycast://script-commands/dismiss-notifications'),
       e: open('raycast://extensions/raycast/emoji-symbols/search-emoji-symbols'),
-      p: open('raycast://extensions/raycast/raycast/confetti'),
+      p: open('raycast://extensions/raycast/clipboard-history/clipboard-history'),
       q: open('raycast://extensions/gebeto/translate/quick-translate'),
       s: open('raycast://extensions/peduarte/silent-mention/index'),
-      v: open('raycast://extensions/raycast/clipboard-history/clipboard-history'),
+      t: open('raycast://extensions/raycast/raycast/confetti'), // tada!
     },
 
     v: open('raycast://extensions/raycast/clipboard-history/clipboard-history'),
