@@ -3,19 +3,6 @@ import { KarabinerRules } from './types';
 import { createLeaderSubLayers, app, open, shell } from './utils';
 
 const rules: KarabinerRules[] = [
-  // Define the Leader key itself
-  {
-    description: 'Tab → Leader Key (Tab if alone)',
-    manipulators: [
-      {
-        from: { key_code: 'tab' },
-        to: [{ set_variable: { name: 'leader', value: 1 }}],
-        to_after_key_up: [{ set_variable: { name: 'leader', value: 0 }}],
-        to_if_alone: [{ key_code: 'tab' }],
-        type: 'basic',
-      }
-    ],
-  },
   ...createLeaderSubLayers({
     // b = 'B'rowse
     b: {

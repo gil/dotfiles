@@ -36,16 +36,6 @@ export function createLeaderSubLayer(
           optional: ["any"],
         },
       },
-      to_after_key_up: [
-        {
-          set_variable: {
-            name: subLayerVariableName,
-            // The default value of a variable is 0: https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/conditions/variable/
-            // That means by using 0 and 1 we can filter for "0" in the conditions below and it'll work on startup
-            value: 0,
-          },
-        },
-      ],
       to: [
         {
           set_variable: {
@@ -110,7 +100,7 @@ export function createLeaderSubLayers(subLayers: {
     Object.keys(subLayers) as (keyof typeof subLayers)[]
   ).map((sublayer_key) => generateSubLayerVariableName(sublayer_key));
 
-  return Object.entries(subLayers).map(([key, value]) =>
+  const sublayerRules: KarabinerRules[] = Object.entries(subLayers).map(([key, value]) =>
     "to" in value
       ? {
           description: `Leader Key + ${key}`,
@@ -148,6 +138,28 @@ export function createLeaderSubLayers(subLayers: {
           ),
         }
   );
+
+  return [
+    // Define the Leader key itself
+    {
+      description: 'Tab → Leader Key (Tab if alone)',
+      manipulators: [
+        {
+          from: { key_code: 'tab' },
+          to: [{ set_variable: { name: 'leader', value: 1 }}],
+          to_after_key_up: [
+            { set_variable: { name: 'leader', value: 0 }},
+            ...allSubLayerVariables.map((subLayerVariable) => ({
+              set_variable: { name: subLayerVariable, value: 0 }
+            })),
+          ],
+          to_if_alone: [{ key_code: 'tab' }],
+          type: 'basic',
+        }
+      ],
+    },
+    ...sublayerRules,
+  ];
 }
 
 function generateSubLayerVariableName(key: KeyCode) {

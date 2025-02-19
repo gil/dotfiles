@@ -52,6 +52,48 @@
                       "name": "leader",
                       "value": 0
                     }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "leader_sublayer_b",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "leader_sublayer_o",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "leader_sublayer_w",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "leader_sublayer_s",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "leader_sublayer_c",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "leader_sublayer_r",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "leader_sublayer_v",
+                      "value": 0
+                    }
                   }
                 ],
                 "to_if_alone": [
@@ -77,14 +119,6 @@
                     ]
                   }
                 },
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "leader_sublayer_b",
-                      "value": 0
-                    }
-                  }
-                ],
                 "to": [
                   {
                     "set_variable": {
@@ -171,14 +205,6 @@
                     ]
                   }
                 },
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "leader_sublayer_o",
-                      "value": 0
-                    }
-                  }
-                ],
                 "to": [
                   {
                     "set_variable": {
@@ -385,14 +411,6 @@
                     ]
                   }
                 },
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "leader_sublayer_w",
-                      "value": 0
-                    }
-                  }
-                ],
                 "to": [
                   {
                     "set_variable": {
@@ -818,14 +836,6 @@
                     ]
                   }
                 },
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "leader_sublayer_s",
-                      "value": 0
-                    }
-                  }
-                ],
                 "to": [
                   {
                     "set_variable": {
@@ -1079,14 +1089,6 @@
                     ]
                   }
                 },
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "leader_sublayer_c",
-                      "value": 0
-                    }
-                  }
-                ],
                 "to": [
                   {
                     "set_variable": {
@@ -1218,14 +1220,6 @@
                     ]
                   }
                 },
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "leader_sublayer_r",
-                      "value": 0
-                    }
-                  }
-                ],
                 "to": [
                   {
                     "set_variable": {
