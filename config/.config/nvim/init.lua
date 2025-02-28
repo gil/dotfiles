@@ -173,7 +173,7 @@ require('lazy').setup({
     'junegunn/fzf.vim',
     dependencies = { 'junegunn/fzf' },
     config = function()
-      vim.api.nvim_create_user_command("FZFMru", function()
+      vim.api.nvim_create_user_command('FZFMru', function()
         local function mru_files()
           -- Get v:oldfiles and filter out unwanted entries (only updated on vim close)
           local oldfiles = vim.tbl_filter(function(val)
@@ -403,7 +403,7 @@ require('lazy').setup({
       'nvim-tree/nvim-web-devicons'
     },
     config = function()
-      require("aerial").setup({
+      require('aerial').setup({
         manage_folds = true,
       })
       vim.keymap.set('n', '<leader>aw', '<cmd>AerialToggle!<CR>', { desc = 'Toggle code outline window' })
