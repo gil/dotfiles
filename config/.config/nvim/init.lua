@@ -505,6 +505,12 @@ require('lazy').setup({
         settings = {
           workingDirectory = { mode = 'auto' }, -- helps find the eslintrc when it's placed in a subfolder instead of the cwd root
         },
+        on_attach = function(client, bufnr)
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = bufnr,
+            command = 'EslintFixAll',
+          })
+        end,
       })
 
       -- Lua
