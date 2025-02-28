@@ -319,11 +319,30 @@ require('lazy').setup({
 
   -- Auto close pairs
   {
-    'echasnovski/mini.pairs',
-    version = '*',
-    config = function ()
-      require('mini.pairs').setup()
-    end,
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = true
+  },
+
+  -- Auto close and auto rename html tags based on treesitter
+  {
+    'windwp/nvim-ts-autotag',
+    config = true
+  },
+
+  -- Indent lines
+  {
+    'echasnovski/mini.indentscope',
+    version = false,
+    config = function()
+      local indentscope = require('mini.indentscope')
+      indentscope.setup({
+        draw = {
+          animation = indentscope.gen_animation.none(),
+        },
+        symbol = '┊',
+      })
+    end
   },
 
   -- Show keymaps
@@ -374,6 +393,22 @@ require('lazy').setup({
         -- indent = { enable = true },
       })
     end
+  },
+
+  -- Code outline window
+  {
+    'stevearc/aerial.nvim',
+    dependencies = {
+      -- 'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons'
+    },
+    config = function()
+      require("aerial").setup({
+        manage_folds = true,
+      })
+      vim.keymap.set('n', '<leader>aw', '<cmd>AerialToggle!<CR>', { desc = 'Toggle code outline window' })
+      vim.keymap.set('n', '<leader>as', '<cmd>call aerial#fzf()<CR>', { desc = 'FZF find symbols' })
+    end,
   },
 
   --
@@ -538,94 +573,40 @@ require('lazy').setup({
 
   -- LSP Completion
   {
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
-      { 'onsails/lspkind.nvim' }, -- vscode-like icons
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-path' },
-      {
-        'saadparwaiz1/cmp_luasnip',
-        dependencies = { 'L3MON4D3/LuaSnip' },
+    'saghen/blink.cmp',
+    -- optional: provides snippets for the snippet source
+    -- dependencies = 'rafamadriz/friendly-snippets',
+    version = '*',
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = {
+        preset = 'super-tab',
+        ['<Esc>'] = { 'hide', 'fallback' },
+        ['<CR>'] = { 'accept', 'fallback' },
+        ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+        ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+      },
+
+      completion = {
+        list = {
+          selection = {
+            preselect = false,
+          },
+        },
+      },
+
+      appearance = {
+        use_nvim_cmp_as_default = true,
+        nerd_font_variant = 'normal'
+      },
+
+      -- Default list of enabled providers defined so that you can extend it
+      -- elsewhere in your config, without redefining it, due to `opts_extend`
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
       },
     },
-    event = { 'InsertEnter', 'CmdlineEnter' },
-    config = function()
-      local cmp = require('cmp')
-      local luasnip = require('luasnip')
-      local lspkind = require('lspkind')
-
-      local has_words_before = function()
-        unpack = unpack or table.unpack
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-      end
-
-      cmp.setup({
-        mapping = {
-          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-d>'] = cmp.mapping.scroll_docs(4),
-
-          -- If something has explicitly been selected by the user, select it, otherwise just add a new line
-          ['<CR>'] = cmp.mapping({
-            i = function(fallback)
-              if cmp.visible() and cmp.get_active_entry() then
-                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-              else
-                fallback()
-              end
-            end,
-            s = cmp.mapping.confirm({ select = true }),
-            --c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-          }),
-
-          ['<Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            elseif has_words_before() then
-              cmp.complete()
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
-
-          ['<S-Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
-        },
-
-        snippet = {
-          expand = function(args)
-            require('luasnip').lsp_expand(args.body)
-          end
-        },
-
-        formatting = {
-          format = lspkind.cmp_format({ -- add the nice icons
-            menu = { -- show where the autocomplete item came from, after the icons (LSP, snippet, etc)
-              buffer = '[Buffer]',
-              nvim_lsp = '[LSP]',
-              luasnip = '[LuaSnip]',
-            },
-          }),
-        },
-
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-        }, {
-          { name = 'buffer' },
-          { name = 'path' },
-        }),
-      })
-    end,
+    opts_extend = { 'sources.default' }
   },
 })
