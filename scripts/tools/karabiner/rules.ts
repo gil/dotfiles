@@ -28,8 +28,8 @@ const rules: KarabinerRules[] = [
       j: { description: 'Bottom Half', to:[{ key_code: 'down_arrow', modifiers:['left_control', 'left_option'] }]},
       h: { description: 'Left Half', to:[{ key_code: 'left_arrow', modifiers:['left_control', 'left_option'] }]},
       l: { description: 'Right Half', to:[{ key_code: 'right_arrow', modifiers:['left_control', 'left_option'] }]},
-      f: { description: 'Maximize', to:[{ key_code: 'return_or_enter', modifiers:['left_control', 'left_option'] }]},
-      g: { description: 'Almost Maximize', to:[{ key_code: 'return_or_enter', modifiers:['left_control', 'left_option', 'left_command'] }]},
+      close_bracket: { description: 'Maximize', to:[{ key_code: 'return_or_enter', modifiers:['left_control', 'left_option'] }]},
+      open_bracket: { description: 'Almost Maximize', to:[{ key_code: 'return_or_enter', modifiers:['left_control', 'left_option', 'left_command'] }]},
 
       u: { description: 'Window: Previous Tab', to: [{ key_code: 'tab', modifiers: ['right_control', 'right_shift'] }] },
       i: { description: 'Window: Next Tab', to: [{ key_code: 'tab', modifiers: ['right_control'] }]},
@@ -70,8 +70,14 @@ const rules: KarabinerRules[] = [
       s: open('raycast://extensions/peduarte/silent-mention/index'),
       t: open('raycast://extensions/raycast/raycast/confetti'), // tada!
     },
-
+    semicolon: open('raycast://extensions/raycast/emoji-symbols/search-emoji-symbols'),
     v: open('raycast://extensions/raycast/clipboard-history/clipboard-history'),
+
+    // n = 'Notes' (Obsidian)
+    n: {
+      b: open('obsidian://adv-uri?vault=notes&commandid=quickadd%3Achoice%3A91c007f6-e99e-42b3-be88-b4e197515eec'),
+      w: open('obsidian://adv-uri?vault=notes&commandid=calendar%3Aopen-weekly-note'),
+    },
   }),
 ];
 

@@ -91,7 +91,19 @@
                   },
                   {
                     "set_variable": {
+                      "name": "leader_sublayer_semicolon",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
                       "name": "leader_sublayer_v",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "leader_sublayer_n",
                       "value": 0
                     }
                   }
@@ -155,7 +167,17 @@
                   },
                   {
                     "type": "variable_if",
+                    "name": "leader_sublayer_semicolon",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
                     "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_n",
                     "value": 0
                   },
                   {
@@ -168,7 +190,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open https://calendar.google.com/"
+                    "shell_command": "open \"https://calendar.google.com/\""
                   }
                 ],
                 "description": "Open https://calendar.google.com/",
@@ -241,7 +263,17 @@
                   },
                   {
                     "type": "variable_if",
+                    "name": "leader_sublayer_semicolon",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
                     "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_n",
                     "value": 0
                   },
                   {
@@ -254,7 +286,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'calendar.app'"
+                    "shell_command": "open \"-a 'calendar.app'\""
                   }
                 ],
                 "description": "Open -a 'calendar.app'",
@@ -278,7 +310,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open ~/Downloads/"
+                    "shell_command": "open \"~/Downloads/\""
                   }
                 ],
                 "description": "Open ~/Downloads/",
@@ -302,7 +334,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'firefox.app'"
+                    "shell_command": "open \"-a 'firefox.app'\""
                   }
                 ],
                 "description": "Open -a 'firefox.app'",
@@ -326,7 +358,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'google chrome.app'"
+                    "shell_command": "open \"-a 'google chrome.app'\""
                   }
                 ],
                 "description": "Open -a 'google chrome.app'",
@@ -350,7 +382,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'spotify.app'"
+                    "shell_command": "open \"-a 'spotify.app'\""
                   }
                 ],
                 "description": "Open -a 'spotify.app'",
@@ -374,7 +406,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'ghostty.app'"
+                    "shell_command": "open \"-a 'ghostty.app'\""
                   }
                 ],
                 "description": "Open -a 'ghostty.app'",
@@ -447,7 +479,17 @@
                   },
                   {
                     "type": "variable_if",
+                    "name": "leader_sublayer_semicolon",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
                     "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_n",
                     "value": 0
                   },
                   {
@@ -640,7 +682,7 @@
                 ],
                 "type": "basic",
                 "from": {
-                  "key_code": "f",
+                  "key_code": "close_bracket",
                   "modifiers": {
                     "optional": [
                       "any"
@@ -669,7 +711,7 @@
                 ],
                 "type": "basic",
                 "from": {
-                  "key_code": "g",
+                  "key_code": "open_bracket",
                   "modifiers": {
                     "optional": [
                       "any"
@@ -872,7 +914,17 @@
                   },
                   {
                     "type": "variable_if",
+                    "name": "leader_sublayer_semicolon",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
                     "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_n",
                     "value": 0
                   },
                   {
@@ -1004,7 +1056,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open raycast://extensions/yakitrak/do-not-disturb/toggle?launchType=background"
+                    "shell_command": "open \"raycast://extensions/yakitrak/do-not-disturb/toggle?launchType=background\""
                   }
                 ],
                 "description": "Open raycast://extensions/yakitrak/do-not-disturb/toggle?launchType=background",
@@ -1028,7 +1080,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open raycast://extensions/raycast/system/toggle-system-appearance"
+                    "shell_command": "open \"raycast://extensions/raycast/system/toggle-system-appearance\""
                   }
                 ],
                 "description": "Open raycast://extensions/raycast/system/toggle-system-appearance",
@@ -1052,7 +1104,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open raycast://extensions/raycast/system/open-camera"
+                    "shell_command": "open \"raycast://extensions/raycast/system/open-camera\""
                   }
                 ],
                 "description": "Open raycast://extensions/raycast/system/open-camera",
@@ -1125,7 +1177,17 @@
                   },
                   {
                     "type": "variable_if",
+                    "name": "leader_sublayer_semicolon",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
                     "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_n",
                     "value": 0
                   },
                   {
@@ -1256,7 +1318,17 @@
                   },
                   {
                     "type": "variable_if",
+                    "name": "leader_sublayer_semicolon",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
                     "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_n",
                     "value": 0
                   },
                   {
@@ -1269,7 +1341,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open raycast://extensions/InteractiveNinja/linkding/search-bookmarks"
+                    "shell_command": "open \"raycast://extensions/InteractiveNinja/linkding/search-bookmarks\""
                   }
                 ],
                 "description": "Open raycast://extensions/InteractiveNinja/linkding/search-bookmarks",
@@ -1293,7 +1365,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open raycast://extensions/thomas/color-picker/pick-color"
+                    "shell_command": "open \"raycast://extensions/thomas/color-picker/pick-color\""
                   }
                 ],
                 "description": "Open raycast://extensions/thomas/color-picker/pick-color",
@@ -1317,7 +1389,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"
+                    "shell_command": "open \"raycast://extensions/raycast/emoji-symbols/search-emoji-symbols\""
                   }
                 ],
                 "description": "Open raycast://extensions/raycast/emoji-symbols/search-emoji-symbols",
@@ -1341,7 +1413,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open raycast://extensions/raycast/clipboard-history/clipboard-history"
+                    "shell_command": "open \"raycast://extensions/raycast/clipboard-history/clipboard-history\""
                   }
                 ],
                 "description": "Open raycast://extensions/raycast/clipboard-history/clipboard-history",
@@ -1365,7 +1437,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open raycast://extensions/gebeto/translate/quick-translate"
+                    "shell_command": "open \"raycast://extensions/gebeto/translate/quick-translate\""
                   }
                 ],
                 "description": "Open raycast://extensions/gebeto/translate/quick-translate",
@@ -1389,7 +1461,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open raycast://extensions/peduarte/silent-mention/index"
+                    "shell_command": "open \"raycast://extensions/peduarte/silent-mention/index\""
                   }
                 ],
                 "description": "Open raycast://extensions/peduarte/silent-mention/index",
@@ -1413,7 +1485,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open raycast://extensions/raycast/raycast/confetti"
+                    "shell_command": "open \"raycast://extensions/raycast/raycast/confetti\""
                   }
                 ],
                 "description": "Open raycast://extensions/raycast/raycast/confetti",
@@ -1437,12 +1509,86 @@
             ]
           },
           {
+            "description": "Leader Key + semicolon",
+            "manipulators": [
+              {
+                "to": [
+                  {
+                    "shell_command": "open \"raycast://extensions/raycast/emoji-symbols/search-emoji-symbols\""
+                  }
+                ],
+                "description": "Open raycast://extensions/raycast/emoji-symbols/search-emoji-symbols",
+                "type": "basic",
+                "from": {
+                  "key_code": "semicolon",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_b",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_o",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_w",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_s",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_c",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_r",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_semicolon",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_n",
+                    "value": 0
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "description": "Leader Key + v",
             "manipulators": [
               {
                 "to": [
                   {
-                    "shell_command": "open raycast://extensions/raycast/clipboard-history/clipboard-history"
+                    "shell_command": "open \"raycast://extensions/raycast/clipboard-history/clipboard-history\""
                   }
                 ],
                 "description": "Open raycast://extensions/raycast/clipboard-history/clipboard-history",
@@ -1493,8 +1639,138 @@
                   },
                   {
                     "type": "variable_if",
+                    "name": "leader_sublayer_semicolon",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
                     "name": "leader_sublayer_v",
                     "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_n",
+                    "value": 0
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Leader Key sublayer \"n\"",
+            "manipulators": [
+              {
+                "description": "Toggle Leader sublayer n",
+                "type": "basic",
+                "from": {
+                  "key_code": "n",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "leader_sublayer_n",
+                      "value": 1
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_b",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_o",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_w",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_s",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_c",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_r",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_semicolon",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
+                    "shell_command": "open \"obsidian://adv-uri?vault=notes&commandid=quickadd%3Achoice%3A91c007f6-e99e-42b3-be88-b4e197515eec\""
+                  }
+                ],
+                "description": "Open obsidian://adv-uri?vault=notes&commandid=quickadd%3Achoice%3A91c007f6-e99e-42b3-be88-b4e197515eec",
+                "type": "basic",
+                "from": {
+                  "key_code": "b",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_n",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
+                    "shell_command": "open \"obsidian://adv-uri?vault=notes&commandid=calendar%3Aopen-weekly-note\""
+                  }
+                ],
+                "description": "Open obsidian://adv-uri?vault=notes&commandid=calendar%3Aopen-weekly-note",
+                "type": "basic",
+                "from": {
+                  "key_code": "w",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_n",
+                    "value": 1
                   }
                 ]
               }
