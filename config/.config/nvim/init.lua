@@ -450,11 +450,11 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       'williamboman/mason-lspconfig.nvim',
-      'hrsh7th/cmp-nvim-lsp'
+      'saghen/blink.cmp',
     },
     config = function()
       local config = require('lspconfig')
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       -- Languages, from:
       -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
@@ -574,14 +574,12 @@ require('lazy').setup({
     end,
   },
 
-  -- Support for additional LSP capabilities that Neovim doesn't by default
-  { 'hrsh7th/cmp-nvim-lsp' },
-
   -- LSP Completion
   {
     'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
     -- dependencies = 'rafamadriz/friendly-snippets',
+
     version = '*',
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
@@ -600,6 +598,10 @@ require('lazy').setup({
             preselect = false,
           },
         },
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 500,
+        }
       },
 
       appearance = {
