@@ -50,8 +50,8 @@ SESSION="$(basename "$DIR" | tr '[:punct:]' '-')"
 if ! tmux has-session -t "=$SESSION" 2>/dev/null; then
     tmux new-session -d -s "$SESSION" -c "$HOME/$DIR" # -n editor "$EDITOR"
     tmux send-keys -t "$SESSION" $EDITOR Enter
-    tmux new-window -t "$SESSION" -c "$HOME/$DIR"
-    tmux select-window -t "$SESSION:0"
+    # tmux new-window -t "$SESSION" -c "$HOME/$DIR"
+    # tmux select-window -t "$SESSION:0"
 fi
 
 if running_within_tmux; then
