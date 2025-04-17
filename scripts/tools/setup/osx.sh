@@ -64,6 +64,9 @@ defaults write com.apple.dock autohide-time-modifier -float 0.15
 # Dock: Don't show recently used apps
 defaults write com.apple.dock show-recents -bool false
 
+$ Dock: Show app switcher on all displays
+defaults write com.apple.dock appswitcher-all-displays -bool true
+
 # Screenshot: No shadow
 defaults write com.apple.screencapture disable-shadow -bool true
 
