@@ -4,7 +4,7 @@
 # Inspired by: https://github.com/gma/tmux-fuzzy-launcher
 # ---------------------
 
-TM_ROOT="${TM_ROOT:-$HOME/dev}"
+TM_ROOT="${TM_ROOT:-$HOME/dev $OH_MY_GIL_SH}"
 TM_DEPTH=${TM_DEPTH:-4}
 
 ## Functions
