@@ -66,6 +66,8 @@ docker info &>/dev/null
 if [ $? -eq 0 ]; then
     echo "Cleaning old Docker container/images..."
     docker image prune
+    echo "Cleaning old Docker build cache..."
+    docker builder prune
 fi
 
 echo "Searching for old node_modules that can be deleted..."
