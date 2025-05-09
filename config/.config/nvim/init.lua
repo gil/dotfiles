@@ -229,6 +229,8 @@ require('lazy').setup({
     'airblade/vim-rooter',
     config = function()
       vim.g.rooter_patterns = { 'package.json', 'deno.json*', '=node_modules', '.git' }
+      vim.g.rooter_manual_only = 1
+      vim.keymap.set('n', '<leader>gr', ':Rooter<CR>', { desc = 'Change to project root' })
     end,
   },
 
