@@ -1,5 +1,3 @@
-tap "uptech/oss"
-
 # General tools
 brew "tmux"
 brew "bash"
@@ -28,6 +26,7 @@ brew "htop"
 brew "hyperfine"
 brew "imagemagick"
 brew "mas"
+brew "fzf"
 
 # Dev tools
 brew "gcc"
@@ -106,3 +105,7 @@ cask "rocket"
 cask "latest"
 cask "ImHex"
 cask "coconutbattery"
+cask "beeper"
+cask "deepl"
+cask "logi-options+"
+cask "deskflow/homebrew-tap/deskflow"
