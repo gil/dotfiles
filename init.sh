@@ -74,6 +74,7 @@ plugins=(git rbenv rails gem node npm yarn z docker docker-compose osx extract t
 plugins+=(brew fnm pyenv) # keep these last
 
 # User configuration
+# TODO: Do I still need this?
 if [ -z "$OH_MY_GIL_SH_OLD_PATH" ]; then
     export OH_MY_GIL_SH_OLD_PATH="$PATH"
 fi
@@ -145,3 +146,7 @@ alias clip="nc localhost 8377"
 if [ -f $OH_MY_GIL_SH/custom/.zshrc ]; then
   source $OH_MY_GIL_SH/custom/.zshrc
 fi
+
+# FZF Shell Integration. Why can't call this from fzf plugin? No idea! Maybe the PATH overrides above?
+eval "$(fzf --zsh)"
+
