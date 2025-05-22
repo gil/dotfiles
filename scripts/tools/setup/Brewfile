@@ -109,3 +109,10 @@ cask "beeper"
 cask "deepl"
 cask "logi-options+"
 cask "deskflow/homebrew-tap/deskflow"
+
+# AppStore
+mas "Velja", id: 1607635845
+mas "Pandan", id: 1569600264
+mas "MusicBox", id: 1614730313
+mas "Reeder", id: 1529448980
+mas "ToyViewer", id: 414298354
