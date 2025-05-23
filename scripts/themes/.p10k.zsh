@@ -820,6 +820,9 @@
   typeset -g POWERLEVEL9K_EXAMPLE_FOREGROUND=3
   typeset -g POWERLEVEL9K_EXAMPLE_VISUAL_IDENTIFIER_EXPANSION='${P9K_VISUAL_IDENTIFIER}'
 
+  # Don't show warning when there's some IO before it's done, just that prompt "jumps"
+  typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
   # When instant prompt is disabled, prompt won't appear until zsh is fully initialized.
   # typeset -g POWERLEVEL9K_DISABLE_INSTANT_PROMPT=true
 }
