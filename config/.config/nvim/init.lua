@@ -196,11 +196,22 @@ require('lazy').setup({
             vim.fn['fzf#wrap']({
               source = mru_files(),
               sink = 'edit',
-              options = '--multi --extended --no-sort',
+              options = '--multi --extended --no-sort --keep-right',
             })
           )
         )
       end, {})
+
+      vim.env.BAT_STYLE = 'header-filename,numbers'
+
+      vim.g.fzf_layout = { window = { width = 0.9, height = 0.9 } }
+
+      vim.g.fzf_vim = {
+        preview_window = { 'up,50%', 'ctrl-/' },
+        buffers_jump = 1,
+        grep_multi_line = 2,
+        buffers_options = '--keep-right',
+      }
 
       vim.keymap.set('', '<C-p>', ':Files<CR>', { desc = 'Search files' })
       vim.keymap.set('', '<leader>p', ':FZFMru<CR>', { desc = 'MRU Files' })
