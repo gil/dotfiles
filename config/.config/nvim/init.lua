@@ -578,6 +578,7 @@ require('lazy').setup({
       -- Keymaps
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Find definition' })
       vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'Find declaration' })
+      vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = 'Find references' })
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Hover symbol info' })
       vim.keymap.set('n', '<leader>k', vim.diagnostic.open_float, { desc = 'Show diagnostics' })
     end,
