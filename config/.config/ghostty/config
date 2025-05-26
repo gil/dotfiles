@@ -1,5 +1,6 @@
 theme=GruvboxDark
 macos-non-native-fullscreen=true
+macos-titlebar-style=hidden
 
 font-family=Inconsolata
 font-size=14
