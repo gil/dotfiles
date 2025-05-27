@@ -82,7 +82,8 @@ cask "iterm2"
 cask "keka"
 cask "xbar"
 cask "oracle-jdk"
-cask "hiddenbar"
+# cask "hiddenbar"
+cask "jordanbaird-ice"
 cask "karabiner-elements"
 cask "stats"
 cask "iina"
@@ -109,6 +110,7 @@ cask "beeper"
 cask "deepl"
 cask "logi-options+"
 cask "deskflow/homebrew-tap/deskflow"
+cask "clop"
 
 # AppStore
 mas "Velja", id: 1607635845
