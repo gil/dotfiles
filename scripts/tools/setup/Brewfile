@@ -31,6 +31,7 @@ brew "fzf"
 # Dev tools
 brew "gcc"
 brew "git"
+brew "git-lfs"
 brew "gh"
 brew "vim"
 brew "neovim"
