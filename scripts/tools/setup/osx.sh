@@ -81,6 +81,11 @@ defaults write com.apple.TextEdit RichText -int 0
 defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
+# Accessibility ctrl+scroll to zoom
+# ctrl = 1, option = 2, cmd = 4
+defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+defaults write com.apple.universalaccess closeViewZoomModifier -int 1
+
 # Disable clipboard sharing with iPhone (on work Mac)
 # defaults write ~/Library/Preferences/com.apple.coreservices.useractivityd.plist ClipboardSharingEnabled 0
 
