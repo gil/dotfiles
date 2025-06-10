@@ -52,7 +52,7 @@ alias gb='git branch'
 alias gc='git commit -v'
 alias gcz='npx git-cz --disable-emoji --scope'
 alias gco='git checkout'
-alias gcm="git checkout $(git branch -rl '*/HEAD' | grep -o '[^/]\+$')"
+alias gcm="git checkout \$(git branch -rl '*/HEAD' | grep -o '[^/]\+$')"
 alias gfa='git fetch --all --prune'
 alias gl='git pull'
 #alias glr='git -c rebase.autoStash=true pull --rebase'
