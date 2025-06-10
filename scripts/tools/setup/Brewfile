@@ -112,6 +112,7 @@ cask "deepl"
 cask "logi-options+"
 cask "deskflow/homebrew-tap/deskflow"
 cask "clop"
+cask "virtualbox"
 
 # AppStore
 mas "Velja", id: 1607635845

@@ -4,6 +4,7 @@ brew "handbrake", link: false
 brew "ccd2iso"
 brew "mkvtoolnix"
 
+cask "vmware-fusion"
 cask "handbrake"
 cask "makemkv"
 cask "calibre"
