@@ -447,29 +447,28 @@ require('lazy').setup({
 
   -- Install and manage LSP servers from Neovim
   {
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
     build = ':MasonUpdate',
-    config = function()
-      require('mason').setup()
-    end,
+    opts = {}
   },
 
   -- Makes it easier to integrate mason.nvim with nvim-lspconfig
   {
-    'williamboman/mason-lspconfig.nvim',
-    dependencies = { 'williamboman/mason.nvim' },
+    'mason-org/mason-lspconfig.nvim',
+    dependencies = {
+      'mason-org/mason.nvim',
+      'neovim/nvim-lspconfig',
+    },
     config = function()
       require('mason-lspconfig').setup({
-        -- Automatically install the following servers, with Mason.
-        -- List from: https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
         ensure_installed = {
           'ts_ls',
           'denols',
           'html',
           'cssls',
-          'vuels',
-          'lua_ls',
+          'vue_ls',
           'eslint',
+          'lua_ls',
         },
       })
     end,
@@ -479,45 +478,31 @@ require('lazy').setup({
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      'williamboman/mason-lspconfig.nvim',
       'saghen/blink.cmp',
     },
     config = function()
-      local config = require('lspconfig')
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
+      local base_on_attach = vim.lsp.config.eslint.on_attach
 
-      -- Languages, from:
-      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+      -- Configs: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+      -- Extends defaults from: https://github.com/neovim/nvim-lspconfig/tree/master/lsp
 
       -- Javascript / Typescript
-      config.ts_ls.setup({
-        capabilities = capabilities,
+      vim.lsp.config('ts_ls', {
         single_file_support = false
       })
 
       -- Deno
-      config.denols.setup({
-        capabilities = capabilities,
-        root_dir = config.util.root_pattern('deno.json', 'deno.jsonc'),
+      vim.lsp.config('denols', {
+        workspace_required = true,
+        root_markers = { 'deno.json', 'deno.jsonc' },
       })
 
       vim.g.markdown_fenced_languages = {
         'ts=typescript'
       }
 
-      -- HTML
-      config.html.setup({
-        capabilities = capabilities,
-      })
-
-      -- CSS
-      config.cssls.setup({
-        capabilities = capabilities,
-      })
-
       -- Vue.js
-      config.vuels.setup({
-        capabilities = capabilities,
+      vim.lsp.config('vue_ls', {
         init_options = {
           config = {
             vetur = {
@@ -531,21 +516,23 @@ require('lazy').setup({
       })
 
       -- ESlint
-      config.eslint.setup({
+      vim.lsp.config('eslint', {
         settings = {
           workingDirectory = { mode = 'auto' }, -- helps find the eslintrc when it's placed in a subfolder instead of the cwd root
         },
         on_attach = function(client, bufnr)
-          vim.api.nvim_create_autocmd('BufWritePre', {
+          if not base_on_attach then return end
+
+          base_on_attach(client, bufnr)
+          vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = bufnr,
-            command = 'EslintFixAll',
+            command = "LspEslintFixAll",
           })
         end,
       })
 
       -- Lua
-      config.lua_ls.setup({
-        capabilities = capabilities,
+      vim.lsp.config('lua_ls', {
         settings = {
           Lua = {
             runtime = { version = 'LuaJIT' }, -- Neovim uses LuaJIT
