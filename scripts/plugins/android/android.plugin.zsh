@@ -1,0 +1,1 @@
+alias android-emu="~/Library/Android/sdk/emulator/emulator -list-avds | fzf --height=10 | xargs -I {} ~/Library/Android/sdk/emulator/emulator -avd {} -netdelay none -netspeed full -adb-path ~/Library/Android/sdk/platform-tools/adb"
