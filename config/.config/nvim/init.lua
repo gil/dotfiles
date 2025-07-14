@@ -7,6 +7,7 @@ vim.o.diffopt = 'filler,internal,algorithm:histogram,indent-heuristic' -- better
 vim.wo.number = true -- show line numbers
 vim.wo.wrap = false -- dont wrap lines
 vim.o.updatetime = 250 -- reduce updatetime for CursorHold event (added becaues of nvim-lspconfig diagnostics on hover)
+vim.wo.relativenumber = true -- relative line numbers
 
 -- Indentation
 vim.o.expandtab = true -- expand tabs into spaces
