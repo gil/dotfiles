@@ -67,6 +67,7 @@ alias glola="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Crese
 alias gp='git push'
 alias gpf='git push --force-with-lease'
 alias grb='git rebase'
+alias grbm="git rebase \$(git branch -rl '*/HEAD' | grep -o '\S\+$')"
 alias grbi='git rebase -i'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
