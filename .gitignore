@@ -7,5 +7,6 @@ scripts/tools/setup/*.lock.json
 # Dependencies
 scripts/plugins/zsh-autosuggestions
 scripts/plugins/zsh-syntax-highlighting
+scripts/plugins/zsh-vi-mode
 scripts/themes/powerlevel10k
 scripts/themes/base16-themes
