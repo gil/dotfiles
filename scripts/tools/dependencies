@@ -1,4 +1,5 @@
 https://github.com/zsh-users/zsh-autosuggestions scripts/plugins/zsh-autosuggestions
 https://github.com/zsh-users/zsh-syntax-highlighting.git scripts/plugins/zsh-syntax-highlighting
+https://github.com/jeffreytse/zsh-vi-mode scripts/plugins/zsh-vi-mode
 https://github.com/romkatv/powerlevel10k.git scripts/themes/powerlevel10k
 https://github.com/gil/base16-themes.git scripts/themes/base16-themes

@@ -147,6 +147,8 @@ if [ -f $OH_MY_GIL_SH/custom/.zshrc ]; then
   source $OH_MY_GIL_SH/custom/.zshrc
 fi
 
-# FZF Shell Integration. Why can't call this from fzf plugin? No idea! Maybe the PATH overrides above?
-eval "$(fzf --zsh)"
-
+function zvm_is_ready() {
+  # FZF Shell Integration. Why can't call this from fzf plugin? No idea! Maybe the PATH overrides above?
+  eval "$(fzf --zsh)"
+}
+zvm_after_init_commands+=(zvm_is_ready)
