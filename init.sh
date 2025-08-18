@@ -138,7 +138,7 @@ if hash nvim 2>/dev/null; then
 fi
 alias vi="vim"
 alias v="vim"
-alias work="vim -o \`git status -s --porcelain -uall | cut -c4- | sed \"s,\${\$(git rev-parse --show-prefix):-ºº},,\" | tr '\n' ' '\`"
+alias work="git diff --relative --name-only \$(git branch -rl '*/HEAD' | grep -o '[^/]\+$') | xargs nvim"
 
 # Pipe anything into `clip` to forward it to Clipper
 alias clip="nc localhost 8377"
