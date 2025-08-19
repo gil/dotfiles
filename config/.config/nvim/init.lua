@@ -62,25 +62,26 @@ function UpgradeEverything(close_after)
   local registry = require('mason-registry')
   registry.refresh(function ()
     require('mason.ui').open()
+    local packages_to_install = registry.get_installed_packages()
+    local index = 1
 
-    local packages_waiting = 0
-    registry:on('package:install:success', function()
-      packages_waiting = packages_waiting - 1
-      if packages_waiting == 0 then
-        vim.schedule(function()
-          if close_after == true then
-            vim.cmd('qa')
-          else
-            require('mason.ui.instance').window.close()
-          end
+    local function install_next_package()
+      if index <= #packages_to_install then
+        local pkg = packages_to_install[index]
+        pkg:install({}, function()
+          index = index + 1
+          vim.schedule(install_next_package)
         end)
+      else
+        if close_after == true then
+          vim.cmd('qa')
+        else
+          require('mason.ui.instance').window.close()
+        end
       end
-    end)
-
-    for _, pkg in pairs(registry.get_installed_packages()) do
-      packages_waiting = packages_waiting + 1
-      pkg:install(pkg)
     end
+
+    install_next_package()
   end)
 end
 
