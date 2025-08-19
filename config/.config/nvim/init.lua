@@ -417,7 +417,7 @@ require('lazy').setup({
         ensure_installed = {
           'lua', 'vim', 'vimdoc', 'perl', 'bash', 'markdown',
           'python', 'ruby', 'sql', 'yaml',
-          'html', 'css', 'javascript', 'typescript', 'vue', 'json',
+          'html', 'css', 'javascript', 'typescript', 'tsx', 'vue', 'json',
         },
         sync_install = false,
         auto_install = true,
