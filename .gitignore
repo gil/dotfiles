@@ -8,5 +8,6 @@ scripts/tools/setup/*.lock.json
 scripts/plugins/zsh-autosuggestions
 scripts/plugins/zsh-syntax-highlighting
 scripts/plugins/zsh-vi-mode
+scripts/plugins/pokemon-colorscripts/src
 scripts/themes/powerlevel10k
 scripts/themes/base16-themes

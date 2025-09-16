@@ -116,6 +116,47 @@ require('lazy').setup({
     end,
   },
 
+  -- Simple greeter / startup screen
+  {
+    'goolord/alpha-nvim',
+    config = function()
+      local poke_file = '$HOME/.config/nvim/.pokemon'
+      vim.fn.system(string.format('%s > %s', vim.fn.expand('$OH_MY_GIL_SH/scripts/plugins/pokemon-colorscripts/src/pokemon-colorscripts.py -r 1'), poke_file))
+      local width = tonumber(vim.fn.system(string.format([[cat %s | sed 's/\x1b\[[0-9;]*m//g' | wc -L -m | awk '{print $2}']], poke_file)))
+      local height = tonumber(vim.fn.system(string.format('wc -l < %s', poke_file)))
+
+      require('alpha').setup({
+        layout = {
+          { type = 'padding', val = 10 },
+          {
+            type = 'text',
+            val = {
+              [[                                  __]],
+              [[     ___     ___    ___   __  __ /\_\    ___ ___]],
+              [[    / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\]],
+              [[   /\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \]],
+              [[   \ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
+              [[    \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
+            },
+            opts = {
+              position = 'center',
+              hl = 'Type',
+            },
+          },
+          { type = 'padding', val = 5 },
+          {
+            type = 'terminal',
+            command = string.format('cat %s', poke_file),
+            width = width,
+            height = height,
+            opts = {},
+          }
+        },
+      })
+      require('alpha.term')
+    end
+  },
+
   -- Adds file type icons to Vim plugins, with any font patched from "Nerd Fonts"
   {
     'ryanoasis/vim-devicons',
