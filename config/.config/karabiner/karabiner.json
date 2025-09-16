@@ -1389,6 +1389,30 @@
               {
                 "to": [
                   {
+                    "shell_command": "open \"raycast://extensions/raycast/dictionary/define-word\""
+                  }
+                ],
+                "description": "Open raycast://extensions/raycast/dictionary/define-word",
+                "type": "basic",
+                "from": {
+                  "key_code": "d",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_r",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
                     "shell_command": "open \"raycast://extensions/raycast/emoji-symbols/search-emoji-symbols\""
                   }
                 ],
@@ -1492,6 +1516,30 @@
                 "type": "basic",
                 "from": {
                   "key_code": "t",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_r",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
+                    "shell_command": "open \"raycast://extensions/raycast/raycast/search-quicklinks\""
+                  }
+                ],
+                "description": "Open raycast://extensions/raycast/raycast/search-quicklinks",
+                "type": "basic",
+                "from": {
+                  "key_code": "l",
                   "modifiers": {
                     "optional": [
                       "any"

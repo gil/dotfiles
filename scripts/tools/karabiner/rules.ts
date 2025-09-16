@@ -63,12 +63,14 @@ const rules: KarabinerRules[] = [
     r: {
       b: open('raycast://extensions/InteractiveNinja/linkding/search-bookmarks'),
       c: open('raycast://extensions/thomas/color-picker/pick-color'),
+      d: open('raycast://extensions/raycast/dictionary/define-word'),
       // n: open('raycast://script-commands/dismiss-notifications'),
       e: open('raycast://extensions/raycast/emoji-symbols/search-emoji-symbols'),
       p: open('raycast://extensions/raycast/clipboard-history/clipboard-history'),
       q: open('raycast://extensions/gebeto/translate/quick-translate'),
       s: open('raycast://extensions/peduarte/silent-mention/index'),
       t: open('raycast://extensions/raycast/raycast/confetti'), // tada!
+      l: open('raycast://extensions/raycast/raycast/search-quicklinks'),
     },
     semicolon: open('raycast://extensions/raycast/emoji-symbols/search-emoji-symbols'),
     v: open('raycast://extensions/raycast/clipboard-history/clipboard-history'),
