@@ -524,8 +524,6 @@ require('lazy').setup({
       'saghen/blink.cmp',
     },
     config = function()
-      local base_on_attach = vim.lsp.config.eslint.on_attach
-
       -- Configs: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
       -- Extends defaults from: https://github.com/neovim/nvim-lspconfig/tree/master/lsp
 
@@ -562,14 +560,15 @@ require('lazy').setup({
       vim.lsp.config('eslint', {
         settings = {
           workingDirectory = { mode = 'auto' }, -- helps find the eslintrc when it's placed in a subfolder instead of the cwd root
+          codeActionOnSave = { enable = true, mode = 'problems' },
         },
-        on_attach = function(client, bufnr)
-          if not base_on_attach then return end
-
-          base_on_attach(client, bufnr)
+        on_attach = function(client, buffer)
           vim.api.nvim_create_autocmd('BufWritePre', {
-            buffer = bufnr,
-            command = 'LspEslintFixAll',
+            buffer = buffer,
+            callback = function(event)
+              local eslint = function(formatter) return formatter.name == 'eslint' end
+              vim.lsp.buf.format({ async = false, filter = eslint })
+            end,
           })
         end,
       })
