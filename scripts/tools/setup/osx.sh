@@ -70,6 +70,9 @@ defaults write com.apple.dock appswitcher-all-displays -bool true
 # Mission Control: Exposé -> Group windows by application
 defaults write com.apple.dock expose-group-apps -bool true
 
+# Mission Control: Displays have separate Spaces
+defaults write com.apple.spaces spans-displays -bool true
+
 # Screenshot: No shadow
 defaults write com.apple.screencapture disable-shadow -bool true
 
