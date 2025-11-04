@@ -185,7 +185,7 @@ automatically-unhide-macos-hidden-apps = false
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-semicolon = 'mode service'
 
-    alt-0 = ['layout floating tiling', 'mode main']
+    alt-shift-0 = ['layout floating tiling', 'mode main']
     alt-shift-z = 'fullscreen'
 
 # 'service' binding mode declaration.
