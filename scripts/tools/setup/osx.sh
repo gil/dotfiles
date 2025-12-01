@@ -18,6 +18,9 @@ defaults write com.apple.finder ShowStatusBar -bool true
 # Finder: Sort folders on top
 defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
+# Finder: Hide desktop icons
+defaults write com.apple.finder CreateDesktop false
+
 # No .DS_Store on network storages and USB drives
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
