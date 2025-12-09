@@ -31,7 +31,6 @@ if hash yarn 2>/dev/null; then
     printf "\n${C_PURPLE}[Yarn] ${C_GREEN}Installing/Updating modules...${C_RESTORE}\n"
     yarn global add \
       nodemon \
-      csscomb \
       eslint_d \
       http-server \
       typescript \
