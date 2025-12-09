@@ -23,7 +23,11 @@ pyenv global 3.11
 pip install --upgrade pip
 
 # Install packages
-pip install pudb neovim python-lsp-server
+pip install \
+  pudb \
+  neovim \
+  python-lsp-server \
+  rich-tables
 
 if [[ $OSTYPE == darwin* ]]; then
   pip install pyobjc-framework-Quartz
