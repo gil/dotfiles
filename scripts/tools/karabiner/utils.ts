@@ -20,10 +20,24 @@ type LeaderKeySublayer = {
  */
 export function createLeaderSubLayer(
   sublayer_key: KeyCode,
-  commands: LeaderrKeySublayer,
+  commands: LeaderKeySublayer,
   allSubLayerVariables: string[]
 ): Manipulator[] {
   const subLayerVariableName = generateSubLayerVariableName(sublayer_key);
+
+  // Add a help command
+  const helpTitle = `${ commands["description"] || "" } commands:`;
+  delete commands["description"];
+
+  const help = Object.entries(commands)
+    .map(([key, value]) => `${key}: ${value.description || "No description"}`);
+
+  commands["slash"] = {
+    description: "Help: Show Commands",
+    to: [{
+      shell_command: `osascript -e 'tell application "System Events" to display dialog "${ helpTitle }\n\n${ help.join("\n") }" with title "Help" buttons {"OK"}' default button 1`,
+    }],
+  };
 
   return [
     // When Leader + sublayer_key is pressed, set the variable to 1; on key_up, set it to 0 again
@@ -99,6 +113,17 @@ export function createLeaderSubLayers(subLayers: {
   const allSubLayerVariables = (
     Object.keys(subLayers) as (keyof typeof subLayers)[]
   ).map((sublayer_key) => generateSubLayerVariableName(sublayer_key));
+
+  // Add a help command
+  const help = Object.entries(subLayers)
+    .map(([key, value]) => `${key}: ${value.description! || "No description"}`);
+
+  subLayers["slash"] = {
+    description: "Help: Show Sublayers",
+    to: [{
+      shell_command: `osascript -e 'tell application "System Events" to display dialog "Sublayers:\n\n${ help.join("\n") }" with title "Help" buttons {"OK"}' default button 1`,
+    }],
+  };
 
   const sublayerRules: KarabinerRules[] = Object.entries(subLayers).map(([key, value]) =>
     "to" in value

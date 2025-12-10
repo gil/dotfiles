@@ -4,13 +4,16 @@ import { createLeaderSubLayers, app, open, shell } from './utils';
 
 const rules: KarabinerRules[] = [
   ...createLeaderSubLayers({
-    // b = 'B'rowse
+
     b: {
+      description: '[B]rowser',
+
       c: open('https://calendar.google.com/'),
     },
 
-    // o = 'Open' applications
     o: {
+      description: '[O]pen',
+
       c: app('calendar'),
       d: open('~/Downloads/'),
       f: app('firefox'),
@@ -19,8 +22,9 @@ const rules: KarabinerRules[] = [
       t: app('ghostty'),
     },
 
-    // w = 'Window'
     w: {
+      description: '[W]indow',
+
       // Using Rectangle keymap so I can switch to Raycast easily
       y: { description: 'Previous Display', to:[{ key_code: 'left_arrow', modifiers:['left_control', 'left_option', 'left_command'] }]},
       o: { description: 'Next Display', to:[{ key_code: 'right_arrow', modifiers:['left_control', 'left_option', 'left_command'] }]},
@@ -40,27 +44,30 @@ const rules: KarabinerRules[] = [
       m: { description: 'Window: Forward', to: [{ key_code: 'close_bracket', modifiers: ['right_command'] }]},
     },
 
-    // s = 'System'
     s: {
-      u: { to: [{ key_code: 'volume_increment' }]},
-      j: { to: [{ key_code: 'volume_decrement' }]},
-      i: { to: [{ key_code: 'display_brightness_increment' }]},
-      k: { to: [{ key_code: 'display_brightness_decrement' }]},
-      l: { to: [{ key_code: 'q', modifiers: ['right_control', 'right_command'] }] },
+      description: '[S]ystem',
+
+      u: {  description: 'Volume: Up', to: [{ key_code: 'volume_increment' }]},
+      j: {  description: 'Volume: Down', to: [{ key_code: 'volume_decrement' }]},
+      i: {  description: 'Brightness Increase', to: [{ key_code: 'display_brightness_increment' }]},
+      k: {  description: 'Brightness Decrease', to: [{ key_code: 'display_brightness_decrement' }]},
+      l: {  description: 'Lock Screen', to: [{ key_code: 'q', modifiers: ['right_control', 'right_command'] }] },
       d: open('raycast://extensions/yakitrak/do-not-disturb/toggle?launchType=background'),
       t: open('raycast://extensions/raycast/system/toggle-system-appearance'), // [t]heme
       c: open('raycast://extensions/raycast/system/open-camera'),
     },
 
-    // c = Musi*c* which isn't 'm' because we want it to be on the left hand
     c: {
-      p: { to: [{ key_code: 'play_or_pause' }]},
-      n: { to: [{ key_code: 'fastforward' }]},
-      b: { to: [{ key_code: 'rewind' }]},
+      description: 'Musi[c]',
+
+      p: { description: 'Play/Pause', to: [{ key_code: 'play_or_pause' }]},
+      n: { description: 'Next', to: [{ key_code: 'fastforward' }]},
+      b: { description: 'Previous', to: [{ key_code: 'rewind' }]},
     },
 
-    // r = 'Raycast'
     r: {
+      description: '[R]aycast',
+
       b: open('raycast://extensions/InteractiveNinja/linkding/search-bookmarks'),
       c: open('raycast://extensions/thomas/color-picker/pick-color'),
       d: open('raycast://extensions/raycast/dictionary/define-word'),
@@ -75,8 +82,9 @@ const rules: KarabinerRules[] = [
     semicolon: open('raycast://extensions/raycast/emoji-symbols/search-emoji-symbols'),
     v: open('raycast://extensions/raycast/clipboard-history/clipboard-history'),
 
-    // n = 'Notes' (Obsidian)
     n: {
+      description: '[N]otes',
+
       b: open('obsidian://adv-uri?vault=notes&commandid=quickadd%3Achoice%3A91c007f6-e99e-42b3-be88-b4e197515eec'),
       w: open('obsidian://adv-uri?vault=notes&commandid=calendar%3Aopen-weekly-note'),
     },

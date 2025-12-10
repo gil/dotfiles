@@ -210,6 +210,30 @@
                     "value": 1
                   }
                 ]
+              },
+              {
+                "description": "Help: Show Commands",
+                "to": [
+                  {
+                    "shell_command": "osascript -e 'tell application \"System Events\" to display dialog \"[B]rowser commands:\n\nc: Open https://calendar.google.com/\" with title \"Help\" buttons {\"OK\"}' default button 1"
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "slash",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_b",
+                    "value": 1
+                  }
+                ]
               }
             ]
           },
@@ -413,6 +437,30 @@
                 "type": "basic",
                 "from": {
                   "key_code": "t",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_o",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "description": "Help: Show Commands",
+                "to": [
+                  {
+                    "shell_command": "osascript -e 'tell application \"System Events\" to display dialog \"[O]pen commands:\n\nc: Open -a 'calendar.app'\nd: Open ~/Downloads/\nf: Open -a 'firefox.app'\ng: Open -a 'google chrome.app'\ns: Open -a 'spotify.app'\nt: Open -a 'ghostty.app'\" with title \"Help\" buttons {\"OK\"}' default button 1"
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "slash",
                   "modifiers": {
                     "optional": [
                       "any"
@@ -861,6 +909,30 @@
                     "value": 1
                   }
                 ]
+              },
+              {
+                "description": "Help: Show Commands",
+                "to": [
+                  {
+                    "shell_command": "osascript -e 'tell application \"System Events\" to display dialog \"[W]indow commands:\n\ny: Previous Display\no: Next Display\nk: Top Half\nj: Bottom Half\nh: Left Half\nl: Right Half\nclose_bracket: Maximize\nopen_bracket: Almost Maximize\nu: Window: Previous Tab\ni: Window: Next Tab\nn: Window: Next Window\nb: Window: Back\nm: Window: Forward\" with title \"Help\" buttons {\"OK\"}' default button 1"
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "slash",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_w",
+                    "value": 1
+                  }
+                ]
               }
             ]
           },
@@ -935,6 +1007,7 @@
                 ]
               },
               {
+                "description": "Volume: Up",
                 "to": [
                   {
                     "key_code": "volume_increment"
@@ -958,6 +1031,7 @@
                 ]
               },
               {
+                "description": "Volume: Down",
                 "to": [
                   {
                     "key_code": "volume_decrement"
@@ -981,6 +1055,7 @@
                 ]
               },
               {
+                "description": "Brightness Increase",
                 "to": [
                   {
                     "key_code": "display_brightness_increment"
@@ -1004,6 +1079,7 @@
                 ]
               },
               {
+                "description": "Brightness Decrease",
                 "to": [
                   {
                     "key_code": "display_brightness_decrement"
@@ -1027,6 +1103,7 @@
                 ]
               },
               {
+                "description": "Lock Screen",
                 "to": [
                   {
                     "key_code": "q",
@@ -1124,6 +1201,30 @@
                     "value": 1
                   }
                 ]
+              },
+              {
+                "description": "Help: Show Commands",
+                "to": [
+                  {
+                    "shell_command": "osascript -e 'tell application \"System Events\" to display dialog \"[S]ystem commands:\n\nu: Volume: Up\nj: Volume: Down\ni: Brightness Increase\nk: Brightness Decrease\nl: Lock Screen\nd: Open raycast://extensions/yakitrak/do-not-disturb/toggle?launchType=background\nt: Open raycast://extensions/raycast/system/toggle-system-appearance\nc: Open raycast://extensions/raycast/system/open-camera\" with title \"Help\" buttons {\"OK\"}' default button 1"
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "slash",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_s",
+                    "value": 1
+                  }
+                ]
               }
             ]
           },
@@ -1198,6 +1299,7 @@
                 ]
               },
               {
+                "description": "Play/Pause",
                 "to": [
                   {
                     "key_code": "play_or_pause"
@@ -1221,6 +1323,7 @@
                 ]
               },
               {
+                "description": "Next",
                 "to": [
                   {
                     "key_code": "fastforward"
@@ -1244,6 +1347,7 @@
                 ]
               },
               {
+                "description": "Previous",
                 "to": [
                   {
                     "key_code": "rewind"
@@ -1252,6 +1356,30 @@
                 "type": "basic",
                 "from": {
                   "key_code": "b",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_c",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "description": "Help: Show Commands",
+                "to": [
+                  {
+                    "shell_command": "osascript -e 'tell application \"System Events\" to display dialog \"Musi[c] commands:\n\np: Play/Pause\nn: Next\nb: Previous\" with title \"Help\" buttons {\"OK\"}' default button 1"
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "slash",
                   "modifiers": {
                     "optional": [
                       "any"
@@ -1553,6 +1681,30 @@
                     "value": 1
                   }
                 ]
+              },
+              {
+                "description": "Help: Show Commands",
+                "to": [
+                  {
+                    "shell_command": "osascript -e 'tell application \"System Events\" to display dialog \"[R]aycast commands:\n\nb: Open raycast://extensions/InteractiveNinja/linkding/search-bookmarks\nc: Open raycast://extensions/thomas/color-picker/pick-color\nd: Open raycast://extensions/raycast/dictionary/define-word\ne: Open raycast://extensions/raycast/emoji-symbols/search-emoji-symbols\np: Open raycast://extensions/raycast/clipboard-history/clipboard-history\nq: Open raycast://extensions/gebeto/translate/quick-translate\ns: Open raycast://extensions/peduarte/silent-mention/index\nt: Open raycast://extensions/raycast/raycast/confetti\nl: Open raycast://extensions/raycast/raycast/search-quicklinks\" with title \"Help\" buttons {\"OK\"}' default button 1"
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "slash",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_r",
+                    "value": 1
+                  }
+                ]
               }
             ]
           },
@@ -1819,6 +1971,104 @@
                     "type": "variable_if",
                     "name": "leader_sublayer_n",
                     "value": 1
+                  }
+                ]
+              },
+              {
+                "description": "Help: Show Commands",
+                "to": [
+                  {
+                    "shell_command": "osascript -e 'tell application \"System Events\" to display dialog \"[N]otes commands:\n\nb: Open obsidian://adv-uri?vault=notes&commandid=quickadd%3Achoice%3A91c007f6-e99e-42b3-be88-b4e197515eec\nw: Open obsidian://adv-uri?vault=notes&commandid=calendar%3Aopen-weekly-note\" with title \"Help\" buttons {\"OK\"}' default button 1"
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "slash",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_n",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Leader Key + slash",
+            "manipulators": [
+              {
+                "description": "Help: Show Sublayers",
+                "to": [
+                  {
+                    "shell_command": "osascript -e 'tell application \"System Events\" to display dialog \"Sublayers:\n\nb: [B]rowser\no: [O]pen\nw: [W]indow\ns: [S]ystem\nc: Musi[c]\nr: [R]aycast\nsemicolon: Open raycast://extensions/raycast/emoji-symbols/search-emoji-symbols\nv: Open raycast://extensions/raycast/clipboard-history/clipboard-history\nn: [N]otes\" with title \"Help\" buttons {\"OK\"}' default button 1"
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "slash",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_b",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_o",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_w",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_s",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_c",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_r",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_semicolon",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_n",
+                    "value": 0
                   }
                 ]
               }
