@@ -9,7 +9,7 @@ last_value=''
 
 while true
 do
-  value="$(pasta)"
+  value="$(,pasta)"
 
   if [ "$last_value" != "$value" ]; then
     echo "$value"
