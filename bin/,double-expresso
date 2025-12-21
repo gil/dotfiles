@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+APP_NAME="Turbo Boost Switcher Pro"
+IS_RUNNING=$(osascript -e "application \"$APP_NAME\" is running")
+
+if [ "$IS_RUNNING" == "true" ]; then
+  osascript -e "tell application \"$APP_NAME\"" -e "uncheckauto" -e "enabletb" -e "end tell" > /dev/null
+fi
+
+caffeinate -dmi "$@"
+
+if [ "$IS_RUNNING" == "true" ]; then
+  osascript -e "tell application \"$APP_NAME\"" -e "checkauto" -e "disabletb" -e "end tell" > /dev/null
+fi
