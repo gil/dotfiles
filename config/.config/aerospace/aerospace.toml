@@ -208,3 +208,41 @@ automatically-unhide-macos-hidden-apps = false
     # down = 'volume down'
     # up = 'volume up'
     # shift-down = ['volume set 0', 'mode main']
+
+# Run `aerospace list-apps` to list IDs
+[[on-window-detected]]
+  if.app-id = 'com.mitchellh.ghostty'
+  run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+  if.app-id = 'org.mozilla.firefox'
+  run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+  if.app-id = 'com.automattic.beeper.desktop'
+  run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+  if.app-id = 'com.reederapp.5.macOS'
+  run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+  if.app-id = 'com.apple.iCal'
+  run = 'move-node-to-workspace O'
+
+[[on-window-detected]]
+  if.app-id = 'com.apple.reminders'
+  run = 'move-node-to-workspace O'
+
+[[on-window-detected]]
+  if.app-id = 'com.apple.Music'
+  run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+  if.app-id = 'com.apple.Music'
+  run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+  if.app-id = 'md.obsidian'
+  run = 'move-node-to-workspace N'
+
