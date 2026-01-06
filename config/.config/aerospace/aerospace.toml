@@ -228,11 +228,11 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
   if.app-id = 'com.apple.iCal'
-  run = 'move-node-to-workspace O'
+  run = 'move-node-to-workspace D'
 
 [[on-window-detected]]
   if.app-id = 'com.apple.reminders'
-  run = 'move-node-to-workspace O'
+  run = 'move-node-to-workspace D'
 
 [[on-window-detected]]
   if.app-id = 'com.apple.Music'
