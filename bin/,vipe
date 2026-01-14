@@ -1,0 +1,11 @@
+#!/bin/bash
+
+TMPFILE=$(mktemp /tmp/vipe.bashXXXXXXXX)
+trap "rm -f '$TMPFILE'" EXIT
+
+if [ ! -t 0 ]; then
+  cat > "$TMPFILE"
+fi
+
+$EDITOR "$TMPFILE" < /dev/tty > /dev/tty
+cat "$TMPFILE"
