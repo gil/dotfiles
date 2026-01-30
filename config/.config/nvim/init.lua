@@ -332,6 +332,30 @@ require('lazy').setup({
         },
         current_line_blame = true,
         current_line_blame_formatter = '<abbrev_sha>: <summary> (<author_time:%Y-%m-%d> <author>)',
+        on_attach = function(bufnr)
+          local gitsigns = require('gitsigns')
+          local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+          end
+
+          map('n', ']c', function()
+            if vim.wo.diff then
+              vim.cmd.normal({']c', bang = true})
+            else
+              gitsigns.nav_hunk('next')
+            end
+          end)
+
+          map('n', '[c', function()
+            if vim.wo.diff then
+              vim.cmd.normal({'[c', bang = true})
+            else
+              gitsigns.nav_hunk('prev')
+            end
+          end)
+        end
       })
 
       vim.keymap.set('n', '<leader>b', function()
@@ -510,8 +534,9 @@ require('lazy').setup({
           'html',
           'cssls',
           'vue_ls',
-          'eslint',
           'lua_ls',
+          'eslint',
+          'stylelint_lsp',
         },
       })
     end,
@@ -556,6 +581,21 @@ require('lazy').setup({
         },
       })
 
+      -- Lua
+      vim.lsp.config('lua_ls', {
+        settings = {
+          Lua = {
+            runtime = { version = 'LuaJIT' }, -- Neovim uses LuaJIT
+            diagnostics = { globals = {'vim'} },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file('', true), -- Make the server aware of Neovim runtime files
+              checkThirdParty = false, -- silence "Do you need to configure your work environment as XXX?" messages
+            },
+            telemetry = { enable = false },
+          },
+        },
+      })
+
       -- ESlint
       vim.lsp.config('eslint', {
         settings = {
@@ -571,21 +611,6 @@ require('lazy').setup({
             end,
           })
         end,
-      })
-
-      -- Lua
-      vim.lsp.config('lua_ls', {
-        settings = {
-          Lua = {
-            runtime = { version = 'LuaJIT' }, -- Neovim uses LuaJIT
-            diagnostics = { globals = {'vim'} },
-            workspace = {
-              library = vim.api.nvim_get_runtime_file('', true), -- Make the server aware of Neovim runtime files
-              checkThirdParty = false, -- silence "Do you need to configure your work environment as XXX?" messages
-            },
-            telemetry = { enable = false },
-          },
-        },
       })
 
       -- Error on hover
