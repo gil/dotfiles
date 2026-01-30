@@ -254,6 +254,26 @@ require('lazy').setup({
         )
       end, {})
 
+      vim.api.nvim_create_user_command('FZFModified', function()
+        local cmd = [[bash -c "(git diff --relative --name-only $(git branch -rl '*/HEAD' | grep -o '[^ ]\+$') 2>/dev/null ; git status --short 2>/dev/null | cut -c4-) | xargs -n 1 -I {} find {} -type f 2>/dev/null | sort | uniq"]]
+        local files = vim.fn.systemlist(cmd)
+
+        if #files == 0 then
+          vim.notify('No modified files found', vim.log.levels.INFO)
+          return
+        end
+
+        vim.fn['fzf#run'](
+          vim.fn['fzf#vim#with_preview'](
+            vim.fn['fzf#wrap']({
+              source = files,
+              sink = 'edit',
+              options = '--multi --extended --keep-right',
+            })
+          )
+        )
+      end, {})
+
       vim.env.BAT_STYLE = 'header-filename,numbers'
 
       vim.g.fzf_layout = { window = { width = 0.9, height = 0.9 } }
@@ -268,6 +288,7 @@ require('lazy').setup({
       vim.keymap.set('', '<C-p>', ':Files<CR>', { desc = 'Search files' })
       vim.keymap.set('', '<leader>p', ':FZFMru<CR>', { desc = 'MRU Files' })
       vim.keymap.set('', '<leader>o', ':Buffers<CR>', { desc = 'Show buffers' })
+      vim.keymap.set('', '<leader>l', ':FZFModified<CR>', { desc = 'Modified files' })
       vim.keymap.set('n', '<leader>r', function()
         local last_search = vim.fn.getreg('/')
         vim.cmd.Rg(last_search)
