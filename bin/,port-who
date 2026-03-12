@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo lsof -t -i :$1 | xargs -n1 ps -o pid= -o command= -p
