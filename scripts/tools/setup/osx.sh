@@ -102,6 +102,13 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 defaults write com.apple.dock wvous-br-corner -int 4
 defaults write com.apple.dock wvous-br-modifier -int 0
 
+# Screensaver: Require password right when screen locks
+sysadminctl -screenLock immediate -password -
+
+# Dock: Autohide and magnify
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock magnification -bool true
+
 # Dock: No delay and faster animation
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.15
@@ -133,14 +140,15 @@ defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
 # Accessibility ctrl+scroll to zoom
-# ctrl = 1, option = 2, cmd = 4
-defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-defaults write com.apple.universalaccess closeViewZoomModifier -int 1
+# Doesn't seem possible on MacOS Tahoe 26 anymore
+# ctrl = 262144, option = 524288, cmd = 1048576
+# sudo defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+# sudo defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 
 # Disable clipboard sharing with iPhone (on work Mac)
 # defaults write ~/Library/Preferences/com.apple.coreservices.useractivityd.plist ClipboardSharingEnabled 0
 
-for app in "Dock" "Finder" "SystemUIServer"; do
+for app in "Dock" "Finder" "SystemUIServer" "cfprefsd"; do
   killall "${app}" > /dev/null 2>&1
 done
 
