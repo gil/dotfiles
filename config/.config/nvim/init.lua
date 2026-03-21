@@ -504,21 +504,22 @@ require('lazy').setup({
   -- Use Treesitter for better syntax highlight
   {
     'nvim-treesitter/nvim-treesitter',
+    lazy = false,
     build = ':TSUpdate',
     config = function()
-      local configs = require('nvim-treesitter.configs')
+      require('nvim-treesitter').install {
+        'lua', 'vim', 'vimdoc', 'perl', 'bash', 'markdown',
+        'python', 'ruby', 'sql', 'yaml',
+        'html', 'css', 'javascript', 'typescript', 'tsx', 'vue', 'json',
+      }
 
-      configs.setup({
-        ensure_installed = {
-          'lua', 'vim', 'vimdoc', 'perl', 'bash', 'markdown',
-          'python', 'ruby', 'sql', 'yaml',
-          'html', 'css', 'javascript', 'typescript', 'tsx', 'vue', 'json',
-        },
-        sync_install = false,
-        auto_install = true,
-        highlight = { enable = true },
-        -- indent = { enable = true },
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { '<filetype>' },
+        callback = function() vim.treesitter.start() end,
       })
+
+      vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo[0][0].foldmethod = 'expr'
     end
   },
 
