@@ -1,5 +1,47 @@
 #!/usr/bin/env zsh
 
+# Setup sudo fingerprint support over tmux
+PAM_PATH="/opt/homebrew/lib/pam/pam_reattach.so"
+
+if [ -f "$PAM_PATH" ]; then
+  SUDO_LOCAL="/etc/pam.d/sudo_local"
+  TEMPLATE="/etc/pam.d/sudo_local.template"
+
+  echo "Configuring macOS PAM modules..."
+
+  # Create sudo_local from template if it doesn't exist
+  if [ ! -f "$SUDO_LOCAL" ]; then
+    echo "Creating $SUDO_LOCAL from Apple's template..."
+    sudo cp "$TEMPLATE" "$SUDO_LOCAL"
+  fi
+
+  # Uncomment pam_tid.so (Touch ID) if it is currently commented out
+  if grep -q "^#auth.*pam_tid.so" "$SUDO_LOCAL"; then
+    echo "Enabling native Touch ID for sudo..."
+    sudo sed -i '' 's/^#auth *sufficient *pam_tid.so/auth       sufficient     pam_tid.so/' "$SUDO_LOCAL"
+  fi
+
+  # Inject pam_reattach if it isn't already there
+  if grep -q "pam_reattach.so" "$SUDO_LOCAL"; then
+    echo "pam_reattach is already configured in $SUDO_LOCAL."
+  else
+    echo "Linking pam_reattach to Touch ID..."
+    # Use awk to insert the reattach line exactly ONE line above pam_tid.so
+    sudo awk -v pam_line="auth       optional       $PAM_PATH" \
+      '/^auth.*pam_tid.so/ { print pam_line } 1' "$SUDO_LOCAL" > /tmp/sudo_local.tmp
+
+    sudo mv /tmp/sudo_local.tmp "$SUDO_LOCAL"
+
+    # Lock down file permissions for security (Apple's default for pam.d)
+    sudo chown root:wheel "$SUDO_LOCAL"
+    sudo chmod 444 "$SUDO_LOCAL"
+    echo "pam_reattach successfully injected."
+  fi
+
+  # Clear cached sudo credentials so the next command triggers Touch ID
+  sudo -K
+fi
+
 # Ask for the administrator password upfront
 sudo -v
 
