@@ -27,6 +27,7 @@ brew "hyperfine"
 brew "imagemagick"
 brew "mas"
 brew "fzf"
+brew "pam-reattach"
 
 # Dev tools
 brew "gcc"
@@ -35,7 +36,8 @@ brew "git-lfs"
 brew "gh"
 brew "vim"
 brew "neovim"
-# brew "nginx"
+brew "tree-sitter"
+brew "tree-sitter-cli"
 brew "node"
 brew "fnm"
 brew "deno"
@@ -51,7 +53,6 @@ brew "ack"
 brew "ripgrep"
 brew "ripgrep-all"
 brew "jq"
-brew "uptech/oss/alt"
 brew "watchman"
 brew "cmake"
 
@@ -80,30 +81,26 @@ cask "xquartz"
 cask "rectangle"
 cask "imageoptim"
 cask "ghostty"
-# cask "kitty"
 cask "iterm2"
 cask "keka"
 cask "xbar"
 cask "oracle-jdk"
-# cask "hiddenbar"
 cask "jordanbaird-ice"
 cask "karabiner-elements"
 cask "stats"
 cask "iina"
 cask "vlc"
-cask "docker"
+cask "docker-desktop"
 cask "firefox"
 cask "gimp"
 cask "notunes"
-cask "qlvideo"
+cask "quicklook-video"
 cask "qlmarkdown"
-cask "spotify"
 cask "sublime-text"
 cask "mediainfo"
 cask "shottr"
 cask "obsidian"
 cask "hmarr/tap/vitals"
-# cask "oversight"
 cask "raycast"
 cask "rocket"
 cask "latest"
@@ -111,7 +108,6 @@ cask "ImHex"
 cask "coconutbattery"
 cask "beeper"
 cask "deepl"
-cask "logi-options+"
 cask "deskflow/homebrew-tap/deskflow"
 cask "clop"
 cask "virtualbox"
@@ -122,3 +118,12 @@ mas "Pandan", id: 1569600264
 mas "MusicBox", id: 1614730313
 mas "Reeder", id: 1529448980
 mas "ToyViewer", id: 414298354
+mas "PDFgear", id: 6469021132
+mas "PDFOptim", id: 621276561
+
+# Safari Extensions
+mas "1Blocker", id: 1365531024
+mas "1Password for Safari", id: 1569813296
+mas "Consent-O-Matic", id: 1606897889
+mas "SponsorBlock", id: 1573461917
+mas "Vinegar", id: 1591303229
