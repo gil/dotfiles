@@ -49,7 +49,7 @@ if hash brew 2>/dev/null; then
     printf "\n${C_PURPLE}[Brew] ${C_GREEN}Running brew doctor to be sure everything is okay...${C_RESTORE}\n"
     brew doctor
 
-    for app in "Karabiner-Elements" "Vitals" "Shottr" "Deepl"; do
+    for app in "Karabiner-Elements" "Vitals" "RunCat" "Shottr" "Deepl"; do
       open -a "${app}"
     done
 fi
