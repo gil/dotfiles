@@ -1,18 +1,31 @@
-## Efficiency
+---
+description: Global coding, testing, tooling, and shell usage rules
+alwaysApply: true
+---
 
-- Minimize the use of tokens in each response. You will be rewarded for using the least amount possible.
-- Only add comments when absolutey necessary. Most code should be self-explanatory.
+# Code Style
 
-## Environment Rules
+- DO NOT add code comments unless they explain non-obvious intent, trade-offs, or constraints. Never comment obvious behavior.
+- Keep responses concise. Omit filler, narration, and redundant explanations.
 
-- Always run `export GIT_PAGER=cat` before any git commands.
-- If the project root contains a `package.json`, run `fnm use` in that directory before any commands.
+# Tooling
 
-## Tool Preference
+- ALWAYS use `pnpm` with Corepack when creating a new JavaScript or TypeScript project. NEVER use npm or yarn.
+- ALWAYS use ripgrep (`rg`) instead of `grep` for file searching. NEVER use `grep`.
 
-- When creating a new JavaScript or TypeScript project, use `pnpm` as packagea manager with Corepack.
-- Use ripgrep (`rg`) or The Silver Searcher (`ag`) instead of `grep` when searching for.
+# Environment Setup
 
-## Testing
+- ALWAYS run `fnm use` before ANY shell command in a Node.js project. Do this once at the start of the session.
+- ALWAYS run `export GIT_PAGER=cat` before ANY git command. Do this once at the start of the session.
 
-- Don't add mocks that aren't necessary. When you finish writing tests, validate and remove the unnecessary ones.
+# Shell Usage
+
+- Prefer tools that don't require Bash permission prompts (e.g. Read, Grep, Glob) over Shell whenever possible.
+- Avoid compound Shell commands (`&&`, `||`, `;`, pipes) and command substitutions (`$()`). Use separate sequential tool calls instead.
+- If a Shell command unexpectedly triggers a permission prompt, flag it and suggest updating this guidance or `settings.json` permissions to prevent it.
+
+# Testing
+
+- DO NOT add mocks unless a test specifically requires them.
+- After writing tests, ALWAYS audit and remove every unnecessary mock.
+- After completing ANY change, ALWAYS fix all linting errors and run tests on every changed file.
