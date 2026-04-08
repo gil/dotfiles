@@ -111,6 +111,7 @@ cask "deepl"
 cask "deskflow/homebrew-tap/deskflow"
 cask "clop"
 cask "virtualbox"
+cask "bettermouse"
 
 # AppStore
 mas "Velja", id: 1607635845
