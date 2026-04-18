@@ -122,6 +122,11 @@ defaults write com.apple.dock appswitcher-all-displays -bool true
 # Mission Control: Exposé -> Group windows by application
 defaults write com.apple.dock expose-group-apps -bool true
 
+# App Exposé gesture (three-finger swipe down)
+defaults write com.apple.dock showAppExposeGestureEnabled -bool true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerVertSwipeGesture -int 2
+
 # Mission Control: Displays have separate Spaces
 defaults write com.apple.spaces spans-displays -bool true
 
