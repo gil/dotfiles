@@ -1,0 +1,69 @@
+#!/bin/bash
+
+## Functions
+
+err()
+{
+    echo "ERROR: $(basename "$0"): $*" 1>&2
+    read
+    exit 1
+}
+
+running_within_tmux()
+{
+    [ -n "$TMUX" ]
+}
+
+## Main program
+
+[ -n "$DEBUG" ] && set -x
+
+WORKTREES_DIR="$(git rev-parse --show-toplevel)--worktrees"
+
+WORKTREE=$(
+    ( \
+        git worktree list | \
+            cut -d' ' -f1 | \
+            tail -n +2 ; \
+        echo "[NEW]" \
+    ) | \
+        fzf
+)
+
+IS_NEW=0
+
+if [ "$WORKTREE" = "[NEW]" ]; then
+    IS_NEW=1
+    echo Branch name?
+    read WORKTREE
+    mkdir -p "$WORKTREES_DIR"
+    git worktree add -b "$WORKTREE" "$WORKTREES_DIR/$WORKTREE" origin/HEAD || \
+      git worktree add "$WORKTREES_DIR/$WORKTREE" "$WORKTREE" || \
+      err "couldn't create worktree"
+fi
+
+FZF_RC=$?
+
+if [ -z "$WORKTREE" ]; then
+    if [ $FZF_RC -eq 1 ]; then
+        err "no worktree selected"
+    else
+        exit $FZF_RC
+    fi
+fi
+
+SESSION="$((printf "$(basename "$PWD")- -$(basename "$WORKTREE")") | tr '[:punct:]' '-')"
+
+if ! tmux has-session -t "=$SESSION" 2>/dev/null; then
+    tmux new-session -d -s "$SESSION" -c "$WORKTREES_DIR/$WORKTREE" # -n editor "$EDITOR"
+    if [ $IS_NEW -eq 1 ] && [ -f "$WORKTREES_DIR/$WORKTREE/pnpm-lock.yaml" ]; then
+        tmux send-keys -t "$SESSION" pnpm Space install Enter
+    fi
+    tmux send-keys -t "$SESSION" $EDITOR Enter
+fi
+
+if running_within_tmux; then
+    tmux switch-client -t "$SESSION"
+else
+    tmux attach-session -t "$SESSION"
+fi

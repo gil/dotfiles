@@ -1,0 +1,6 @@
+#!/bin/bash
+
+git worktree list | \
+  fzf --multi | \
+  cut -d' ' -f 1 | \
+  xargs -I {} bash -c "echo Removing {} ... && git worktree remove \"{}\""
