@@ -4,7 +4,7 @@
 # Inspired by: https://github.com/gma/tmux-fuzzy-launcher
 # ---------------------
 
-TM_ROOT="${TM_ROOT:-$HOME/dev $OH_MY_GIL_SH}"
+TM_ROOT="${TM_ROOT:-$HOME/dev}"
 TM_DEPTH=${TM_DEPTH:-4}
 
 ## Functions
@@ -27,10 +27,12 @@ running_within_tmux()
 [ -n "$DEBUG" ] && set -x
 
 DIR=$(
-    fd --hidden --max-depth $TM_DEPTH "(package.json|.git)$" --exclude "/node_modules/" $TM_ROOT | \
+    (
+      fd . --type directory --max-depth 1 $TM_ROOT | xargs realpath ; \
+      fd --hidden --max-depth $TM_DEPTH "(package.json|.git)$" --exclude "/node_modules/" $TM_ROOT $OH_MY_GIL_SH | xargs dirname \
+    ) | \
         sed "s,^$HOME/,,;" | \
-        xargs dirname | \
-        sort | \
+       sort | \
         uniq | \
         fzf
 )
