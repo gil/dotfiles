@@ -1,4 +1,4 @@
-alias ta='tmux attach || tmux new -s main'
+alias ta='tmux attach || tmux new -s home'
 
 function tmux-dev() {
   tmux rename-session "$(basename "$PWD")"
