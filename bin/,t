@@ -26,24 +26,29 @@ running_within_tmux()
 
 [ -n "$DEBUG" ] && set -x
 
-DIR=$(
-    (
-      fd . --type directory --max-depth 1 $TM_ROOT | xargs realpath ; \
-      fd --hidden --max-depth $TM_DEPTH "(package.json|.git)$" --exclude "/node_modules/" $TM_ROOT $OH_MY_GIL_SH | xargs dirname \
-    ) | \
-        sed "s,^$HOME/,,;" | \
-       sort | \
-        uniq | \
-        fzf
-)
+if [ -n "$1" ]; then
+    [ -d "$1" ] || err "not a directory: $1"
+    DIR=$(realpath "$1" | sed "s,^$HOME/,,;")
+else
+    DIR=$(
+        (
+          fd . --type directory --max-depth 1 $TM_ROOT | xargs realpath ; \
+          fd --hidden --max-depth $TM_DEPTH "(package.json|.git)$" --exclude "/node_modules/" $TM_ROOT $OH_MY_GIL_SH | xargs dirname \
+        ) | \
+            sed "s,^$HOME/,,;" | \
+           sort | \
+            uniq | \
+            fzf
+    )
 
-FZF_RC=$?
+    FZF_RC=$?
 
-if [ -z "$DIR" ]; then
-    if [ $FZF_RC -eq 1 ]; then
-        err "no matching path"
-    else
-        exit $FZF_RC
+    if [ -z "$DIR" ]; then
+        if [ $FZF_RC -eq 1 ]; then
+            err "no matching path"
+        else
+            exit $FZF_RC
+        fi
     fi
 fi
 
