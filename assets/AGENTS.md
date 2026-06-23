@@ -23,6 +23,9 @@ alwaysApply: true
 - Prefer tools that don't require Bash permission prompts (e.g. Read, Grep, Glob) over Shell whenever possible.
 - Avoid compound Shell commands (`&&`, `||`, `;`, pipes) and command substitutions (`$()`). Use separate sequential tool calls instead.
 - If a Shell command unexpectedly triggers a permission prompt, flag it and suggest updating this guidance or `settings.json` permissions to prevent it.
+- NEVER kill processes by name or pattern. No `killall`, no `pkill`, no `pkill -f <anything>` (including `pkill -f vite`, `pkill -f vite-node`, `pkill -f node`). Pattern matches hit processes in other projects, other dev servers, and the browser.
+- To free a port, ALWAYS use port-specific termination: `lsof -ti :PORT | xargs kill -9`
+- To stop a process YOU started in THIS session, kill it by its exact PID or job spec (`kill %1`), never by name match.
 
 # Git
 
