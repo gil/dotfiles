@@ -103,6 +103,12 @@
                   },
                   {
                     "set_variable": {
+                      "name": "leader_sublayer_q",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
                       "name": "leader_sublayer_n",
                       "value": 0
                     }
@@ -173,6 +179,11 @@
                   {
                     "type": "variable_if",
                     "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_q",
                     "value": 0
                   },
                   {
@@ -293,6 +304,11 @@
                   {
                     "type": "variable_if",
                     "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_q",
                     "value": 0
                   },
                   {
@@ -533,6 +549,11 @@
                   {
                     "type": "variable_if",
                     "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_q",
                     "value": 0
                   },
                   {
@@ -996,6 +1017,11 @@
                   },
                   {
                     "type": "variable_if",
+                    "name": "leader_sublayer_q",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
                     "name": "leader_sublayer_n",
                     "value": 0
                   },
@@ -1288,6 +1314,11 @@
                   },
                   {
                     "type": "variable_if",
+                    "name": "leader_sublayer_q",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
                     "name": "leader_sublayer_n",
                     "value": 0
                   },
@@ -1452,6 +1483,11 @@
                   {
                     "type": "variable_if",
                     "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_q",
                     "value": 0
                   },
                   {
@@ -1775,6 +1811,11 @@
                   },
                   {
                     "type": "variable_if",
+                    "name": "leader_sublayer_q",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
                     "name": "leader_sublayer_n",
                     "value": 0
                   }
@@ -1849,6 +1890,90 @@
                   },
                   {
                     "type": "variable_if",
+                    "name": "leader_sublayer_q",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_n",
+                    "value": 0
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Leader Key + q",
+            "manipulators": [
+              {
+                "to": [
+                  {
+                    "shell_command": "killall UniversalControl; killall rapportd"
+                  }
+                ],
+                "description": "killall UniversalControl; killall rapportd",
+                "type": "basic",
+                "from": {
+                  "key_code": "q",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "leader",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_b",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_o",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_w",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_s",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_c",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_r",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_semicolon",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_q",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
                     "name": "leader_sublayer_n",
                     "value": 0
                   }
@@ -1917,6 +2042,11 @@
                   {
                     "type": "variable_if",
                     "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_q",
                     "value": 0
                   },
                   {
@@ -2007,7 +2137,7 @@
                 "description": "Help: Show Sublayers",
                 "to": [
                   {
-                    "shell_command": "osascript -e 'tell application \"System Events\" to display dialog \"Sublayers:\n\nb: [B]rowser\no: [O]pen\nw: [W]indow\ns: [S]ystem\nc: Musi[c]\nr: [R]aycast\nsemicolon: Open raycast://extensions/raycast/emoji-symbols/search-emoji-symbols\nv: Open raycast://extensions/raycast/clipboard-history/clipboard-history\nn: [N]otes\" with title \"Help\" buttons {\"OK\"}' default button 1"
+                    "shell_command": "osascript -e 'tell application \"System Events\" to display dialog \"Sublayers:\n\nb: [B]rowser\no: [O]pen\nw: [W]indow\ns: [S]ystem\nc: Musi[c]\nr: [R]aycast\nsemicolon: Open raycast://extensions/raycast/emoji-symbols/search-emoji-symbols\nv: Open raycast://extensions/raycast/clipboard-history/clipboard-history\nq: killall UniversalControl; killall rapportd\nn: [N]otes\" with title \"Help\" buttons {\"OK\"}' default button 1"
                   }
                 ],
                 "type": "basic",
@@ -2063,6 +2193,11 @@
                   {
                     "type": "variable_if",
                     "name": "leader_sublayer_v",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "leader_sublayer_q",
                     "value": 0
                   },
                   {

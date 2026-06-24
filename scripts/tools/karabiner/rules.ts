@@ -81,6 +81,7 @@ const rules: KarabinerRules[] = [
     },
     semicolon: open('raycast://extensions/raycast/emoji-symbols/search-emoji-symbols'),
     v: open('raycast://extensions/raycast/clipboard-history/clipboard-history'),
+    q: shell`killall UniversalControl; killall rapportd`,
 
     n: {
       description: '[N]otes',
