@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+port="${1:-3000}" # Starts at $1, defaults to 3000 if no argument is passed
+max_attempts="${2:-10}"
+count=0
+
+while [ $count -lt $max_attempts ]; do
+  # -P: inhibits conversion of port numbers to port names (makes it faster)
+  # -i :$port: specifies the port to check
+  # -sTCP:LISTEN: ensures we only care about ports actively listening
+  # -t: terse mode (returns only the PID if found)
+  if ! lsof -Pi :"$port" -sTCP:LISTEN -t >/dev/null 2>&1; then
+    # If lsof fails (returns non-zero), the port is NOT in use
+    echo "$port"
+    exit 0
+  fi
+
+  # Port is in use, increment and try again
+  ((port++))
+  ((count++))
+done
+
+# Output to stderr if we fail, so it doesn't get captured as a valid port
+echo "Error: Could not find an available port after $max_attempts attempts." >&2
+exit 1
