@@ -37,7 +37,7 @@ if [ "$WORKTREE" = "[NEW]" ]; then
     echo Branch name?
     read WORKTREE
     mkdir -p "$WORKTREES_DIR"
-    git worktree add -b "$WORKTREE" "$WORKTREES_DIR/$WORKTREE" origin/HEAD || \
+    git worktree add --no-track -b "$WORKTREE" "$WORKTREES_DIR/$WORKTREE" origin/HEAD || \
       git worktree add "$WORKTREES_DIR/$WORKTREE" "$WORKTREE" || \
       err "couldn't create worktree"
 fi
