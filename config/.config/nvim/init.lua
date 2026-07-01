@@ -632,17 +632,7 @@ require('lazy').setup({
       vim.lsp.config('eslint', {
         settings = {
           workingDirectory = { mode = 'auto' }, -- helps find the eslintrc when it's placed in a subfolder instead of the cwd root
-          codeActionOnSave = { enable = true, mode = 'problems' },
         },
-        on_attach = function(client, buffer)
-          vim.api.nvim_create_autocmd('BufWritePre', {
-            buffer = buffer,
-            callback = function(event)
-              local eslint = function(formatter) return formatter.name == 'eslint' end
-              vim.lsp.buf.format({ async = false, filter = eslint })
-            end,
-          })
-        end,
       })
 
       -- Error on hover
@@ -681,6 +671,42 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>xw', function() require('trouble').open('workspace_diagnostics') end, { desc = 'Trouble workspace diagnostics' })
       vim.keymap.set('n', '<leader>xd', function() require('trouble').open('document_diagnostics') end, { desc = 'Trouble document diagnostics' })
     end,
+  },
+
+  -- Prettier format on save (conform.nvim wraps CLI formatters since Prettier has no native LSP)
+  -- Run `:MasonInstall prettierd` if not already installed
+  {
+    'stevearc/conform.nvim',
+    event = 'BufWritePre',
+    config = function()
+      require('conform').setup({
+        formatters_by_ft = {
+          javascript      = { 'eslint_d', 'prettierd' },
+          typescript      = { 'eslint_d', 'prettierd' },
+          javascriptreact = { 'eslint_d', 'prettierd' },
+          typescriptreact = { 'eslint_d', 'prettierd' },
+          vue             = { 'eslint_d', 'prettierd' },
+          css             = { 'prettierd' },
+          html            = { 'prettierd' },
+          json            = { 'prettierd' },
+          markdown        = { 'prettierd' },
+        },
+        format_on_save = {
+          timeout_ms = 2000,
+          lsp_fallback = false, -- keep ESLint and Prettier formatting independent
+        },
+      })
+    end,
+  },
+
+  -- Ensure dependencies (Mason packages, formatters, linters, parsers...) are installed when needed
+  {
+    'noirbizarre/ensure.nvim',
+    dependencies = {
+      'mason-org/mason.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      'stevearc/conform.nvim',
+    },
   },
 
   -- Better TypeScript errors
