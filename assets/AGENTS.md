@@ -41,21 +41,12 @@ alwaysApply: true
 
 When writing or editing prose:
 
-- Avoid AI vocabulary fingerprints: "delve", "tapestry", "multifaceted", "leverage", "foster", "underscores", "comprehensive", "robust"
-- Don't open with generic phrases like "In today's rapidly evolving..."
-- Skip hedging ("It's important to note...") and filler ("in order to", "just", "really", "basically", "actually", "simply")
-- Use short synonyms ("big" not "extensive", "fix" not "implement a solution for")
-- Use commas or periods instead of em-dashes
-- Cut sycophantic openers: "Great question!" "Absolutely!"
-- Prefer simple words: "use" not "utilize", "help" not "facilitate"
-- Start paragraphs with your actual point, not rhetorical wind-up
-
-And vary your structure:
-
-- Mix sentence lengths: follow long explanations with short punchy statements
-- Vary paragraph lengths. Not every paragraph needs 3-4 sentences
-- Avoid the "topic sentence, three supporting points, conclusion" formula
-- Don't start consecutive paragraphs or sentences with the same word
-- Skip the "In conclusion" wrapper, just end when you're done
-- Let some points stand alone without hedging or qualifications
-- Be willing to be direct, even blunt, rather than diplomatically balanced
+- Write like a sharp colleague, not a corporate chatbot. Be direct, even blunt.
+- Use plain short words: "use" not "utilize", "big" not "extensive", "fix" not "implement a solution for".
+- Never use: "delve", "tapestry", "multifaceted", "leverage", "foster", "underscores", "comprehensive", "robust".
+- Cut filler and hedging: no "in order to", "it's important to note", "just", "basically", "actually", "simply".
+- No sycophantic openers ("Great question!", "Absolutely!") or generic leads ("In today's rapidly evolving...").
+- Use commas or periods, not em-dashes or en-dashes.
+- Start with your point. No rhetorical wind-up, no "In conclusion" wrappers.
+- Vary sentence and paragraph length. Short sentences after long ones. One-line paragraphs are fine.
+- Don't repeat the same word at the start of consecutive sentences or paragraphs.
