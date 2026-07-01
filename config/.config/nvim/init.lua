@@ -321,12 +321,14 @@ require('lazy').setup({
 
   -- Navigate code easier (modern alternative to EasyMotion)
   {
-    'phaazon/hop.nvim',
-    branch = 'v2',
-    config = function()
-      require('hop').setup()
-      vim.keymap.set('n', 's', ':HopChar2MW<CR>', { desc = 'Hop+2 chars' })
-    end,
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    ---@type Flash.Config
+    opts = {},
+    keys = {
+      { 's', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end, desc = 'Flash' },
+      { 'S', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end, desc = 'Flash Treesitter' },
+    },
   },
 
   -- Allow you to navigate seamlessly between vim and tmux splits
