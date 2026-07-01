@@ -8,10 +8,6 @@ alwaysApply: true
 - DO NOT add code comments unless they explain non-obvious intent, trade-offs, or constraints. Never comment obvious behavior.
 - Keep responses concise. Omit filler, narration, and redundant explanations.
 
-# Agents
-
-- ALWAYS ask for user permission before calling the Agent tool, even in auto mode. Describe what the agent will do and wait for confirmation.
-
 # Tooling
 
 - ALWAYS use `pnpm` with Corepack when creating a new JavaScript or TypeScript project. NEVER use npm or yarn.
