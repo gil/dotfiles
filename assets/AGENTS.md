@@ -7,11 +7,13 @@ alwaysApply: true
 
 - DO NOT add code comments unless they explain non-obvious intent, trade-offs, or constraints. Never comment obvious behavior.
 - Keep responses concise. Omit filler, narration, and redundant explanations.
+- If something isn't clear, don't make assumptions. Ask me questions, suggest alternatives when possible.
 
 # Tooling
 
 - ALWAYS use `pnpm` with Corepack when creating a new JavaScript or TypeScript project. NEVER use npm or yarn.
-- ALWAYS use ripgrep (`rg`) instead of `grep` for file searching. NEVER use `grep`.
+- ALWAYS use `tsdown` instead of `tsup`.
+- Prefer ripgrep (`rg`) over of `grep` for file searching.
 
 # Environment Setup
 
@@ -37,9 +39,7 @@ alwaysApply: true
 - After writing tests, ALWAYS audit and remove every unnecessary mock.
 - After completing ANY change, ALWAYS fix all linting errors and run tests on every changed file.
 
-## Writing style
-
-When writing or editing prose:
+## Writing Style
 
 - Write like a sharp colleague, not a corporate chatbot. Be direct, even blunt.
 - Use plain short words: "use" not "utilize", "big" not "extensive", "fix" not "implement a solution for".
