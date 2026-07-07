@@ -409,6 +409,21 @@ require('lazy').setup({
     end,
   },
 
+  -- Side-by-side code diff
+  {
+    'esmuellert/codediff.nvim',
+    cmd = 'CodeDiff',
+    keys = {
+      { '<leader>cd', '<cmd>CodeDiff<CR>', desc = 'Side-by-side code diff' },
+    },
+    opts = {
+      explorer = {
+        view_mode = 'tree',
+        auto_open_on_cursor = true,
+      },
+    },
+  },
+
   -- Super fast CSS colorizer
   {
     'norcalli/nvim-colorizer.lua',
