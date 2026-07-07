@@ -2,7 +2,8 @@
 set -uo pipefail
 
 emit_rows() {
-  local results=()
+  local entries=() timestamps=()
+  local i=0
   while IFS=$'\t' read -r tty target session; do
     if ps -t "$tty" -o args= 2>/dev/null | grep -qE "[c]laude|[a]gent"; then
       state=$(tmux show-option -p -t "$target" -qv @agent_state)
@@ -20,10 +21,15 @@ emit_rows() {
         time_fmt=" at $(date -r "$timestamp" '+%H:%M:%S' 2>/dev/null || date -d "@$timestamp" '+%H:%M:%S' 2>/dev/null)"
       fi
 
-      results+=("$(printf '%s\t%s\n%s%s' "$target" "$session" "$state_fmt" "$time_fmt")")
+      entries+=("$(printf '%s\t%s\n%s%s' "$target" "$session" "$state_fmt" "$time_fmt")")
+      timestamps+=("${timestamp:-0} $i")
+      ((i++))
     fi
   done < <(tmux list-panes -a -F "#{pane_tty}	#{session_name}:#{window_index}.#{pane_index}	#{session_name}")
-  printf '%s\0' "${results[@]}"
+
+  while read -r _ idx; do
+    printf '%s\0' "${entries[$idx]}"
+  done < <(printf '%s\n' "${timestamps[@]}" | sort -rnk1,1)
 }
 
 [[ "${1:-}" == '--list' ]] && { emit_rows; exit 0; }
