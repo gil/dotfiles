@@ -256,18 +256,26 @@ require('lazy').setup({
       end, {})
 
       vim.api.nvim_create_user_command('FZFModified', function()
-        local cmd = [[bash -c "(git diff --relative --name-only $(git branch -rl '*/HEAD' | grep -o '[^ ]\+$') 2>/dev/null ; git status --short 2>/dev/null | cut -c4-) | xargs -n 1 -I {} find {} -type f 2>/dev/null | sort | uniq"]]
-        local files = vim.fn.systemlist(cmd)
+        -- Grab absolute paths of all modified/untracked files in the entire repo
+        local cmd = [[bash -c 'top=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0; { git -C "$top" diff-index --name-only --diff-filter=d origin/HEAD 2>/dev/null; git -C "$top" ls-files --others --exclude-standard 2>/dev/null; } | sed "s|^|$top/|" | sort -u']]
+        local abs_files = vim.fn.systemlist(cmd)
 
-        if #files == 0 then
+        if #abs_files == 0 then
           vim.notify('No modified files found', vim.log.levels.INFO)
           return
+        end
+
+        -- Convert absolute paths to clean, relative paths based on your CWD
+        local rel_files = {}
+        for _, file in ipairs(abs_files) do
+          -- The ':.' modifier tells Neovim to make the path relative to CWD
+          table.insert(rel_files, vim.fn.fnamemodify(file, ':.'))
         end
 
         vim.fn['fzf#run'](
           vim.fn['fzf#vim#with_preview'](
             vim.fn['fzf#wrap']({
-              source = files,
+              source = rel_files,
               sink = 'edit',
               options = '--multi --extended --keep-right',
             })
