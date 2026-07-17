@@ -597,6 +597,10 @@ require('lazy').setup({
           'tailwindcss',
         },
       })
+
+      vim.api.nvim_create_user_command('LspInfo', function()
+        vim.cmd('checkhealth vim.lsp')
+      end, { desc = "Run native LSP health check" })
     end,
   },
 
