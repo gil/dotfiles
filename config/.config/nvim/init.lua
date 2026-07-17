@@ -594,6 +594,7 @@ require('lazy').setup({
           'lua_ls',
           'eslint',
           'stylelint_lsp',
+          'tailwindcss',
         },
       })
     end,
