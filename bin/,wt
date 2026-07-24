@@ -22,9 +22,11 @@ WORKTREES_DIR="$(dirname "$(git rev-parse --path-format=absolute --git-common-di
 
 WORKTREE=$(
     ( \
-        git worktree list | \
-            cut -d' ' -f1 | \
-            tail -n +2 ; \
+        git worktree list --porcelain | \
+        grep "^worktree" | \
+        tail -n +2 | \
+        cut -d' ' -f2- | \
+        while read -r DIR; do echo "${DIR#$WORKTREES_DIR/}"; done; \
         echo "[NEW]" \
     ) | \
         fzf
