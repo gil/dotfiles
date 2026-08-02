@@ -26,7 +26,7 @@ You MUST create a task for each of these items and complete them in order:
 2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
 4. **Present design** — in sections scaled to their complexity, get user approval after each section
-5. **Write design doc** — save to `docs/specs/YYYY-MM-DD-<topic>-design.md` and commit
+5. **Write design doc** — save to `docs/specs/YYYY-MM-DD-<topic>-design.md`
 6. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
 7. **User reviews written spec** — ask user to review the spec file before proceeding
 
@@ -102,7 +102,21 @@ digraph brainstorming {
 
 - Write the validated design (spec) to `docs/specs/YYYY-MM-DD-<topic>-design.md`
   - (User preferences for spec location override this default)
-- Commit the design document to git
+- Start the spec with the document-status note below, so a future reader knows
+  the doc is frozen and may go stale:
+
+  ```markdown
+  > **Do not edit this document after it's generated, except to tick a progress
+  > checkbox (`- [ ]` → `- [x]`).** It was produced by a planning skill. Any other
+  > edit — to scope, requirements, or wording — needs explicit user approval
+  > first. Once the described work is implemented, treat this document as possibly
+  > out of date: the code, tests, and non-planning docs are the source of truth,
+  > not this file.
+  ```
+
+- Commit the design document, following the one-time commit gate: if you haven't
+  already gotten the user's OK to commit this session, ask first; once they say
+  yes, commit without asking again for the rest of the session.
 
 **Spec Self-Review:**
 After writing the spec document, look at it with fresh eyes:
@@ -117,7 +131,7 @@ Fix any issues inline. No need to re-review — just fix and move on.
 **User Review Gate:**
 After the spec review loop passes, ask the user to review the written spec before proceeding:
 
-> "Spec written and committed to `<path>`. Please review it and let me know if you want to make any changes before we start writing out the implementation plan."
+> "Spec written to `<path>`. Please review it and let me know if you want to make any changes before we start writing out the implementation plan."
 
 Wait for the user's response. If they request changes, make them and re-run the spec review loop. Only proceed once the user approves.
 

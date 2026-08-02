@@ -37,7 +37,15 @@ For each action in the step file:
 
 1. Check the step off in the Steps list of `step-000-overview.md` so the next session sees accurate progress.
 2. Only if something could not be finished: record it in `step-999-leftovers.md` (see below).
-3. Report what was done, what was verified, and anything you deferred.
+3. Commit the check-off and any leftovers entry, following the commit gate in [Committing](#committing).
+4. Report what was done, what was verified, and anything you deferred.
+5. If the step you just finished was the last unchecked step in the overview's Steps list (the plan is now fully implemented) and `step-999-leftovers.md` exists, tell the user the plan is complete and that they should run `step-999-leftovers.md` to work through the deferred items.
+
+## Committing
+
+Commit as you work, at sensible points: after a step's actions and after the wrap-up check-off. Frequent commits are good.
+
+The confirmation is a one-time, per-session gate, not a prompt before every commit. The first time you're about to commit this session, ask the user whether they want you to commit as you go, and offer two targets: commit to the current branch, or create a feature branch off the current one and commit there. Once they answer, keep committing to that target without asking again for the rest of the session. If they decline, don't commit; leave the changes for them to handle.
 
 ## Leftovers: Last Resort, Not a Parking Lot
 
@@ -74,5 +82,6 @@ Never end a session with undone work that exists only in your head or your final
 - Follow actions exactly, don't skip verifications
 - Keep the overview's Steps list current
 - Deferred work goes in `step-999-leftovers.md`, always written down, never assumed remembered
+- Ask once per session before committing; after the user says yes, commit freely
 - Stop when blocked, don't guess
 - Never start implementation on main/master branch without explicit user consent

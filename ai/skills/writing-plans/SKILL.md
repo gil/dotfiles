@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Overview
 
-Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each step, code, testing, docs they might need to check, how to test it. DRY. YAGNI. TDD. Frequent commits.
+Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each step, code, testing, docs they might need to check, how to test it. DRY. YAGNI. TDD. Frequent commits (the executor gets the user's OK once per session, then commits freely).
 
 Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
 
@@ -76,6 +76,13 @@ Within a step, each checkboxed action is one thing (2-5 minutes):
 ```markdown
 # [Feature Name] Implementation Plan
 
+> **Do not edit this document after it's generated, except to tick a progress
+> checkbox (`- [ ]` → `- [x]`).** It was produced by a planning skill. Any other
+> edit — to scope, steps, requirements, or wording — needs explicit user
+> approval first. Once the described work is implemented, treat this document as
+> possibly out of date: the code, tests, and non-planning docs are the source of
+> truth, not this file.
+
 > **For agentic workers:** You are executing one step of this plan in a clean
 > session with no prior context. Read this overview fully, then read your
 > assigned step file. Steps use checkbox (`- [ ]`) syntax for tracking.
@@ -130,6 +137,13 @@ it's lost.
 
 ````markdown
 # Step N: [Component Name]
+
+> **Do not edit this document after it's generated, except to tick a progress
+> checkbox (`- [ ]` → `- [x]`).** It was produced by a planning skill. Any other
+> edit — to scope, steps, requirements, or wording — needs explicit user
+> approval first. Once the described work is implemented, treat this document as
+> possibly out of date: the code, tests, and non-planning docs are the source of
+> truth, not this file.
 
 > Read `step-000-overview.md` in this directory before starting. It has the
 > goal, architecture, global constraints, and leftovers protocol that apply
@@ -188,6 +202,7 @@ git commit -m "feat: add specific feature"
 - [ ] Check this step off in the Steps list of `step-000-overview.md`
 - [ ] Only if something could not be finished: record it in
       `step-999-leftovers.md` per the overview's Leftovers Protocol
+- [ ] Commit the check-off (and any leftovers entry)
 ````
 
 ## No Placeholders
@@ -206,7 +221,7 @@ Every action must contain the actual content an engineer needs. These are **plan
 - Exact file paths always
 - Complete code in every action; if an action changes code, show the code
 - Exact commands with expected output
-- DRY, YAGNI, TDD, frequent commits
+- DRY, YAGNI, TDD, frequent commits (executor confirms once per session, then commits freely)
 
 ## Self-Review
 
