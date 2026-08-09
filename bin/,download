@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e
+
+aria2c \
+  --log=log.log --log-level=notice \
+  --file-allocation=falloc \
+  --optimize-concurrent-downloads=true \
+  --max-concurrent-downloads=5 --max-connection-per-server=10 \
+  --split=5 --min-split-size=2M \
+  --max-tries=20 --retry-wait=30 \
+  --continue \
+  "$@"

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
+,download_vid \
+  -S "res:1080" \
+  "$@"
