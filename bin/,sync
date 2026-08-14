@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -e
+
+rsync -avhP --info=progress2 --exclude='node_modules' --exclude='.git' --filter=":- .gitignore" "$@"
