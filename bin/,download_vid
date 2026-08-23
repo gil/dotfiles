@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 set -e
 
+stamp="${XDG_CACHE_HOME:-$HOME/.cache}/download_vid/yt-dlp-upgrade"
+mkdir -p "$(dirname "$stamp")"
+
+if [[ "$(cat "$stamp" 2>/dev/null)" != "$(date +%F)" ]]; then
+  if pip install -U "yt-dlp[default,curl-cffi]"; then
+    date +%F >"$stamp"
+  fi
+fi
+
 yt-dlp \
   --download-archive "yt-dlp-archive.log" \
   --ignore-errors \
