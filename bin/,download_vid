@@ -9,6 +9,6 @@ yt-dlp \
   --embed-subs \
   --embed-thumbnail \
   --format "bestvideo+bestaudio/best" \
-  --output "%(title).150s [%(height)s] (%(uploader)s - %(id)s).%(ext)s" \
+  --output "%(title).150s [%(height)s] (%(uploader_id)s - %(id)s).%(ext)s" \
   --extractor-args "generic:impersonate" \
   "$@"
