@@ -27,8 +27,7 @@ pip install -U \
   pudb \
   neovim \
   python-lsp-server \
-  rich-tables \
-  "yt-dlp[default,curl-cffi]"
+  rich-tables
 
 if [[ $OSTYPE == darwin* ]]; then
   pip install pyobjc-framework-Quartz
