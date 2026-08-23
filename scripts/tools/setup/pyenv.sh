@@ -23,7 +23,7 @@ pyenv global 3.11
 pip install --upgrade pip
 
 # Install packages
-pip install \
+pip install -U \
   pudb \
   neovim \
   python-lsp-server \
