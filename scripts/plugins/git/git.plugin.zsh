@@ -40,6 +40,34 @@ function work_in_progress() {
   fi
 }
 
+function _get_default_branch() {
+  local branch
+
+  # 1. Local remote HEAD reference
+  branch=$(git branch -rl '*/HEAD' | grep -Eo '[^/]+$')
+  if [[ -n "$branch" ]]; then
+    echo "$branch"
+    return 0
+  fi
+
+  # 2. Local check for common names
+  for b in main master trunk; do
+    if git show-ref -q --verify "refs/heads/$b"; then
+      echo "$b"
+      return 0
+    fi
+  done
+
+  # 3. Absolute source of truth via remote query (slower)
+  branch=$(git ls-remote --symref origin HEAD 2>/dev/null | awk '/^ref:/ {sub(/refs\/heads\//, "", $2); print $2}')
+  if [[ -n "$branch" ]]; then
+    echo "$branch"
+    return 0
+  fi
+
+  return 1
+}
+
 #
 # Aliases
 # (sorted alphabetically)
@@ -52,7 +80,7 @@ alias gb='git branch'
 alias gc='git commit -v'
 alias gcz='npx git-cz --disable-emoji --scope'
 alias gco='git checkout'
-alias gcm="git checkout \$(git branch -rl '*/HEAD' | grep -o '[^/]\+$')"
+alias gcm="git checkout \$(_get_default_branch)"
 alias gfa='git fetch --all --prune'
 alias gl='git pull'
 #alias glr='git -c rebase.autoStash=true pull --rebase'
@@ -67,7 +95,7 @@ alias glola="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Crese
 alias gp='git push'
 alias gpf='git push --force-with-lease'
 alias grb='git rebase'
-alias grbm="git rebase \$(git branch -rl '*/HEAD' | grep -o '\S\+$')"
+alias grbm="git rebase \$(_get_default_branch)"
 alias grbi='git rebase -i'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
