@@ -14,6 +14,7 @@ alwaysApply: true
 - ALWAYS use `pnpm` with Corepack when creating a new JavaScript or TypeScript project. NEVER use npm or yarn.
 - ALWAYS use `tsdown` instead of `tsup`.
 - Prefer ripgrep (`rg`) over of `grep` for file searching.
+- Prefer `glab` CLI for GitLab and `gh` for GitHub, instead of MCPs.
 - If any tool would help you perform your task more easily, stop and tell me how you'd install it, offering to do it for me in case I approve.
 
 # Environment Setup
