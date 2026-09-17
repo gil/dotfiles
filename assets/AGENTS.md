@@ -5,7 +5,8 @@ alwaysApply: true
 
 # Code Style
 
-- DO NOT add code comments unless they explain non-obvious intent, trade-offs, or constraints. Never comment obvious behavior.
+- NEVER write comments on code that can explain itself by clear naming and the KISS principle. A comment is often an admission the code isn't clear enough, so fix the code first.
+  - Write a comment ONLY when it passes this test: **would a competent engineer reading this code be surprised, or reach a wrong conclusion, without it?** If not, delete it.
 - Keep responses concise. Omit filler, narration, and redundant explanations.
 - If something isn't clear, don't make assumptions. Ask me questions, suggest alternatives when possible.
 
