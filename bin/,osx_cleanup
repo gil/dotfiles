@@ -97,6 +97,9 @@ if [ $? -eq 0 ]; then
     fi
 fi
 
+echo "Removing Hugging Face models..."
+hf cache list --format quiet | xargs -n 1 hf cache rm -y
+
 echo "Searching for old node_modules that can be deleted..."
 npx npkill --directory ~/dev
 
