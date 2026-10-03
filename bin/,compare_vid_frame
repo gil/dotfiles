@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -e
+
+timestamp="$1"
+shift
+
+out="compare_frame_${timestamp//:/-}.png"
+tmp="$(mktemp -d)"
+trap 'rm -rf "$tmp"' EXIT
+
+frames=()
+index=0
+for video in "$@"; do
+  frame="$tmp/$(printf '%02d' "$index").png"
+  ffmpeg -nostdin -loglevel error -ss "$timestamp" -i "$video" -frames:v 1 "$frame"
+  frames+=(-label "$(basename "$video")" "$frame")
+  index=$((index + 1))
+done
+
+columns=1
+while ((columns * columns < $#)); do
+  columns=$((columns + 1))
+done
+
+montage "${frames[@]}" \
+  -tile "${columns}x" \
+  -geometry +4+4 \
+  -background black \
+  -fill white \
+  -font "${MONTAGE_FONT:-/System/Library/Fonts/Helvetica.ttc}" \
+  -pointsize 20 \
+  "$out"
+
+open "$out"

@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+[[ $# -eq 2 ]] || { echo "usage: ,compare_vid LEFT RIGHT" >&2; exit 1; }
+
+# mpv's [vidN] labels are track IDs, counting every video stream in file order:
+# embedded cover art takes a slot even though --audio-display=no hides it, and
+# external tracks are numbered after all of the main file's.
+video_track_count() {
+  ffprobe -v error -select_streams v -show_entries stream=index \
+    -of default=nk=1:nw=1 "$1" | wc -l
+}
+
+first_real_video_track() {
+  ffprobe -v error -select_streams v -show_entries stream_disposition=attached_pic \
+    -of default=nk=1:nw=1 "$1" | grep -n '^0$' | head -1 | cut -d: -f1
+}
+
+left=$(first_real_video_track "$1")
+right=$(first_real_video_track "$2")
+[[ -n "$left" ]] || { echo "no video track in $1" >&2; exit 1; }
+[[ -n "$right" ]] || { echo "no video track in $2" >&2; exit 1; }
+right=$(( $(video_track_count "$1") + right ))
+
+mpv --loop --fs --lavfi-complex="[vid${left}][vid${right}]hstack[vo]" \
+  "$1" --external-file="$2"
