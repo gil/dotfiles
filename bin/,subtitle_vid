@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+FFMPEG=/opt/homebrew/opt/ffmpeg-full/bin/ffmpeg
+
+[[ -x "$FFMPEG" ]] || { echo "ffmpeg-full not found, install with: brew install ffmpeg-full" >&2; exit 1; }
+command -v hf >/dev/null || { echo "hf not found, install with: pip install -U huggingface_hub" >&2; exit 1; }
+
+[[ $# -eq 1 ]] || { echo "usage: ,subtitle_vid FILE" >&2; exit 1; }
+
+model=$(hf download --quiet ggerganov/whisper.cpp ggml-large-v3.bin)
+
+"$FFMPEG" -loglevel error -i "$1" -ar 16000 -ac 1 -c:a pcm_s16le -f wav - |
+  whisper-cli -m "$model" -f - -l auto -tr -osrt -of "${1%.*}"
