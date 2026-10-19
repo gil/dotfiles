@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -e
+
+xattr -dr com.apple.quarantine "$@"
