@@ -53,6 +53,6 @@
 #
 [ -z "$TMUX_PANE" ] && exit 0
 
-tmux set-option -p -t "$TMUX_PANE" @agent_state "${1:-idle}"
-tmux set-option -p -t "$TMUX_PANE" @agent_state_at "$(date +%s)"
+tmux set-option -p -t "$TMUX_PANE" @agent_state "${1:-idle}" &> /dev/null
+tmux set-option -p -t "$TMUX_PANE" @agent_state_at "$(date +%s)" &> /dev/null
 exit 0
