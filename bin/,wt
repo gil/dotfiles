@@ -62,7 +62,7 @@ if ! tmux has-session -t "=$SESSION" 2>/dev/null; then
     if [ $IS_NEW -eq 1 ] && [ -f "$WORKTREES_DIR/$WORKTREE/pnpm-lock.yaml" ]; then
         tmux send-keys -t "$SESSION" pnpm Space install Enter
     fi
-    tmux send-keys -t "$SESSION" $EDITOR Enter
+    # tmux send-keys -t "$SESSION" $EDITOR Enter
 fi
 
 if running_within_tmux; then
