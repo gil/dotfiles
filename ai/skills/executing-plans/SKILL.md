@@ -1,6 +1,6 @@
 ---
 name: executing-plans
-description: Use when you have a written implementation plan to execute in a separate session with review checkpoints
+description: Use when you have a written implementation plan to execute in a separate session
 disable-model-invocation: true
 ---
 
@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Overview
 
-Plans live in `docs/plans/YYYY-MM-DD-<feature-name>/`, one file per step. Each step file is written so it can run in a clean session with no prior context, as long as you read the overview first.
+Plans live in `<artifacts>/plans/YYYY-MM-DD-<feature-name>/`, one file per step. The overview's Workflow section names `<artifacts>` (e.g. `docs` or `~/ai-docs/<repo-name>`) and the commit policy. Each step file is written so it can run in a clean session with no prior context, as long as you read the overview first.
 
 **Announce at start:** "I'm using the executing-plans skill to implement this plan."
 
@@ -16,17 +16,19 @@ Plans live in `docs/plans/YYYY-MM-DD-<feature-name>/`, one file per step. Each s
 
 ### Step 1: Load Context
 
-1. Read `step-000-overview.md` in the plan directory. It has the goal, architecture, global constraints, the step list, and the leftovers protocol.
+1. Read `step-000-overview.md` in the plan directory. It has the goal, architecture, workflow settings, global constraints, the step list, and the leftovers protocol.
 2. Pick your step: the one the user named, or the first unchecked entry in the overview's Steps list. Respect the ordering the overview declares.
 3. If `step-999-leftovers.md` exists, read it. If an entry blocks or overlaps your step, raise it with your human partner before starting.
 4. Read your step file fully.
 5. Review it critically. If you have questions or concerns, raise them before starting. If not, create todos for the step's actions and proceed.
 
-If the user asks you to run several steps in one session, run them one at a time, each with its own wrap-up.
+Run one step per session unless the user asks for more. If they ask for several, run them one at a time, each with its own wrap-up.
 
 ### Step 2: Execute the Step
 
-For each action in the step file:
+Skip actions already checked off in the step file; a previous session did them. Unless the policy is `no commits`, confirm with `git log` that their commits landed. If one didn't, raise it before continuing.
+
+For each remaining action in the step file:
 
 1. Mark as in_progress
 2. Follow it exactly (the plan has bite-sized actions)
@@ -37,9 +39,10 @@ For each action in the step file:
 
 1. Check the step off in the Steps list of `step-000-overview.md` so the next session sees accurate progress.
 2. Only if something could not be finished: record it in `step-999-leftovers.md` (see below).
-3. Make the step's final commit now, with the check-off and any leftovers entry staged alongside the implementation changes they describe. Follow the commit gate in [Committing](#committing).
+3. Make the step's final commit now, with the check-off and any leftovers entry staged alongside the implementation changes they describe (only if the artifacts live in the repo). Follow [Committing](#committing).
 4. Report what was done, what was verified, and anything you deferred.
 5. If the step you just finished was the last unchecked step in the overview's Steps list (the plan is now fully implemented) and `step-999-leftovers.md` exists, tell the user the plan is complete and that they should run `step-999-leftovers.md` to work through the deferred items.
+6. Stop. Don't start the next step unless the user asked for several steps up front.
 
 ## Committing
 
@@ -47,7 +50,14 @@ Commit as you work, at sensible points within a step. Frequent commits are good.
 
 Never commit the overview check-off or a leftovers entry on their own. Leave the step's last chunk of implementation work uncommitted until wrap-up, then commit it together with the bookkeeping, under a message describing the work.
 
-The confirmation is a one-time, per-session gate, not a prompt before every commit. The first time you're about to commit this session, ask the user whether they want you to commit as you go, and offer two targets: commit to the current branch, or create a feature branch off the current one and commit there. Once they answer, keep committing to that target without asking again for the rest of the session. If they decline, don't commit; leave the changes for them to handle.
+The overview's Workflow section sets the commit policy. The user already chose it, so commit without asking:
+
+- `no commits`: don't commit. Leave the changes for the user.
+- `new branch <name> off <base>`: if the branch doesn't exist yet, create it off the base (`git switch -c <name> <base>`).
+- Before the first commit of the session, check that HEAD is on the policy branch. If not, stop and ask before switching.
+- Artifacts outside the repo: never commit plan files. Commit only the implementation.
+
+If the overview has no Workflow section (older plans), ask once with AskUserQuestion: main branch, current branch, or a new branch off the current one. Use the answer for the rest of the session.
 
 ## Leftovers: Last Resort, Not a Parking Lot
 
@@ -84,6 +94,6 @@ Never end a session with undone work that exists only in your head or your final
 - Follow actions exactly, don't skip verifications
 - Keep the overview's Steps list current
 - Deferred work goes in `step-999-leftovers.md`, always written down, never assumed remembered
-- Ask once per session before committing; after the user says yes, commit freely
+- Commit per the overview's commit policy, without asking
 - Stop when blocked, don't guess
-- Never start implementation on main/master branch without explicit user consent
+- Never start implementation on main/master branch without explicit user consent. A commit policy of `main branch` counts as consent.

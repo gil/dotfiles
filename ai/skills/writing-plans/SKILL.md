@@ -8,15 +8,36 @@ disable-model-invocation: true
 
 ## Overview
 
-Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each step, code, testing, docs they might need to check, how to test it. DRY. YAGNI. TDD. Frequent commits (the executor gets the user's OK once per session, then commits freely).
+Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each step, code, testing, docs they might need to check, how to test it. DRY. YAGNI. TDD. Frequent commits, following the plan's commit policy.
 
 Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
+## Workflow Settings
+
+Read the `## Workflow` section of the spec. It holds two settings:
+
+- **Artifacts:** the base directory. The plan goes in `<artifacts>/plans/`.
+- **Commit policy:** the branch all commits go to, or `no commits`.
+
+Copy both verbatim into the overview's Workflow section. Don't ask the user
+about them again.
+
+If there's no spec, or the spec has no Workflow section, ask both questions in
+one AskUserQuestion call:
+
+1. Artifact location: `docs` at the repo root (default), or `~/ai-docs/<repo-name>`
+2. Commit policy: main branch, current branch (skip if detached or already on
+   main), or a new branch off the current one (propose a name like `feat/<topic>`)
+
+Resolve the answers to concrete values (real branch names, real paths), in the
+same format as the overview template below. `<repo-name>` is the basename of
+`git rev-parse --show-toplevel`.
+
 ## Plan Layout
 
-A plan is a directory, not a single file. Save to `docs/plans/YYYY-MM-DD-<feature-name>/`:
+A plan is a directory, not a single file. Save to `<artifacts>/plans/YYYY-MM-DD-<feature-name>/`:
 
 ```
 docs/plans/2026-07-17-user-auth/
@@ -25,8 +46,6 @@ docs/plans/2026-07-17-user-auth/
 ├── step-002-<description>.md
 └── ...
 ```
-
-- (User preferences for plan location override this default)
 
 Each step file is designed to be executed in its own clean agentic session, with no memory of the brainstorming, the spec discussion, or the other steps. The executing agent reads exactly two things: `step-000-overview.md` and its own step file. Write every step for that reader. If a step needs a fact, put the fact in the step file or in the overview. "As discussed above" or "see the previous step" are broken references in this format.
 
@@ -95,6 +114,16 @@ Within a step, each checkboxed action is one thing (2-5 minutes):
 
 **Spec:** [path to the design doc this plan implements, if one exists]
 
+## Workflow
+
+- **Artifacts:** [copied from the spec, e.g. `docs` (spec: `docs/specs/`, plan: `docs/plans/`)]
+- **Commit policy:** [copied from the spec: `main branch <name>`,
+  `current branch <name>`, `new branch <name> off <base>`, or `no commits`]
+
+Commit only to the branch above. If HEAD is elsewhere, stop and ask. With
+`no commits`, skip every commit action. If the artifacts are outside the repo,
+never commit plan files (check-offs, leftovers).
+
 ## Global Constraints
 
 [The spec's project-wide requirements, such as version floors, dependency
@@ -146,7 +175,7 @@ it's lost.
 > truth, not this file.
 
 > Read `step-000-overview.md` in this directory before starting. It has the
-> goal, architecture, global constraints, and leftovers protocol that apply
+> goal, architecture, workflow settings, global constraints, and leftovers protocol that apply
 > to every step. This file assumes you have read it.
 
 **Depends on:** [step files whose deliverables this step uses, or "none"]
@@ -202,7 +231,7 @@ git commit -m "feat: add specific feature"
 - [ ] Check this step off in the Steps list of `step-000-overview.md`
 - [ ] Only if something could not be finished: record it in
       `step-999-leftovers.md` per the overview's Leftovers Protocol
-- [ ] Commit the check-off (and any leftovers entry)
+- [ ] Commit the check-off (and any leftovers entry), per the overview's Workflow section
 ````
 
 ## No Placeholders
@@ -221,7 +250,7 @@ Every action must contain the actual content an engineer needs. These are **plan
 - Exact file paths always
 - Complete code in every action; if an action changes code, show the code
 - Exact commands with expected output
-- DRY, YAGNI, TDD, frequent commits (executor confirms once per session, then commits freely)
+- DRY, YAGNI, TDD, frequent commits on the policy branch
 
 ## Self-Review
 
@@ -235,8 +264,18 @@ After writing the complete plan, look at the spec with fresh eyes and check the 
 
 **4. Clean-session check:** for each step file, could an agent holding only that file plus the overview execute it? Any reference to a decision, name, or detail that lives only in another step file (or only in this conversation) is a bug. Copy the needed detail into the step or the overview.
 
+**5. Workflow check:** does the overview's Workflow section match the spec's, word for word? If there was no spec, does it hold the resolved answers (real paths, real branch names)?
+
 If you find issues, fix them inline. No need to re-review, just fix and move on. If you find a spec requirement with no step, add the step.
 
 ## Execution Handoff
+
+Commit the plan following the commit policy:
+
+- Artifacts outside the repo, or `no commits`: don't commit it.
+- New branch that doesn't exist yet: create it off the base
+  (`git switch -c <name> <base>`), then commit.
+- Otherwise: commit on the policy branch. If HEAD is on a different branch,
+  stop and ask before switching.
 
 You MUST STOP after saving the plan, don't run any other skill or start with the implementation.

@@ -26,9 +26,10 @@ You MUST create a task for each of these items and complete them in order:
 2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
 4. **Present design** — in sections scaled to their complexity, get user approval after each section
-5. **Write design doc** — save to `docs/specs/YYYY-MM-DD-<topic>-design.md`
-6. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
-7. **User reviews written spec** — ask user to review the spec file before proceeding
+5. **Ask workflow settings** — artifact location and commit policy (see below)
+6. **Write design doc** — save to `<artifacts>/specs/YYYY-MM-DD-<topic>-design.md`
+7. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
+8. **User reviews written spec** — ask user to review the spec file, then commit it once approved
 
 ## Process Flow
 
@@ -39,6 +40,7 @@ digraph brainstorming {
     "Propose 2-3 approaches" [shape=box];
     "Present design sections" [shape=box];
     "User approves design?" [shape=diamond];
+    "Ask workflow settings" [shape=box];
     "Write design doc" [shape=box];
     "Spec self-review\n(fix inline)" [shape=box];
     "User reviews spec?" [shape=diamond];
@@ -48,14 +50,15 @@ digraph brainstorming {
     "Propose 2-3 approaches" -> "Present design sections";
     "Present design sections" -> "User approves design?";
     "User approves design?" -> "Present design sections" [label="no, revise"];
-    "User approves design?" -> "Write design doc" [label="yes"];
+    "User approves design?" -> "Ask workflow settings" [label="yes"];
+    "Ask workflow settings" -> "Write design doc";
     "Write design doc" -> "Spec self-review\n(fix inline)";
     "Spec self-review\n(fix inline)" -> "User reviews spec?";
     "User reviews spec?" -> "Write design doc" [label="changes requested"];
 }
 ```
 
-**The terminal state is invoking writing design doc.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill.
+**The terminal state is the user approving the written spec.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill.
 
 ## The Process
 
@@ -98,10 +101,37 @@ digraph brainstorming {
 
 ## After the Design
 
+**Workflow Settings:**
+
+Once the user approves the design, ask these two questions in a single
+AskUserQuestion call. The tool lets the user type their own answer instead of
+picking an option.
+
+1. **Artifact location**: the base directory for the spec and the plan.
+   - `docs` at the repo root (default): spec in `docs/specs/`, plan in `docs/plans/`
+   - `~/ai-docs/<repo-name>`: spec in `~/ai-docs/<repo-name>/specs/`, plan in `~/ai-docs/<repo-name>/plans/`
+2. **Commit policy**: the branch every commit of this work goes to (spec, plan,
+   implementation).
+   - Main branch: commit on the repo's main branch (name it, e.g. `master`)
+   - Current branch: commit on the branch you're on (name it). Skip this
+     option if HEAD is detached or already on the main branch.
+   - New branch off the current one: propose a name like `feat/<topic>`
+
+Resolve the answers to concrete values (real branch names, real paths).
+`<repo-name>` is the basename of `git rev-parse --show-toplevel`. The commit
+policy is one of:
+
+- `main branch <name>`
+- `current branch <name>`
+- `new branch <name> off <base>`
+- `no commits` (if the user types that or similar)
+
+Choosing a branch here is the user's approval to commit and to create that
+branch. Don't ask again later.
+
 **Documentation:**
 
-- Write the validated design (spec) to `docs/specs/YYYY-MM-DD-<topic>-design.md`
-  - (User preferences for spec location override this default)
+- Write the validated design (spec) to `<artifacts>/specs/YYYY-MM-DD-<topic>-design.md`
 - Start the spec with the document-status note below, so a future reader knows
   the doc is frozen and may go stale:
 
@@ -114,9 +144,17 @@ digraph brainstorming {
   > not this file.
   ```
 
-- Commit the design document, following the one-time commit gate: if you haven't
-  already gotten the user's OK to commit this session, ask first; once they say
-  yes, commit without asking again for the rest of the session.
+- Right after the note, add the workflow settings. Later skills read them from
+  here:
+
+  ```markdown
+  ## Workflow
+
+  - **Artifacts:** `docs` (spec: `docs/specs/`, plan: `docs/plans/`)
+  - **Commit policy:** new branch `feat/user-auth` off `develop`
+  ```
+
+- Don't commit yet. The commit happens after the User Review Gate.
 
 **Spec Self-Review:**
 After writing the spec document, look at it with fresh eyes:
@@ -134,6 +172,14 @@ After the spec review loop passes, ask the user to review the written spec befor
 > "Spec written to `<path>`. Please review it and let me know if you want to make any changes before we start writing out the implementation plan."
 
 Wait for the user's response. If they request changes, make them and re-run the spec review loop. Only proceed once the user approves.
+
+Once approved, commit the spec following the commit policy:
+
+- Artifacts outside the repo, or `no commits`: don't commit it.
+- New branch that doesn't exist yet: create it off the base
+  (`git switch -c <name> <base>`), then commit.
+- Otherwise: commit on the policy branch. If HEAD is on a different branch,
+  stop and ask before switching.
 
 **Implementation:**
 
