@@ -61,28 +61,39 @@ function UpgradeEverything(close_after)
 
   -- Update Mason registry, then all packages
   local registry = require('mason-registry')
-  registry.refresh(function ()
-    require('mason.ui').open()
-    local packages_to_install = registry.get_installed_packages()
-    local index = 1
+  registry.update(function (success)
+    if not success then
+      return vim.notify('Mason registry update failed', vim.log.levels.ERROR)
+    end
 
-    local function install_next_package()
-      if index <= #packages_to_install then
-        local pkg = packages_to_install[index]
-        pkg:install({}, function()
-          index = index + 1
-          vim.schedule(install_next_package)
-        end)
+    require('mason.ui').open()
+
+    local function finish()
+      if close_after == true then
+        vim.cmd('qa')
       else
-        if close_after == true then
-          vim.cmd('qa')
-        else
-          require('mason.ui.instance').window.close()
-        end
+        require('mason.ui.instance').window.close()
       end
     end
 
-    install_next_package()
+    local outdated = vim.tbl_filter(function(pkg)
+      return pkg:get_installed_version() ~= pkg:get_latest_version()
+    end, registry.get_installed_packages())
+
+    local pending = #outdated
+    if pending == 0 then
+      vim.notify('Mason packages are up to date')
+      return finish()
+    end
+
+    for _, pkg in ipairs(outdated) do
+      pkg:install({}, function()
+        pending = pending - 1
+        if pending == 0 then
+          vim.schedule(finish)
+        end
+      end)
+    end
   end)
 end
 
