@@ -1,6 +1,12 @@
 #!/usr/bin/env zsh
 setopt +o nomatch
 
+confirm() {
+  echo -n "$1 [y/N] "
+  read -r answer
+  [[ "$answer" == [yY]* ]]
+}
+
 oldAvailable=$(df -h / | tail -1 | awk '{print $4}')
 
 if [ "$EUID" -eq 0  ]; then
@@ -9,49 +15,51 @@ if [ "$EUID" -eq 0  ]; then
 fi
 
 sudo -v
+while sudo -n true; do sleep 50; done &!
+sudoKeepAlivePid=$!
+trap 'kill $sudoKeepAlivePid 2>/dev/null' EXIT
 
 echo "Empty the Trash on all mounted volumes and the main HDD..."
-sudo rm -rfv /Volumes/*/.Trashes/* &>/dev/null
-rm -rfv ~/.Trash/* &>/dev/null
+sudo rm -rf /Volumes/*/.Trashes/* &>/dev/null
+rm -rf ~/.Trash/* &>/dev/null
 
 echo "Cleaning System Log Files..."
-sudo rm -rfv /Library/Logs/DiagnosticReports/* &>/dev/null
-sudo rm -rfv /Library/Logs/Adobe/* &>/dev/null
-rm -rfv ~/Library/Containers/com.apple.mail/Data/Library/Logs/Mail/* &>/dev/null
-rm -rfv ~/Library/Logs/CoreSimulator/* &>/dev/null
+sudo rm -rf /Library/Logs/DiagnosticReports/* &>/dev/null
+sudo rm -rf /Library/Logs/Adobe/* &>/dev/null
+rm -rf ~/Library/Containers/com.apple.mail/Data/Library/Logs/Mail/* &>/dev/null
+rm -rf ~/Library/Logs/CoreSimulator/* &>/dev/null
 
 echo "Cleaning Adobe Cache Files..."
-rm -rfv ~/Library/Application\ Support/Adobe/Common/Media\ Cache\ Files/* &>/dev/null
+rm -rf ~/Library/Application\ Support/Adobe/Common/Media\ Cache\ Files/* &>/dev/null
 
 echo "Cleaning iTunes iPhone/iPad updates..."
-rm -rfv ~/Library/iTunes/iPhone\ Software\ Updates &>/dev/null
-rm -rfv ~/Library/iTunes/iPad\ Software\ Updates &>/dev/null
+rm -rf ~/Library/iTunes/iPhone\ Software\ Updates &>/dev/null
+rm -rf ~/Library/iTunes/iPad\ Software\ Updates &>/dev/null
 
 echo "Cleaning Xcode simulator data..."
 xcrun simctl delete unavailable
 
 echo "Cleaning Xcode derived data..."
-rm -rfv ~/Library/Developer/Xcode/DerivedData &>/dev/null
+rm -rf ~/Library/Developer/Xcode/DerivedData &>/dev/null
 
 echo "Cleaning Xcode device support files..."
-rm -rfv ~/Library/Developer/Xcode/iOS\ DeviceSupport/* &>/dev/null
-rm -rfv ~/Library/Developer/Xcode/watchOS\ DeviceSupport/* &>/dev/null
-rm -rfv ~/Library/Developer/Xcode/tvOS\ DeviceSupport/* &>/dev/null
+rm -rf ~/Library/Developer/Xcode/iOS\ DeviceSupport/* &>/dev/null
+rm -rf ~/Library/Developer/Xcode/watchOS\ DeviceSupport/* &>/dev/null
+rm -rf ~/Library/Developer/Xcode/tvOS\ DeviceSupport/* &>/dev/null
 
 echo "Cleaning Android Studio cache..."
-rm -rfv ~/.android/build-cache &>/dev/null
-rm -rfv ~/.android/cache &>/dev/null
+rm -rf ~/.android/build-cache &>/dev/null
+rm -rf ~/.android/cache &>/dev/null
 
 echo "Cleaning Gradle..."
-rm -rfv ~/.gradle/caches &>/dev/null
-rm -rfv ~/.gradle/daemon &>/dev/null
-rm -rfv ~/.gradle/wrapper &>/dev/null
+rm -rf ~/.gradle/caches &>/dev/null
+rm -rf ~/.gradle/daemon &>/dev/null
+rm -rf ~/.gradle/wrapper &>/dev/null
 
 echo "Cleaning Homebrew..."
 brew cleanup -s &>/dev/null
 brew autoremove &>/dev/null
-sudo rm -rfv /Library/Caches/Homebrew/* &>/dev/null
-brew tap --repair &>/dev/null
+sudo rm -rf /Library/Caches/Homebrew/* &>/dev/null
 
 echo "Cleaning any old versions of gems..."
 gem cleanup &>/dev/null
@@ -76,9 +84,28 @@ echo "Cleaning Go caches..."
 go clean -modcache &>/dev/null
 go clean -cache &>/dev/null
 
+echo "Cleaning redub cache..."
+rm -rf ~/.cache/redub &>/dev/null
+
+echo "Removing old Rust toolchains..."
+for toolchain in $(rustup toolchain list | rg -v '\(default\)' | awk '{print $1}'); do
+  rustup toolchain uninstall "$toolchain" &>/dev/null
+done
+
+echo "Installed Node versions:"
+fnm list
+for version in $(fnm list | rg -v 'default|system' | rg -o 'v[0-9]+\.[0-9]+\.[0-9]+'); do
+  if confirm "Remove Node $version?"; then
+    fnm uninstall "$version"
+  fi
+done
+
+echo "Removing old Claude Code versions..."
+rm -rf ~/.local/share/claude/versions/*(om[2,-1]) &>/dev/null
+
 echo "Cleaning system cache..."
-rm -rfv ~/Library/Caches/* &>/dev/null
-sudo rm -rfv /Library/Caches/* &>/dev/null
+rm -rf ~/Library/Caches/* &>/dev/null
+sudo rm -rf /Library/Caches/* &>/dev/null
 
 echo "Thinning Time Machine local snapshots..."
 sudo tmutil thinlocalsnapshots / 999999999999 4 &>/dev/null
@@ -90,15 +117,26 @@ if [ $? -eq 0 ]; then
     docker system prune -a
     docker builder prune -f
 
-    echo -n "Also prune Docker volumes? This DELETES named volumes and their data (databases, etc). [y/N] "
-    read -r answer
-    if [[ "$answer" == [yY]* ]]; then
+    if confirm "Also prune Docker volumes? This DELETES named volumes and their data (databases, etc)."; then
         docker system prune -a --volumes
     fi
 fi
 
-echo "Removing Hugging Face models..."
-hf cache list --format quiet | xargs -n 1 hf cache rm -y
+echo "Hugging Face models:"
+hf cache list
+if confirm "Remove ALL cached Hugging Face models?"; then
+  hf cache list --format quiet | xargs -n 1 hf cache rm -y
+fi
+
+claudeVmBundles=~/Library/Application\ Support/Claude/vm_bundles
+if [ -d "$claudeVmBundles" ] && confirm "Remove Claude app VM bundles ($(du -sh "$claudeVmBundles" | awk '{print $1}'))? They are re-downloaded on next use."; then
+  if pgrep -x Claude &>/dev/null; then
+    echo "Closing Claude app..."
+    osascript -e 'quit app "Claude"'
+    while pgrep -x Claude &>/dev/null; do sleep 1; done
+  fi
+  rm -rf "$claudeVmBundles"
+fi
 
 echo "Searching for old node_modules that can be deleted..."
 npx npkill --directory ~/dev
