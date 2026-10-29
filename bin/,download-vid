@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-stamp="${XDG_CACHE_HOME:-$HOME/.cache}/download_vid/yt-dlp-upgrade"
+stamp="${XDG_CACHE_HOME:-$HOME/.cache}/download-vid/yt-dlp-upgrade"
 mkdir -p "$(dirname "$stamp")"
 
 if [[ "$(cat "$stamp" 2>/dev/null)" != "$(date +%F)" ]]; then

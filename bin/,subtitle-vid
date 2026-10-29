@@ -6,7 +6,7 @@ FFMPEG=/opt/homebrew/opt/ffmpeg-full/bin/ffmpeg
 [[ -x "$FFMPEG" ]] || { echo "ffmpeg-full not found, install with: brew install ffmpeg-full" >&2; exit 1; }
 command -v hf >/dev/null || { echo "hf not found, install with: pip install -U huggingface_hub" >&2; exit 1; }
 
-[[ $# -eq 1 ]] || { echo "usage: ,subtitle_vid FILE" >&2; exit 1; }
+[[ $# -eq 1 ]] || { echo "usage: ,subtitle-vid FILE" >&2; exit 1; }
 
 model=$(hf download --quiet ggerganov/whisper.cpp ggml-large-v3.bin)
 

@@ -12,7 +12,7 @@ I've based my system on [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh), 
 ```
 git clone --depth=1 https://github.com/gil/dotfiles.git ~/.dotfiles
 sh ~/.dotfiles/install.sh
-setup_dotfiles
+,setup-dotfiles
 ```
 
 ## Custom directory
@@ -26,7 +26,7 @@ export OH_MY_GIL_SH=$HOME/.oh-my-gil-sh
 ## Upgrade
 
 ```
-upgrade_dotfiles
+,upgrade-dotfiles
 ```
 
 ## Warning

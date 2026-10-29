@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-[[ $# -eq 2 ]] || { echo "usage: ,compare_vid LEFT RIGHT" >&2; exit 1; }
+[[ $# -eq 2 ]] || { echo "usage: ,compare-vid LEFT RIGHT" >&2; exit 1; }
 
 # mpv's [vidN] labels are track IDs, counting every video stream in file order:
 # embedded cover art takes a slot even though --audio-display=no hides it, and
