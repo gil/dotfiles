@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+echo -e "== Tip =="
+echo -e "If it keeps syncing the same files, try:"
+echo -e "  --dry-run --itemize-changes see what's happening."
+echo -e "    '>' means file is sent, 't' is time different, 'p' is permission"
+echo -e "  --modify-window=2 to accept a 2s time variation"
+echo -e "  --size-only to only file sizes\n"
+
+,sync --no-perms --no-owner --no-group "$@"
