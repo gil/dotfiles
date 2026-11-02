@@ -15,13 +15,16 @@ if [ "$EUID" -eq 0  ]; then
 fi
 
 sudo -v
-while sudo -n true; do sleep 50; done &!
+scriptPid=$$
+while kill -0 $scriptPid 2>/dev/null; do
+  sudo -n -v 2>/dev/null
+  sleep 30
+done &!
 sudoKeepAlivePid=$!
 trap 'kill $sudoKeepAlivePid 2>/dev/null' EXIT
 
-echo "Empty the Trash on all mounted volumes and the main HDD..."
-sudo rm -rf /Volumes/*/.Trashes/* &>/dev/null
-rm -rf ~/.Trash/* &>/dev/null
+echo "Emptying the Trash..."
+osascript -e 'tell application "Finder" to empty the trash'
 
 echo "Cleaning System Log Files..."
 sudo rm -rf /Library/Logs/DiagnosticReports/* &>/dev/null
