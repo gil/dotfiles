@@ -160,6 +160,17 @@ newAvailable=$(df -h / | tail -1 | awk '{print $4}')
 echo "Previous space available: $oldAvailable"
 echo "New space available: $newAvailable"
 echo
+echo "Swap files (cleared on restart):"
+du -sh /private/var/vm
+echo
+echo "Local snapshots:"
+tmutil listlocalsnapshots /
+echo
+echo "Top 10 deleted files over 100MB still held open (space is freed when the app quits):"
+sudo lsof +L1 2>/dev/null | awk 'NR > 1 && $7 > 104857600 {printf "%6.0f MB  %s (pid %s)\n", $7 / 1048576, $1, $2}' | sort -rn | head -10
+echo
+echo "A restart can free the swap files and the space held by deleted open files."
+echo
 echo Press any key to scan for big files...
 read
 
