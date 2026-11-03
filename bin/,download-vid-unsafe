@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-set -e
-
-,download-vid \
-  --compat-options allow-unsafe-ext --no-check-certificate \
-  "$@"

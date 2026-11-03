@@ -10,6 +10,22 @@ if [[ "$(cat "$stamp" 2>/dev/null)" != "$(date +%F)" ]]; then
   fi
 fi
 
+sort_args=()
+extra_args=()
+rest=()
+
+for arg in "$@"; do
+  case "$arg" in
+    --1080p) sort_args+=(-S "res:1080") ;;
+    --compat)
+      sort_args+=(-S "vcodec:h264,res,fps,acodec:m4a")
+      extra_args+=(--merge-output-format mp4)
+      ;;
+    --unsafe) extra_args+=(--compat-options allow-unsafe-ext --no-check-certificate) ;;
+    *) rest+=("$arg") ;;
+  esac
+done
+
 yt-dlp \
   --download-archive "yt-dlp-archive.log" \
   --ignore-errors \
@@ -20,4 +36,6 @@ yt-dlp \
   --format "bestvideo+bestaudio/best" \
   --output "%(title).130s [%(height)s] (%(uploader_id)s - %(id)s).%(ext)s" \
   --extractor-args "generic:impersonate" \
-  "$@"
+  "${sort_args[@]}" \
+  "${extra_args[@]}" \
+  "${rest[@]}"
