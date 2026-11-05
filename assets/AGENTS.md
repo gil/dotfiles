@@ -36,6 +36,7 @@ alwaysApply: true
 
 - NEVER commit, push, amend, rebase, merge, tag, or perform any git write operation unless the user explicitly asks for it. Read-only git commands (status, log, diff, blame, branch --list) are always allowed.
 - NEVER branch without approval. Ask me if you think branching is appropriate.
+- NEVER add Co-Authored-By or anything similar unless asked.
 
 # Testing
 
