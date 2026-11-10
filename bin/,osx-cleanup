@@ -23,8 +23,10 @@ done &!
 sudoKeepAlivePid=$!
 trap 'kill $sudoKeepAlivePid 2>/dev/null' EXIT
 
-echo "Emptying the Trash..."
-osascript -e 'tell application "Finder" to empty the trash'
+if confirm "Empty the Trash? This permanently deletes everything in it."; then
+  echo "Emptying the Trash..."
+  osascript -e 'tell application "Finder" to empty the trash'
+fi
 
 echo "Cleaning System Log Files..."
 sudo rm -rf /Library/Logs/DiagnosticReports/* &>/dev/null
