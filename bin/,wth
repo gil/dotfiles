@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+quiet() { "$@" >/dev/null 2>&1 || true; }
+
+recreate_tmux_socket() {
+  quiet pkill -USR1 tmux
+}
+
+restart_icloud() {
+  quiet killall bird cloudd fileproviderd
+}
+
+flush_dns() {
+  quiet sudo dscacheutil -flushcache
+  quiet sudo killall -HUP mDNSResponder
+}
+
+restart_bluetooth() {
+  quiet sudo killall bluetoothd
+}
+
+restart_audio() {
+  quiet sudo killall coreaudiod
+}
+
+restart_camera() {
+  quiet sudo killall VDCAssistant AppleCameraAssistant
+}
+
+restart_ui() {
+  quiet killall Dock Finder SystemUIServer ControlCenter
+}
+
+clear_quicklook() {
+  quiet qlmanage -r cache
+}
+
+sudo -v
+
+recreate_tmux_socket
+restart_icloud
+flush_dns
+restart_bluetooth
+restart_audio
+restart_camera
+clear_quicklook
+restart_ui
