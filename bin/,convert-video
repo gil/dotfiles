@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+set -e
+
+codec=h264
+crf=
+quality=default
+tune=
+max_height=
+aac=false
+rest=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --h265) codec=h265 ;;
+    --av1) codec=av1 ;;
+    --aac) aac=true ;;
+    --1080p) max_height=1080 ;;
+    --720p) max_height=720 ;;
+    --low) quality=low ;;
+    --high) quality=high ;;
+    --grain) tune=grain ;;
+    --animation) tune=animation ;;
+    --crf)
+      crf="$2"
+      shift
+      ;;
+    --crf=*) crf="${1#--crf=}" ;;
+    *) rest+=("$1") ;;
+  esac
+  shift
+done
+
+if [[ ${#rest[@]} -ne 1 ]]; then
+  echo "usage: ,convert-video [--h265|--av1] [--aac] [--1080p|--720p] [--low|--high] [--crf N] [--grain|--animation] <file>" >&2
+  exit 1
+fi
+
+if [[ -n "$crf" && ! "$crf" =~ ^[0-9]+$ ]]; then
+  echo "invalid --crf: '$crf'" >&2
+  exit 1
+fi
+
+input="${rest[0]}"
+output="${input%.*}--out.mkv"
+
+declare -A presets=(
+  [h264.high]=19 [h264.default]=21 [h264.low]=23
+  [h265.high]=24 [h265.default]=26 [h265.low]=28
+  [av1.high]=26 [av1.default]=30 [av1.low]=35
+)
+crf="${crf:-${presets[$codec.$quality]}}"
+
+case "$codec" in
+  h264)
+    video_args=(-c:v libx264 -preset medium -crf "$crf" -profile:v high -pix_fmt yuv420p)
+    ;;
+  h265)
+    video_args=(-c:v libx265 -preset medium -crf "$crf" -profile:v main10 -pix_fmt yuv420p10le -x265-params level-idc=4.1)
+    ;;
+  av1)
+    video_args=(-c:v libsvtav1 -preset 6 -crf "$crf" -pix_fmt yuv420p10le)
+    if [[ "$tune" == grain ]]; then
+      video_args+=(-svtav1-params film-grain=8:film-grain-denoise=0)
+    fi
+    ;;
+esac
+
+if [[ "$codec" != av1 && -n "$tune" ]]; then
+  video_args+=(-tune "$tune")
+fi
+
+filter_args=()
+if [[ -n "$max_height" ]]; then
+  filter_args=(-vf "scale=-2:'min(ih,$max_height)'")
+fi
+
+case "${input##*.}" in
+  mp4 | m4v | mov) subtitle_codec=srt ;;
+  *) subtitle_codec=copy ;;
+esac
+
+audio_args=(-c:a copy)
+if [[ "$aac" == true ]]; then
+  audio_args=(-c:a aac)
+  index=0
+  while read -r channels; do
+    bitrate=256k
+    [[ "$channels" -gt 2 ]] && bitrate=384k
+    audio_args+=("-b:a:$index" "$bitrate")
+    index=$((index + 1))
+  done < <(ffprobe -v error -select_streams a -show_entries stream=channels -of csv=p=0 "$input")
+fi
+
+ffmpeg \
+  -i "$input" \
+  -map 0:v -map "0:a?" -map "0:s?" -map "0:t?" \
+  "${filter_args[@]}" \
+  "${video_args[@]}" \
+  "${audio_args[@]}" \
+  -c:s "$subtitle_codec" \
+  "$output"
