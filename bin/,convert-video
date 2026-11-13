@@ -9,29 +9,39 @@ max_height=
 aac=false
 rest=()
 
+usage() {
+  echo "usage: ,convert-video [options] <file>" >&2
+  echo "options:" >&2
+  sed -n 's/^ *\(--[^)]*\)).* # \(.*\)$/  \1  \2/p' "$0" >&2
+}
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --h265) codec=h265 ;;
-    --av1) codec=av1 ;;
-    --aac) aac=true ;;
-    --1080p) max_height=1080 ;;
-    --720p) max_height=720 ;;
-    --low) quality=low ;;
-    --high) quality=high ;;
-    --grain) tune=grain ;;
-    --animation) tune=animation ;;
-    --crf)
+    --help | -h)
+      usage
+      exit 0
+      ;;
+    --h265) codec=h265 ;; # Encode with H.265 (default is H.264)
+    --av1) codec=av1 ;; # Encode with AV1 (default is H.264)
+    --aac) aac=true ;; # Re-encode audio to AAC, 256k stereo or 384k for 3+ channels (default is copy)
+    --1080p) max_height=1080 ;; # Downscale to 1080p max, smaller videos keep their size
+    --720p) max_height=720 ;; # Downscale to 720p max, smaller videos keep their size
+    --grain) tune=grain ;; # Tune for grainy film, AV1 gets film-grain synthesis
+    --animation) tune=animation ;; # Tune for animation (no effect on AV1)
+    --low) quality=low ;; # Lower quality, smaller file. Use --crf for fine tuning.
+    --high) quality=high ;; # Higher quality, bigger file. Use --crf for fine tuning.
+    --crf=*) crf="${1#--crf=}" ;;
+    --crf) # Set CRF manually, as --crf N or --crf=N
       crf="$2"
       shift
       ;;
-    --crf=*) crf="${1#--crf=}" ;;
     *) rest+=("$1") ;;
   esac
   shift
 done
 
 if [[ ${#rest[@]} -ne 1 ]]; then
-  echo "usage: ,convert-video [--h265|--av1] [--aac] [--1080p|--720p] [--low|--high] [--crf N] [--grain|--animation] <file>" >&2
+  usage
   exit 1
 fi
 
