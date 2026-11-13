@@ -1,6 +1,37 @@
 #!/usr/bin/env bash
 set -e
 
+usage() {
+  echo "usage: ,download-vid [options] <url>..." >&2
+  echo "options:" >&2
+  sed -n 's/^ *\(--[^)]*\)).* # \(.*\)$/  \1  \2/p' "$0" >&2
+}
+
+sort_args=()
+extra_args=()
+rest=()
+
+for arg in "$@"; do
+  case "$arg" in
+    --help | -h)
+      usage
+      exit 0
+      ;;
+    --1080p) sort_args+=(-S "res:1080") ;; # Prefer 1080p, even if higher resolutions exist
+    --compat) # Prefer H.264 and M4A, merge into MP4 for wide device support
+      sort_args+=(-S "vcodec:h264,res,fps,acodec:m4a")
+      extra_args+=(--merge-output-format mp4)
+      ;;
+    --unsafe) extra_args+=(--compat-options allow-unsafe-ext --no-check-certificate) ;; # Allow unsafe extensions and skip certificate checks
+    *) rest+=("$arg") ;;
+  esac
+done
+
+if [[ ${#rest[@]} -eq 0 ]]; then
+  usage
+  exit 1
+fi
+
 stamp="${XDG_CACHE_HOME:-$HOME/.cache}/download-vid/yt-dlp-upgrade"
 mkdir -p "$(dirname "$stamp")"
 
@@ -9,22 +40,6 @@ if [[ "$(cat "$stamp" 2>/dev/null)" != "$(date +%F)" ]]; then
     date +%F >"$stamp"
   fi
 fi
-
-sort_args=()
-extra_args=()
-rest=()
-
-for arg in "$@"; do
-  case "$arg" in
-    --1080p) sort_args+=(-S "res:1080") ;;
-    --compat)
-      sort_args+=(-S "vcodec:h264,res,fps,acodec:m4a")
-      extra_args+=(--merge-output-format mp4)
-      ;;
-    --unsafe) extra_args+=(--compat-options allow-unsafe-ext --no-check-certificate) ;;
-    *) rest+=("$arg") ;;
-  esac
-done
 
 yt-dlp \
   --download-archive "yt-dlp-archive.log" \
