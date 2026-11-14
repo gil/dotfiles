@@ -1,4 +1,33 @@
 #!/usr/bin/env bash
 set -e
 
-ffmpeg -i "$1" -pix_fmt rgb8 -r 10 "${1%.*}.gif" && gifsicle -O3 "${1%.*}.gif" -o "${1%.*}.gif";
+usage() {
+  echo "usage: ,video-to-gif [options] <file>" >&2
+  echo "options:" >&2
+  sed -n 's/^ *\(--[^)]*\)).* # \(.*\)$/  \1  \2/p' "$0" >&2
+}
+
+filter_args=()
+rest=()
+
+for arg in "$@"; do
+  case "$arg" in
+    --help | -h)
+      usage
+      exit 0
+      ;;
+    --half) filter_args=(-vf "scale=iw/2:-2") ;; # Halve the width and height
+    *) rest+=("$arg") ;;
+  esac
+done
+
+if [[ ${#rest[@]} -ne 1 ]]; then
+  usage
+  exit 1
+fi
+
+input="${rest[0]}"
+output="${input%.*}.gif"
+
+ffmpeg -i "$input" "${filter_args[@]}" -pix_fmt rgb8 -r 10 "$output"
+gifsicle -O3 "$output" -o "$output"
