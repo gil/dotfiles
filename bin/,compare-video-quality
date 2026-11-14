@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+set -e
+
+usage() {
+  echo "usage: ,compare-video-quality [options] <reference> <converted>" >&2
+  echo "options:" >&2
+  sed -n 's/^ *\(--[^)]*\)).* # \(.*\)$/  \1  \2/p' "$0" >&2
+}
+
+samples=5
+seconds=10
+full=false
+model=vmaf_v0.6.1
+rest=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --help | -h)
+      usage
+      exit 0
+      ;;
+    --full) full=true ;; # Score the whole video instead of samples (slow)
+    --4k) model=vmaf_4k_v0.6.1 ;; # Use the 4K model (default is the 1080p model)
+    --samples=*) samples="${1#--samples=}" ;;
+    --samples) # Number of clips, spread evenly across the video (default 5)
+      samples="$2"
+      shift
+      ;;
+    --seconds=*) seconds="${1#--seconds=}" ;;
+    --seconds) # Length of each clip in seconds (default 10)
+      seconds="$2"
+      shift
+      ;;
+    *) rest+=("$1") ;;
+  esac
+  shift
+done
+
+if [[ ${#rest[@]} -ne 2 ]]; then
+  usage
+  exit 1
+fi
+
+if [[ ! "$samples" =~ ^[1-9][0-9]*$ || ! "$seconds" =~ ^[1-9][0-9]*$ ]]; then
+  echo "--samples and --seconds must be positive whole numbers" >&2
+  exit 1
+fi
+
+reference="${rest[0]}"
+converted="${rest[1]}"
+
+duration=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$reference")
+size=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$reference")
+threads=$(getconf _NPROCESSORS_ONLN)
+
+whole=$full
+if awk -v d="$duration" -v n="$samples" -v s="$seconds" 'BEGIN { exit !(d <= n * s) }'; then
+  whole=true
+fi
+
+if [[ "$whole" == true ]]; then
+  starts=(whole)
+else
+  mapfile -t starts < <(awk -v d="$duration" -v n="$samples" -v s="$seconds" \
+    'BEGIN { for (i = 0; i < n; i++) { t = (i + 0.5) * d / n - s / 2; if (t < 0) t = 0; printf "%.2f\n", t } }')
+fi
+
+workdir=$(mktemp -d)
+trap 'rm -rf "$workdir"' EXIT
+
+index=0
+for start in "${starts[@]}"; do
+  index=$((index + 1))
+  seek_args=()
+  label="whole video"
+  if [[ "$start" != whole ]]; then
+    seek_args=(-ss "$start" -t "$seconds")
+    label="start: ${start}s"
+  fi
+
+  echo "clip $index/${#starts[@]} ($label)" >&2
+  printf -v log_path '%s/%02d.json' "$workdir" "$index"
+
+  ffmpeg -hide_banner -loglevel error -nostats \
+    "${seek_args[@]}" -i "$converted" \
+    "${seek_args[@]}" -i "$reference" \
+    -filter_complex "[0:v]scale=${size/x/:}:flags=bicubic,format=yuv420p10le,setpts=PTS-STARTPTS[converted];[1:v]format=yuv420p10le,setpts=PTS-STARTPTS[reference];[converted][reference]libvmaf=model=version=$model:n_threads=$threads:log_fmt=json:log_path=$log_path" \
+    -f null -
+done
+
+jq -s -r '
+  def r: . * 100 | round / 100;
+  def mean: add / length;
+  map([.frames[].metrics.vmaf]) as $clips
+  | ($clips | add | sort) as $v
+  | ($v | length) as $n
+  | def pct($p): $v[(($n - 1) * $p / 100) | floor];
+    def below($t): ([$v[] | select(. < $t)] | length) / $n * 100;
+  "frames:         \($n)",
+  "mean:           \($v | mean | r)",
+  "harmonic mean:  \($n / ($v | map(1 / (if . < 0.01 then 0.01 else . end)) | add) | r)",
+  "min:            \($v[0] | r)",
+  "1% low:         \(pct(1) | r)",
+  "5% low:         \(pct(5) | r)",
+  "max:            \($v[-1] | r)",
+  "below 90:       \(below(90) | r)% of frames",
+  "below 80:       \(below(80) | r)% of frames",
+  "",
+  ($clips | to_entries[] | "clip \(.key + 1): mean \(.value | mean | r), min \(.value | min | r)")
+' "$workdir"/*.json

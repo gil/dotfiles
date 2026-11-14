@@ -2,7 +2,7 @@
 set -e
 
 usage() {
-  echo "usage: ,download-vid [options] <url>..." >&2
+  echo "usage: ,download-video [options] <url>..." >&2
   echo "options:" >&2
   sed -n 's/^ *\(--[^)]*\)).* # \(.*\)$/  \1  \2/p' "$0" >&2
 }
@@ -32,7 +32,7 @@ if [[ ${#rest[@]} -eq 0 ]]; then
   exit 1
 fi
 
-stamp="${XDG_CACHE_HOME:-$HOME/.cache}/download-vid/yt-dlp-upgrade"
+stamp="${XDG_CACHE_HOME:-$HOME/.cache}/download-video/yt-dlp-upgrade"
 mkdir -p "$(dirname "$stamp")"
 
 if [[ "$(cat "$stamp" 2>/dev/null)" != "$(date +%F)" ]]; then
