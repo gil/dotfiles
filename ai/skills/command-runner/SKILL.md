@@ -17,6 +17,13 @@ Create `gil.sh` at the root of the current repo, or update it if it already exis
 3. `chmod +x gil.sh`.
 4. Check it: `bash -n gil.sh`, then `./gil.sh help`. Don't run the tasks themselves unless the user asks; dev and watch never exit, and builds and tests can be slow.
 5. Tell the user which tasks you added and which command each one runs. Name any default task you skipped and why.
+6. Suggest extra tasks the project would clearly benefit from, based on what you saw while reading it. Don't add them yet; list each with a name, the command it would run, and why. Examples of good signals:
+   - `lint` / `format` / `typecheck`: the project has those scripts or tools configured.
+   - `deploy`: a deploy script, CI deploy job, `Dockerfile`, or hosting config (`fly.toml`, `vercel.json`, etc).
+   - `build_qa` or similar: env-specific config or modes (`.env.qa`, `--mode staging`).
+   - `clean`, `db_migrate`, `release`, `preview`: matching scripts or documented steps.
+
+   Only suggest tasks backed by something in the repo, and keep it short (a few at most). If nothing stands out, skip this step rather than padding it.
 
 ## Finding the default commands
 
