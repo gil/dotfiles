@@ -16,8 +16,8 @@ create_symlink() {
       return
     fi
 
-    source_inode=$(ls -i "$source_file" | awk '{print $1}')
-    target_inode=$(ls -i "$target_file" | awk '{print $1}')
+    source_inode=$(ls -id "$source_file" | awk '{print $1}')
+    target_inode=$(ls -id "$target_file" | awk '{print $1}')
     if [ "$source_inode" -eq "$target_inode" ]; then
       printf "${C_GREEN}Skipping $target_file, it's a hardlink to the right file.${C_RESTORE}\n"
       return
@@ -56,6 +56,16 @@ find "$SOURCE_DIR" -type f | while read -r source_file; do
   fi
 
   create_symlink "$source_file" "$target_file"
+done
+
+SKILLS_SOURCE_DIR="$OH_MY_GIL_SH/ai/skills"
+SKILLS_TARGET_DIR="$HOME/.claude/skills"
+
+printf "${C_BLUE}Linking skills...${C_RESTORE}\n"
+
+mkdir -p "$SKILLS_TARGET_DIR"
+for skill_dir in "$SKILLS_SOURCE_DIR"/*(/); do
+  create_symlink "$skill_dir" "$SKILLS_TARGET_DIR/${skill_dir:t}"
 done
 
 printf "${C_BLUE}Done!${C_RESTORE}\n"
