@@ -1,6 +1,6 @@
 ---
 name: command-runner
-description: Create or update gil.sh, a plain bash task runner at the repo root with build, dev, and watch commands detected from the project, plus any extra commands the user asks for (deploy, backup, QA builds, etc).
+description: Create or update gil.sh, a plain bash task runner at the repo root with build, dev, watch, and test commands detected from the project, plus any extra commands the user asks for (deploy, backup, QA builds, etc).
 disable-model-invocation: true
 ---
 
@@ -13,9 +13,9 @@ Create `gil.sh` at the root of the current repo, or update it if it already exis
 1. Check if `gil.sh` exists at the repo root.
    - **Exists:** read it and edit in place. Keep every task, variable, and custom tweak the user already has. Only add or change what was asked. If the file is missing pieces from the structure below (like the `help` task or the dispatcher), add them without touching existing tasks.
    - **Missing:** start from `assets/gil.sh` (next to this file) and fill in the real commands.
-2. If the user gave no instructions, fill in the default tasks: `build`, `dev`, `watch`. If they gave instructions, do those. Also add any default task that is missing, unless they said not to.
+2. If the user gave no instructions, fill in the default tasks: `build`, `dev`, `watch`, `test`. If they gave instructions, do those. Also add any default task that is missing, unless they said not to.
 3. `chmod +x gil.sh`.
-4. Check it: `bash -n gil.sh`, then `./gil.sh help`. Don't run build/dev/watch unless the user asks; dev and watch never exit.
+4. Check it: `bash -n gil.sh`, then `./gil.sh help`. Don't run the tasks themselves unless the user asks; dev and watch never exit, and builds and tests can be slow.
 5. Tell the user which tasks you added and which command each one runs. Name any default task you skipped and why.
 
 ## Finding the default commands
@@ -33,6 +33,7 @@ What each default task means:
 - **build**: the production / release build. Examples: `pnpm build`, `cargo build --release`, `go build ./...`.
 - **dev**: the development build or dev server. If the project has a dev server (`pnpm dev`, `rails server`), use that. If not, a non-release build (`cargo build`, `tsc`).
 - **watch**: dev build that rebuilds when files change. Only add it if the project really supports it: a `watch` script, a tool flag (`tsdown --watch`, `tsc --watch`, `vite build --watch`, `webpack --watch`), or a watcher that is already a dependency or documented. If `dev` is already a dev server with hot reload, `watch` would just duplicate it; skip it and say so. Don't add a watcher that needs installing (like `cargo-watch` or `entr`) unless it's documented or already in use; mention it as an option instead.
+- **test**: run the test suite once and exit. Examples: `pnpm test`, `cargo test`, `go test ./...`, `pytest`. If the test command defaults to watch mode (like `vitest`), use its run-once form (`vitest run`). Pass extra args through with `"$@"` so `./gil.sh test some-file` works. If the project has no tests set up, skip it. The `test` function replaces bash's `test` builtin inside `gil.sh`, so always write checks as `[[ ... ]]`, never `test -f ...`.
 
 Prefer calling the project's existing scripts (`pnpm build`) over inlining what they do. That way `gil.sh` doesn't drift when `package.json` changes.
 

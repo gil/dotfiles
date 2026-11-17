@@ -20,6 +20,10 @@ watch() {   # dev build, rebuild on file changes
   pnpm dev --watch
 }
 
+test() {    # run tests [extra test args]
+  pnpm test "$@"
+}
+
 help() {    # show available commands
   echo "Usage: ./gil.sh <command>"
   echo
