@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Run the nearest gil.sh, searching up from the current directory (stops before $HOME).
+
+d=$PWD
+while [[ $d != / && $d != "$HOME" && ! -x $d/gil.sh ]]; do d=${d%/*}; d=${d:-/}; done
+[[ -x $d/gil.sh && $d != "$HOME" ]] || { echo ",g: no gil.sh found" >&2; exit 1; }
+exec "$d/gil.sh" "$@"
