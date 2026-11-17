@@ -9,18 +9,18 @@ cd "$here"
 # --- tasks ----------------------------------------------------------
 
 build() {   # production build
-  pnpm build
+  pnpm build "$@"
 }
 
 dev() {     # dev build
-  pnpm dev
+  pnpm dev "$@"
 }
 
 watch() {   # dev build, rebuild on file changes
-  pnpm dev --watch
+  pnpm dev --watch "$@"
 }
 
-test() {    # run tests [extra test args]
+test() {    # run tests
   pnpm test "$@"
 }
 

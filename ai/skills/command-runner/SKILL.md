@@ -40,7 +40,7 @@ What each default task means:
 - **build**: the production / release build. Examples: `pnpm build`, `cargo build --release`, `go build ./...`.
 - **dev**: the development build or dev server. If the project has a dev server (`pnpm dev`, `rails server`), use that. If not, a non-release build (`cargo build`, `tsc`).
 - **watch**: dev build that rebuilds when files change. Only add it if the project really supports it: a `watch` script, a tool flag (`tsdown --watch`, `tsc --watch`, `vite build --watch`, `webpack --watch`), or a watcher that is already a dependency or documented. If `dev` is already a dev server with hot reload, `watch` would just duplicate it; skip it and say so. Don't add a watcher that needs installing (like `cargo-watch` or `entr`) unless it's documented or already in use; mention it as an option instead.
-- **test**: run the test suite once and exit. Examples: `pnpm test`, `cargo test`, `go test ./...`, `pytest`. If the test command defaults to watch mode (like `vitest`), use its run-once form (`vitest run`). Pass extra args through with `"$@"` so `./gil.sh test some-file` works. If the project has no tests set up, skip it. The `test` function replaces bash's `test` builtin inside `gil.sh`, so always write checks as `[[ ... ]]`, never `test -f ...`.
+- **test**: run the test suite once and exit. Examples: `pnpm test`, `cargo test`, `go test ./...`, `pytest`. If the test command defaults to watch mode (like `vitest`), use its run-once form (`vitest run`). If the project has no tests set up, skip it. The `test` function replaces bash's `test` builtin inside `gil.sh`, so always write checks as `[[ ... ]]`, never `test -f ...`.
 
 Prefer calling the project's existing scripts (`pnpm build`) over inlining what they do. That way `gil.sh` doesn't drift when `package.json` changes.
 
@@ -56,6 +56,7 @@ These keep every `gil.sh` consistent and the `help` output working. Follow them 
   build() {   # production build
   ```
   Mention arguments in the description using `[...]`, e.g. `# build for QA [env, default: qa]`.
+- **Pass extra args through with `"$@"`.** Most tasks just wrap another runner, so end that command with `"$@"`: `pnpm dev "$@"` lets `./gil.sh dev --port 4000` work. Put it where the wrapped tool expects extra args (usually last). Some runners need a separator to forward args to the script: `npm run dev -- "$@"`, `cargo run -- "$@"`. pnpm, yarn, and bun don't. Skip `"$@"` only when the task has no single command that could take them (e.g. it runs several steps), or when it already uses `$1` for its own argument; then `shift` that one off first (see "Arguments" below). No need to mention plain passthrough in the description.
 - **Keep the header lines.** `set -euo pipefail` stops on the first error, on unset variables, and on failed pipes. `here`/`self`/`cd "$here"` make it run from its own folder, wherever it's called from. `help` reads `$self` to list tasks.
 - **Keep the dispatcher at the bottom.** It runs only functions defined in the script (`declare -F`), so random commands can't be passed in. No args runs `help`. Unknown command prints an error, then help, and exits 1.
 - **Only bash and standard Unix tools in the runner itself.** Tasks can call the project's tools, of course.
@@ -72,9 +73,12 @@ Optional argument with a default:
 ```bash
 build_qa() {   # build for QA [env, default: qa]
   local env="${1:-qa}"
-  pnpm build --mode "$env"
+  shift || true
+  pnpm build --mode "$env" "$@"
 }
 ```
+
+`shift || true` drops the first arg so the rest still pass through. The `|| true` matters: `shift` fails when there are no args, and `set -e` would stop the script.
 
 Pass extra flags straight through with `"$@"`:
 
@@ -165,11 +169,11 @@ DEPLOY_PATH="${DEPLOY_PATH:-/var/www/mysite}"  # remote web root (default /var/w
 # --- tasks ----------------------------------------------------------
 
 dev() {     # start dev server
-  pnpm dev
+  pnpm dev "$@"
 }
 
 build() {   # production build
-  pnpm build
+  pnpm build "$@"
 }
 
 deploy() {  # build and rsync to server [extra rsync args, e.g. --dry-run]
