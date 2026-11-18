@@ -12,7 +12,7 @@ build() {   # production build
   pnpm build "$@"
 }
 
-dev() {     # dev build
+dev() {     # dev build and run
   pnpm dev "$@"
 }
 

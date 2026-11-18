@@ -38,7 +38,10 @@ Read the project's own files to learn how it is built. Look at, in rough order:
 What each default task means:
 
 - **build**: the production / release build. Examples: `pnpm build`, `cargo build --release`, `go build ./...`.
-- **dev**: the development build or dev server. If the project has a dev server (`pnpm dev`, `rails server`), use that. If not, a non-release build (`cargo build`, `tsc`).
+- **dev**: build the development version and run it, so one command gets you to a working app. Pick by project type:
+  - Has a dev server (`pnpm dev`, `rails server`, `mix phx.server`): use it, it already builds and runs.
+  - Runnable app or CLI: use the tool's build-and-run command (`cargo run -- "$@"`, `go run . "$@"`, `swift run`, `dotnet run`). If there's no such command, build then run the output: `pnpm build:dev` then `node dist/index.js "$@"`. Args go to the running program.
+  - Nothing to run (a library, a package that only gets imported): just the non-release build (`cargo build`, `tsc`). Say in the recap that `dev` only builds and why.
 - **watch**: dev build that rebuilds when files change. Only add it if the project really supports it: a `watch` script, a tool flag (`tsdown --watch`, `tsc --watch`, `vite build --watch`, `webpack --watch`), or a watcher that is already a dependency or documented. If `dev` is already a dev server with hot reload, `watch` would just duplicate it; skip it and say so. Don't add a watcher that needs installing (like `cargo-watch` or `entr`) unless it's documented or already in use; mention it as an option instead.
 - **test**: run the test suite once and exit. Examples: `pnpm test`, `cargo test`, `go test ./...`, `pytest`. If the test command defaults to watch mode (like `vitest`), use its run-once form (`vitest run`). If the project has no tests set up, skip it. The `test` function replaces bash's `test` builtin inside `gil.sh`, so always write checks as `[[ ... ]]`, never `test -f ...`.
 
