@@ -43,6 +43,9 @@ if hash brew 2>/dev/null; then
     printf "\n${C_PURPLE}[Brew] ${C_GREEN}Overriding conflicting links...${C_RESTORE}\n"
     brew link --overwrite parallel # looks like Brewfile can't handle overrides
 
+    printf "\n${C_PURPLE}[Brew] ${C_GREEN}Linking apps built from formulas...${C_RESTORE}\n"
+    ln -sfn "$(brew --prefix)/opt/copy-copy-go/CopyCopyGo.app" /Applications/CopyCopyGo.app
+
     printf "\n${C_PURPLE}[Brew] ${C_GREEN}Removing old packages...${C_RESTORE}\n"
     brew cleanup
 

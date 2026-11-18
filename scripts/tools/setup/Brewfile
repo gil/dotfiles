@@ -22,6 +22,7 @@ brew "fd"
 brew "p7zip"
 brew "unar"
 brew "gil/dotfiles/rar"
+brew "gil/dotfiles/copy-copy-go", args: ["HEAD"]
 brew "ifstat"
 brew "cheat"
 brew "rsync"
