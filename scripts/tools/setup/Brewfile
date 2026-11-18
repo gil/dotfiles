@@ -1,3 +1,5 @@
+tap "gil/dotfiles", "https://github.com/gil/dotfiles"
+
 # General tools
 brew "tmux"
 brew "bash"
@@ -19,6 +21,7 @@ brew "poppler"
 brew "fd"
 brew "p7zip"
 brew "unar"
+brew "gil/dotfiles/rar"
 brew "ifstat"
 brew "cheat"
 brew "rsync"
