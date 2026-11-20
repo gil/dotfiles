@@ -20,8 +20,7 @@ while [[ $# -gt 0 ]]; do
       exit 0
       ;;
     --full) full=true ;; # Score the whole video instead of samples (slow)
-    --4k) model=vmaf_4k_v0.6.1 ;; # Use the 4K model (default is the 1080p model)
-    --samples=*) samples="${1#--samples=}" ;;
+    --4k) model=vmaf_4k_v0.6.1 ;; # Use the 4K model (default is the 1080p model)    --samples=*) samples="${1#--samples=}" ;;
     --samples) # Number of clips, spread evenly across the video (default 5)
       samples="$2"
       shift
@@ -81,12 +80,19 @@ for start in "${starts[@]}"; do
   echo "clip $index/${#starts[@]} ($label)" >&2
   printf -v log_path '%s/%02d.json' "$workdir" "$index"
 
+  # Snap timestamps to frame slots: mkv rounds them to the millisecond, so one side can
+  # land at 33ms and the other at 34ms, and libvmaf then pairs the previous frame
+  snap="setpts='if(gt(FRAME_RATE,0),round((PTS-STARTPTS)*TB*FRAME_RATE)/FRAME_RATE/TB,PTS-STARTPTS)'"
   ffmpeg -hide_banner -loglevel error -nostats \
     "${seek_args[@]}" -i "$converted" \
     "${seek_args[@]}" -i "$reference" \
-    -filter_complex "[0:v]scale=${size/x/:}:flags=bicubic,format=yuv420p10le,setpts=PTS-STARTPTS[converted];[1:v]format=yuv420p10le,setpts=PTS-STARTPTS[reference];[converted][reference]libvmaf=model=version=$model:n_threads=$threads:log_fmt=json:log_path=$log_path" \
+    -filter_complex "[0:v]scale=${size/x/:}:flags=bicubic,format=yuv420p10le,${snap}[converted];[1:v]format=yuv420p10le,${snap}[reference];[converted][reference]libvmaf=model=version=$model:n_threads=$threads:log_fmt=json:log_path=$log_path" \
     -f null -
 done
+
+echo "VMAF guide: 95+ can't tell apart | 90-95 very good | 80-90 good, small loss if you look"
+echo "            70-80 visible loss | under 70 poor. Check \"1% low\" too: it shows the worst moments."
+echo
 
 jq -s -r '
   def r: . * 100 | round / 100;

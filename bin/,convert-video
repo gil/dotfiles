@@ -6,7 +6,10 @@ crf=
 quality=default
 tune=
 max_height=
-aac=false
+deinterlace=auto
+audio_codec=copy
+audio_tracks=
+plan_only=false
 rest=()
 
 usage() {
@@ -23,9 +26,18 @@ while [[ $# -gt 0 ]]; do
       ;;
     --h265) codec=h265 ;; # Encode with H.265 (default is H.264)
     --av1) codec=av1 ;; # Encode with AV1 (default is H.264)
-    --aac) aac=true ;; # Re-encode audio to AAC, 256k stereo or 384k for 3+ channels (default is copy)
+    --aac) audio_codec=aac ;; # Re-encode audio to AAC, 256k stereo or 384k for 3+ channels (default is copy)
+    --opus) audio_codec=opus ;; # Re-encode audio to Opus, 128k stereo or 256k for 3+ channels (default is copy)
+    --audio=*) audio_tracks="${1#--audio=}" ;;
+    --audio) # Keep only these audio tracks, counting from 0, as --audio 0,2 or --audio=0,2
+      audio_tracks="$2"
+      shift
+      ;;
+    --plan) plan_only=true ;; # Print what happens to each kept audio track (track, codec, channels, action, kbps) and exit
     --1080p) max_height=1080 ;; # Downscale to 1080p max, smaller videos keep their size
     --720p) max_height=720 ;; # Downscale to 720p max, smaller videos keep their size
+    --deinterlace) deinterlace=true ;; # Always deinterlace, for interlaced files mislabeled as progressive (default: only when labeled interlaced)
+    --no-deinterlace) deinterlace=false ;; # Never deinterlace, even when labeled interlaced
     --grain) tune=grain ;; # Tune for grainy film, AV1 gets film-grain synthesis
     --animation) tune=animation ;; # Tune for animation (no effect on AV1)
     --low) quality=low ;; # Lower quality, smaller file. Use --crf for fine tuning.
@@ -50,8 +62,68 @@ if [[ -n "$crf" && ! "$crf" =~ ^[0-9]+$ ]]; then
   exit 1
 fi
 
+if [[ -n "$audio_tracks" && ! "$audio_tracks" =~ ^[0-9]+(,[0-9]+)*$ ]]; then
+  echo "invalid --audio: '$audio_tracks'" >&2
+  exit 1
+fi
+
 input="${rest[0]}"
 output="${input%.*}--out.mkv"
+
+target_kbps() {
+  local codec=$1 channels=$2
+  case "$codec" in
+    aac) ((channels > 2)) && echo 384 || echo 256 ;;
+    opus) ((channels > 2)) && echo 256 || echo 128 ;;
+  esac
+}
+
+mapfile -t audio_streams < <(ffprobe -v error -select_streams a -show_entries stream=codec_name,channels,bit_rate:stream_tags -of json "$input" |
+  jq -r '.streams[] | [.codec_name, .channels, (.bit_rate // .tags.BPS // .tags["BPS-eng"] // "")] | @tsv')
+
+if [[ -n "$audio_tracks" ]]; then
+  IFS=, read -ra kept_tracks <<<"$audio_tracks"
+else
+  kept_tracks=("${!audio_streams[@]}")
+fi
+
+audio_args=()
+output_index=0
+for track in "${kept_tracks[@]}"; do
+  if [[ -z "${audio_streams[$track]}" ]]; then
+    echo "no audio track $track in $input" >&2
+    exit 1
+  fi
+  IFS=$'\t' read -r source_codec channels bit_rate <<<"${audio_streams[$track]}"
+  source_kbps=${bit_rate:+$((bit_rate / 1000))}
+
+  action=copy
+  kbps=${source_kbps:-?}
+  if [[ "$audio_codec" != copy && "$source_codec" != "$audio_codec" ]]; then
+    target=$(target_kbps "$audio_codec" "$channels")
+    if [[ -z "$source_kbps" ]] || ((source_kbps > target)); then
+      action=$audio_codec
+      kbps=$target
+    fi
+  fi
+
+  if [[ "$plan_only" == true ]]; then
+    printf '%s\t%s\t%s\t%s\t%s\n' "$track" "$source_codec" "$channels" "$action" "$kbps"
+  fi
+
+  audio_args+=(-map "0:a:$track")
+  case "$action" in
+    copy) audio_args+=("-c:a:$output_index" copy) ;;
+    aac) audio_args+=("-c:a:$output_index" aac "-b:a:$output_index" "${kbps}k") ;;
+    # libopus rejects layouts like 5.1(side), so convert to the standard ones it accepts
+    opus) audio_args+=("-c:a:$output_index" libopus "-b:a:$output_index" "${kbps}k" "-filter:a:$output_index" "aformat=channel_layouts=7.1|5.1|stereo|mono") ;;
+  esac
+  output_index=$((output_index + 1))
+done
+
+if [[ "$plan_only" == true ]]; then
+  exit 0
+fi
 
 declare -A presets=(
   [h264.high]=19 [h264.default]=21 [h264.low]=23
@@ -79,9 +151,22 @@ if [[ "$codec" != av1 && -n "$tune" ]]; then
   video_args+=(-tune "$tune")
 fi
 
-filter_args=()
+if [[ "$deinterlace" == auto ]]; then
+  case "$(ffprobe -v error -select_streams v:0 -show_entries stream=field_order -of csv=p=0 "$input")" in
+    tt | bb | tb | bt) deinterlace=true ;;
+  esac
+fi
+
+filters=()
+if [[ "$deinterlace" == true ]]; then
+  filters+=("bwdif=mode=send_frame")
+fi
 if [[ -n "$max_height" ]]; then
-  filter_args=(-vf "scale=-2:'min(ih,$max_height)'")
+  filters+=("scale=-2:'min(ih,$max_height)'")
+fi
+filter_args=()
+if [[ ${#filters[@]} -gt 0 ]]; then
+  filter_args=(-vf "$(IFS=,; echo "${filters[*]}")")
 fi
 
 case "${input##*.}" in
@@ -89,23 +174,10 @@ case "${input##*.}" in
   *) subtitle_codec=copy ;;
 esac
 
-audio_args=(-c:a copy)
-if [[ "$aac" == true ]]; then
-  audio_args=(-c:a aac)
-  index=0
-  while read -r channels; do
-    bitrate=256k
-    [[ "$channels" -gt 2 ]] && bitrate=384k
-    audio_args+=("-b:a:$index" "$bitrate")
-    index=$((index + 1))
-  done < <(ffprobe -v error -select_streams a -show_entries stream=channels -of csv=p=0 "$input")
-fi
-
 ffmpeg \
   -i "$input" \
-  -map 0:v -map "0:a?" -map "0:s?" -map "0:t?" \
+  -map 0:v "${audio_args[@]}" -map "0:s?" -map "0:t?" \
   "${filter_args[@]}" \
   "${video_args[@]}" \
-  "${audio_args[@]}" \
   -c:s "$subtitle_codec" \
   "$output"

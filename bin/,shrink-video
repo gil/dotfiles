@@ -1,0 +1,351 @@
+#!/usr/bin/env bash
+set -e
+
+min_savings=30
+min_vmaf=90
+big_savings=50
+big_savings_vmaf_slack=5
+start_crf=30
+lowest_crf=24
+crf_step=3
+sample_parts=8
+part_seconds=10
+opus_min_gain=5
+keep_4k=false
+assume_yes=false
+force=false
+deinterlace_args=()
+tune_args=()
+rest=()
+
+usage() {
+  echo "usage: ,shrink-video [options] <file>" >&2
+  echo "Re-encodes to AV1 with ,convert-video, if a sample shows it's worth it." >&2
+  echo "options:" >&2
+  sed -n 's/^ *\(--[^)]*\)).* # \(.*\)$/  \1  \2/p' "$0" >&2
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --help | -h)
+      usage
+      exit 0
+      ;;
+    --yes) assume_yes=true ;; # Don't ask before testing and encoding
+    --force) force=true ;; # Skip the source codec and bitrate checks
+    --keep-4k) keep_4k=true ;; # Don't downscale above-1080p videos to 1080p
+    --deinterlace) deinterlace_args=(--deinterlace) ;; # Always deinterlace, for interlaced files mislabeled as progressive
+    --no-deinterlace) deinterlace_args=(--no-deinterlace) ;; # Never deinterlace, even when labeled interlaced
+    --grain) tune_args=(--grain) ;; # Grainy film, uses AV1 film-grain synthesis
+    --animation) tune_args=(--animation) ;; # Animation tuning
+    --min-savings=*) min_savings="${1#--min-savings=}" ;;
+    --min-savings) # Smallest size cut worth it, in percent (default 30)
+      min_savings="$2"
+      shift
+      ;;
+    --min-vmaf=*) min_vmaf="${1#--min-vmaf=}" ;;
+    --min-vmaf) # Lowest acceptable VMAF mean on the sample (default 90)
+      min_vmaf="$2"
+      shift
+      ;;
+    --big-savings=*) big_savings="${1#--big-savings=}" ;;
+    --big-savings) # At this size cut or more, in percent, VMAF can be 5 under --min-vmaf (default 50)
+      big_savings="$2"
+      shift
+      ;;
+    *) rest+=("$1") ;;
+  esac
+  shift
+done
+
+if [[ ${#rest[@]} -ne 1 ]]; then
+  usage
+  exit 1
+fi
+
+if [[ ! "$min_savings" =~ ^[0-9]+$ || ! "$min_vmaf" =~ ^[0-9]+$ || ! "$big_savings" =~ ^[0-9]+$ ]]; then
+  echo "--min-savings, --min-vmaf and --big-savings must be whole numbers" >&2
+  exit 1
+fi
+loose_vmaf=$((min_vmaf - big_savings_vmaf_slack))
+
+input="${rest[0]}"
+if [[ ! -f "$input" ]]; then
+  echo "not a file: $input" >&2
+  exit 1
+fi
+
+script_dir=$(dirname "$0")
+convert="$script_dir/,convert-video"
+compare="$script_dir/,compare-video-quality"
+
+not_worth_it() {
+  echo "Not worth it: $1" >&2
+  exit 0
+}
+
+confirm() {
+  [[ "$assume_yes" == true ]] && return 0
+  local answer
+  read -r -p "$1 [y/N] " answer </dev/tty
+  [[ "$answer" == [yY]* ]]
+}
+
+less_than() {
+  awk -v a="$1" -v b="$2" 'BEGIN { exit !(a < b) }'
+}
+
+human_size() {
+  awk -v b="$1" 'BEGIN { if (b >= 1e9) printf "%.2f GB", b / 1e9; else printf "%.0f MB", b / 1e6 }'
+}
+
+human_duration() {
+  awk -v s="$1" 'BEGIN { printf "%d:%02d:%02d", s / 3600, s % 3600 / 60, s % 60 }'
+}
+
+file_size() {
+  stat -f %z "$1"
+}
+
+file_duration() {
+  ffprobe -v error -show_entries format=duration -of csv=p=0 "$1"
+}
+
+sum_kbps() {
+  awk -F'\t' '$5 != "?" { s += $5 } END { print s + 0 }' <<<"$1"
+}
+
+probe=$(ffprobe -v error -show_format -show_streams -of json "$input")
+
+duration=$(jq -r '.format.duration' <<<"$probe")
+size=$(file_size "$input")
+
+video_info=$(jq -r '
+  def known_bitrate: (.bit_rate // .tags.BPS // .tags["BPS-eng"] // "0") | tonumber;
+  ((.format.bit_rate // "0") | tonumber) as $total
+  | ([.streams[] | select(.codec_type == "audio") | known_bitrate] | add // 0) as $audio
+  | [.streams[] | select(.codec_type == "video" and (.disposition.attached_pic // 0) != 1)][0]
+  | if . == null then empty else
+    [ .index, .codec_name, .width, .height,
+      (.field_order // "unknown"), (.color_transfer // "unknown"),
+      ((known_bitrate | if . > 0 then . else null end) // ($total - $audio)),
+      ([.side_data_list[]? | .side_data_type // "" | select(test("DOVI|Dolby Vision"))] | length > 0) ]
+    | @tsv end
+' <<<"$probe")
+
+if [[ -z "$video_info" ]]; then
+  echo "no video stream in $input" >&2
+  exit 1
+fi
+IFS=$'\t' read -r video_index video_codec width height field_order transfer video_bitrate dolby_vision <<<"$video_info"
+video_kbps=$((video_bitrate / 1000))
+
+# Lowest bitrate where AV1 still has room to shrink, by output height (rough, from experience)
+video_flags=()
+output_height=$height
+if ((height > 1080)) && [[ "$keep_4k" == false ]]; then
+  video_flags+=(--1080p)
+  output_height=1080
+fi
+if ((output_height > 1080)); then
+  floor_kbps=8000
+elif ((output_height > 720)); then
+  floor_kbps=2000
+elif ((output_height > 480)); then
+  floor_kbps=1000
+else
+  floor_kbps=600
+fi
+
+interlaced=false
+interlace_reason="labeled $field_order"
+case "${deinterlace_args[0]}" in
+  --deinterlace)
+    interlaced=true
+    interlace_reason="forced with --deinterlace"
+    ;;
+  --no-deinterlace) ;;
+  *)
+    case "$field_order" in
+      tt | bb | tb | bt) interlaced=true ;;
+    esac
+    ;;
+esac
+
+if [[ "$force" == false ]]; then
+  case "$video_codec" in
+    av1) not_worth_it "already AV1" ;;
+    hevc | vp9) floor_kbps=$((floor_kbps * 3 / 2)) ;;
+  esac
+  if ((video_kbps < floor_kbps)); then
+    not_worth_it "$video_codec at ${video_kbps} kbps is already lean for ${output_height}p (needs ${floor_kbps}+ kbps to shrink much)"
+  fi
+fi
+
+# Keep one audio track per language: the one with most channels, then lossless, then highest bitrate.
+# Commentary is dropped unless a language has nothing else.
+keep_audio=$(jq -r '
+  [.streams | map(select(.codec_type == "audio")) | to_entries[] | .value as $s | {
+    track: .key,
+    channels: ($s.channels // 0),
+    commentary: ((($s.disposition.comment // 0) == 1) or (($s.tags.title // "") | test("comment"; "i"))),
+    language: ($s.tags.language // "und"),
+    rank: (if ($s.codec_name | test("^(truehd|mlp|flac|alac|pcm_)")) or (($s.profile // "") | test("MA"))
+      then 1e12 else (($s.bit_rate // $s.tags.BPS // $s.tags["BPS-eng"] // "0") | tonumber) end)
+  }]
+  | group_by(.language)
+  | map((map(select(.commentary | not)) | if length > 0 then . else null end) // . | max_by([.channels, .rank]) | .track)
+  | sort | join(",")
+' <<<"$probe")
+
+all_audio=$(jq -r '
+  .streams | map(select(.codec_type == "audio")) | to_entries[]
+  | [.key, .value.codec_name, "\(.value.channels)ch", (.value.tags.language // "und"), (.value.tags.title // "-")] | @tsv
+' <<<"$probe")
+subtitle_count=$(jq '[.streams[] | select(.codec_type == "subtitle")] | length' <<<"$probe")
+
+audio_plan_args=()
+if [[ -n "$keep_audio" ]]; then
+  audio_plan_args=(--audio "$keep_audio")
+fi
+aac_plan=$("$convert" --plan --aac "${audio_plan_args[@]}" "$input")
+opus_plan=$("$convert" --plan --opus "${audio_plan_args[@]}" "$input")
+aac_kbps=$(sum_kbps "$aac_plan")
+opus_kbps=$(sum_kbps "$opus_plan")
+
+describe_action() {
+  local codec=$2 action=$4 kbps=$5
+  if [[ "$action" == copy ]]; then
+    echo "copy ($codec, ${kbps} kbps)"
+  else
+    echo "$action ${kbps}k"
+  fi
+}
+
+echo
+echo "File:   $(basename "$input")"
+echo "        $(human_size "$size"), $(human_duration "$duration")"
+echo "Video:  $video_codec ${width}x${height}, ~${video_kbps} kbps -> AV1, CRF from $start_crf down to $lowest_crf until VMAF >= $min_vmaf ($loose_vmaf if ${big_savings}%+ smaller)"
+if [[ " ${video_flags[*]} " == *" --1080p "* ]]; then
+  echo "        downscale to 1080p (--keep-4k to skip)"
+fi
+if [[ "$interlaced" == true ]]; then
+  echo "        deinterlace ($interlace_reason)"
+fi
+if [[ "$transfer" == smpte2084 || "$transfer" == arib-std-b67 ]]; then
+  echo "        HDR source ($transfer): stays 10-bit, check it plays right after"
+fi
+if [[ "$dolby_vision" == true ]]; then
+  echo "        Dolby Vision data will be lost"
+fi
+echo "Audio:"
+while IFS=$'\t' read -r track codec channels language title; do
+  [[ -z "$track" ]] && continue
+  label="#$track $language $codec $channels"
+  [[ "$title" != - ]] && label+=" \"$title\""
+  if [[ ",$keep_audio," == *",$track,"* ]]; then
+    aac_line=$(awk -F'\t' -v t="$track" '$1 == t' <<<"$aac_plan")
+    opus_line=$(awk -F'\t' -v t="$track" '$1 == t' <<<"$opus_plan")
+    IFS=$'\t' read -ra aac_fields <<<"$aac_line"
+    IFS=$'\t' read -ra opus_fields <<<"$opus_line"
+    echo "        keep  $label -> $(describe_action "${aac_fields[@]}") or $(describe_action "${opus_fields[@]}")"
+  else
+    echo "        drop  $label"
+  fi
+done <<<"$all_audio"
+echo "        AAC or Opus is picked after the sample: Opus if it cuts ${opus_min_gain}%+ off the result"
+echo "Subs:   keep all ($subtitle_count)"
+echo "Test:   ${sample_parts} x ${part_seconds}s sample, needs ${min_savings}%+ smaller and VMAF ${min_vmaf}+ (or ${loose_vmaf}+ at ${big_savings}%+ smaller)"
+echo
+
+confirm "Test a sample?" || exit 0
+
+workdir=$(mktemp -d)
+trap 'rm -rf "$workdir"' EXIT
+
+# Parts are cut as lossless FFV1, already deinterlaced like the real encode will be,
+# so --deinterlace is not passed when encoding them.
+# Stream-copied cuts carry broken timestamps that make VMAF pair the wrong frames.
+# FFV1 is huge, so each part is deleted right after scoring.
+mapfile -t starts < <(awk -v d="$duration" -v n="$sample_parts" -v s="$part_seconds" 'BEGIN {
+  if (n > d / (s * 1.5)) n = int(d / (s * 1.5)); if (n < 1) n = 1
+  for (i = 0; i < n; i++) { t = (i + 0.5) * d / n - s / 2; if (t < 0) t = 0; printf "%.2f\n", t } }')
+
+cut_filter=()
+[[ "$interlaced" == true ]] && cut_filter=(-vf bwdif=mode=send_frame)
+
+compare_flags=()
+((height > 1440)) && compare_flags+=(--4k)
+
+part="$workdir/part.mkv"
+converted="$workdir/part--out.mkv"
+crf=$start_crf
+while true; do
+  results=
+  for i in "${!starts[@]}"; do
+    echo "CRF $crf: encoding and scoring part $((i + 1))/${#starts[@]}..." >&2
+    rm -f "$part" "$converted"
+    ffmpeg -nostdin -hide_banner -loglevel error -ss "${starts[$i]}" -t "$part_seconds" -i "$input" \
+      -map "0:$video_index" "${cut_filter[@]}" -c:v ffv1 "$part"
+    if ! "$convert" --av1 --crf "$crf" "${video_flags[@]}" "${tune_args[@]}" "$part" </dev/null >"$workdir/encode.log" 2>&1; then
+      cat "$workdir/encode.log" >&2
+      exit 1
+    fi
+    scores=$("$compare" --full "${compare_flags[@]}" "$part" "$converted" 2>/dev/null)
+    results+="$(file_size "$converted") $(file_duration "$converted") $(awk '
+      /^frames:/ { frames = $2 } /^mean:/ { mean = $2 } /^5% low:/ { low = $3 }
+      END { print frames, mean, low }' <<<"$scores")"$'\n'
+  done
+  rm -f "$part" "$converted"
+
+  read -r sample_kbps vmaf vmaf_low < <(awk '
+    NF == 5 { bytes += $1; seconds += $2; frames += $3; weighted += $3 * $4; if (low == "" || $5 < low) low = $5 }
+    END { printf "%.0f %.2f %.2f\n", bytes * 8 / seconds / 1000, weighted / frames, low }' <<<"$results")
+
+  audio_codec=aac
+  audio_kbps=$aac_kbps
+  if awk -v a="$aac_kbps" -v o="$opus_kbps" -v v="$sample_kbps" -v g="$opus_min_gain" \
+    'BEGIN { exit !((a - o) / (v + a) * 100 >= g) }'; then
+    audio_codec=opus
+    audio_kbps=$opus_kbps
+  fi
+
+  # 1% on top for the container
+  projected=$(awk -v k="$((sample_kbps + audio_kbps))" -v d="$duration" 'BEGIN { printf "%.0f", k * 1000 / 8 * d * 1.01 }')
+  savings=$(awk -v p="$projected" -v s="$size" 'BEGIN { printf "%.0f", (1 - p / s) * 100 }')
+
+  echo "CRF $crf: VMAF $vmaf (worst part's 5% low $vmaf_low), video $sample_kbps kbps + $audio_codec $audio_kbps kbps, full file ~$(human_size "$projected") (${savings}% smaller)"
+
+  if ((savings < min_savings)); then
+    not_worth_it "only ${savings}% smaller at CRF $crf, needs ${min_savings}%"
+  fi
+  if ! less_than "$vmaf" "$min_vmaf"; then
+    break
+  fi
+  if ((savings >= big_savings)) && ! less_than "$vmaf" "$loose_vmaf"; then
+    echo "VMAF under $min_vmaf but ${savings}% smaller: accepting down to $loose_vmaf for ${big_savings}%+ cuts" >&2
+    break
+  fi
+  if ((crf - crf_step < lowest_crf)); then
+    not_worth_it "VMAF stays under $min_vmaf (or $loose_vmaf at ${big_savings}%+ smaller) down to CRF $crf"
+  fi
+  crf=$((crf - crf_step))
+done
+
+output="${input%.*}--out.mkv"
+free_bytes=$(($(df -k "$(dirname "$input")" | awk 'NR == 2 { print $4 }') * 1024))
+if ((free_bytes < projected)); then
+  echo "Warning: only $(human_size "$free_bytes") free, output needs ~$(human_size "$projected")" >&2
+fi
+
+echo
+echo "Plan: ,convert-video --av1 --crf $crf --$audio_codec ${audio_plan_args[*]} ${video_flags[*]} ${deinterlace_args[*]} ${tune_args[*]}"
+echo "Output: $output"
+confirm "Encode the full file?" || exit 0
+
+"$convert" --av1 --crf "$crf" "--$audio_codec" "${audio_plan_args[@]}" "${video_flags[@]}" "${deinterlace_args[@]}" "${tune_args[@]}" "$input"
+
+final_size=$(file_size "$output")
+echo
+echo "Done: $(human_size "$size") -> $(human_size "$final_size") ($(awk -v f="$final_size" -v s="$size" 'BEGIN { printf "%.0f", (1 - f / s) * 100 }')% smaller)"
+echo "Original kept: $input"
