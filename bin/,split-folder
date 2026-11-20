@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ $# -ne 2 ]] || ! [[ "$2" =~ ^[1-9][0-9]*$ ]]; then
+  echo "usage: ,split-folder <folder> <parts>" >&2
+  exit 1
+fi
+
+source_dir="${1%/}"
+parts="$2"
+
+if [[ ! -d "$source_dir" ]]; then
+  echo "Not a folder: $source_dir" >&2
+  exit 1
+fi
+
+if [[ -n "$(find "$source_dir" -mindepth 1 -maxdepth 1 -type d -print -quit)" ]]; then
+  echo "Aborting: $source_dir has subfolders." >&2
+  exit 1
+fi
+
+files=()
+while IFS= read -r -d '' file; do
+  files+=("$file")
+done < <(find "$source_dir" -mindepth 1 -maxdepth 1 -print0 | sort -z)
+
+total=${#files[@]}
+if [[ $total -eq 0 ]]; then
+  echo "Aborting: $source_dir is empty." >&2
+  exit 1
+fi
+
+if [[ $parts -gt $total ]]; then
+  parts=$total
+fi
+
+for ((part = 1; part <= parts; part++)); do
+  target_dir=$(printf '%s-%03d' "$source_dir" "$part")
+  if [[ -e "$target_dir" ]]; then
+    echo "Aborting: $target_dir already exists." >&2
+    exit 1
+  fi
+done
+
+base_size=$((total / parts))
+remainder=$((total % parts))
+index=0
+
+for ((part = 1; part <= parts; part++)); do
+  size=$base_size
+  if [[ $part -le $remainder ]]; then
+    size=$((size + 1))
+  fi
+  target_dir=$(printf '%s-%03d' "$source_dir" "$part")
+  mkdir "$target_dir"
+  mv -n "${files[@]:index:size}" "$target_dir/"
+  echo "$target_dir ($size files)"
+  index=$((index + size))
+done
+
+rmdir "$source_dir"
