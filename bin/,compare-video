@@ -22,5 +22,10 @@ right=$(first_real_video_track "$2")
 [[ -n "$right" ]] || { echo "no video track in $2" >&2; exit 1; }
 right=$(( $(video_track_count "$1") + right ))
 
-mpv --loop --fs --lavfi-complex="[vid${left}][vid${right}]hstack[vo]" \
+# Not hstack: it pairs frames by exact timestamp, and mkv rounds those to the millisecond,
+# so the right side often shows the previous frame. Overlay outputs one frame per left frame
+# using the latest right frame at or before it; shifting the right half a frame earlier turns
+# that into "nearest frame". Variable frame rate videos have no FRAME_RATE, so 5ms is used.
+shift_right="setpts='PTS-if(gt(FRAME_RATE,0),0.5/FRAME_RATE,0.005)/TB'"
+mpv --loop --fs --lavfi-complex="[vid${left}]pad=iw*2:ih[l];[vid${right}]${shift_right}[r];[l][r]overlay=x=W/2[vo]" \
   "$1" --external-file="$2"
