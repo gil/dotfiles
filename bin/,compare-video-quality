@@ -67,26 +67,76 @@ fi
 workdir=$(mktemp -d)
 trap 'rm -rf "$workdir"' EXIT
 
+# Each converted frame is paired with the reference frame nearest in time. libvmaf pairs a
+# converted frame with the latest reference frame at or before it, so the reference is moved
+# half a frame earlier to turn that into "nearest". Exact timestamps can't be used: mkv rounds
+# them to the millisecond, so twins are often a fraction of a millisecond apart. Pairing by
+# frame order isn't used either: after a frame dropped during conversion, every pair is off.
+# Variable frame rate videos have no FRAME_RATE, so 30 fps is assumed for frame offsets.
+align_seconds=3
+max_offset=2
+# PSNR gap, in dB, before another alignment counts as clearly better than the timestamps'
+mismatch_margin=3
+converted_chain="scale=${size/x/:}:flags=bicubic,format=yuv420p10le"
+
+# Reference chain that pairs each converted frame with the reference frame <offset> frames later
+reference_chain() {
+  local offset=$1
+  echo "format=yuv420p10le,setpts='PTS-if(gt(FRAME_RATE,0),($offset+0.5)/FRAME_RATE,$offset/30+0.005)/TB'"
+}
+
+alignment_psnr() {
+  local offset=$1
+  shift
+  ffmpeg -hide_banner -nostats "$@" -i "$converted" "$@" -i "$reference" \
+    -filter_complex "[0:v]${converted_chain}[c];[1:v]$(reference_chain "$offset")[r];[c][r]psnr" \
+    -f null - 2>&1 | awk -F'average:' '/average:/ { split($2, a, " "); print (a[1] == "inf" ? 1000 : a[1]) }'
+}
+
+# Only warns: the pairing always follows the timestamps
+check_alignment() {
+  local what=$1 offset psnr best=0 best_psnr timestamp_psnr
+  shift
+  timestamp_psnr=$(alignment_psnr 0 "$@")
+  best_psnr=$timestamp_psnr
+  for ((offset = -max_offset; offset <= max_offset; offset++)); do
+    ((offset == 0)) && continue
+    psnr=$(alignment_psnr "$offset" "$@")
+    if awk -v a="$psnr" -v b="$best_psnr" 'BEGIN { exit !(a > b) }'; then
+      best=$offset
+      best_psnr=$psnr
+    fi
+  done
+  if ((best != 0)) && awk -v a="$best_psnr" -v b="$timestamp_psnr" -v m="$mismatch_margin" 'BEGIN { exit !(a - b > m) }'; then
+    echo "WARNING: in $what, the frames of the two videos probably don't line up." >&2
+    echo "  $(basename "$converted") matches $(basename "$reference") clearly better when offset by ${best#-} frame(s) from what its timestamps say." >&2
+    echo "  This usually means one video has shifted or renumbered timestamps (for example, rewritten by" >&2
+    echo "  another tool), so the score below compares different moments and reads lower than the real quality." >&2
+  fi
+}
+
 index=0
 for start in "${starts[@]}"; do
   index=$((index + 1))
   seek_args=()
+  align_args=(-t "$align_seconds")
   label="whole video"
+  what="the video"
   if [[ "$start" != whole ]]; then
     seek_args=(-ss "$start" -t "$seconds")
+    align_args=(-ss "$start" -t "$align_seconds")
     label="start: ${start}s"
+    what="clip $index"
   fi
 
   echo "clip $index/${#starts[@]} ($label)" >&2
+  check_alignment "$what" "${align_args[@]}"
   printf -v log_path '%s/%02d.json' "$workdir" "$index"
 
-  # Snap timestamps to frame slots: mkv rounds them to the millisecond, so one side can
-  # land at 33ms and the other at 34ms, and libvmaf then pairs the previous frame
-  snap="setpts='if(gt(FRAME_RATE,0),round((PTS-STARTPTS)*TB*FRAME_RATE)/FRAME_RATE/TB,PTS-STARTPTS)'"
   ffmpeg -hide_banner -loglevel error -nostats \
     "${seek_args[@]}" -i "$converted" \
     "${seek_args[@]}" -i "$reference" \
-    -filter_complex "[0:v]scale=${size/x/:}:flags=bicubic,format=yuv420p10le,${snap}[converted];[1:v]format=yuv420p10le,${snap}[reference];[converted][reference]libvmaf=model=version=$model:n_threads=$threads:log_fmt=json:log_path=$log_path" \
+    -filter_complex "[0:v]${converted_chain}[converted];[1:v]$(reference_chain 0)[reference];[converted][reference]libvmaf=model=version=$model:n_threads=$threads:log_fmt=json:log_path=$log_path" \
     -f null -
 done
 
