@@ -140,10 +140,12 @@ case "$codec" in
     video_args=(-c:v libx265 -preset medium -crf "$crf" -profile:v main10 -pix_fmt yuv420p10le -x265-params level-idc=4.1)
     ;;
   av1)
-    video_args=(-c:v libsvtav1 -preset 6 -crf "$crf" -pix_fmt yuv420p10le)
+    # tune=0 aims for what looks best to the eye. The default, tune=1, aims for the best PSNR score.
+    svtav1_params=tune=0
     if [[ "$tune" == grain ]]; then
-      video_args+=(-svtav1-params film-grain=8:film-grain-denoise=0)
+      svtav1_params+=:film-grain=8:film-grain-denoise=0
     fi
+    video_args=(-c:v libsvtav1 -preset 6 -crf "$crf" -pix_fmt yuv420p10le -svtav1-params "$svtav1_params")
     ;;
 esac
 

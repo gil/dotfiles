@@ -2,12 +2,10 @@
 set -e
 
 min_savings=30
-min_vmaf=90
-big_savings=50
-big_savings_vmaf_slack=5
-start_crf=30
-lowest_crf=24
-crf_step=3
+min_vmaf=92
+start_crf=28
+lowest_crf=20
+crf_step=2
 sample_parts=8
 part_seconds=10
 opus_min_gain=5
@@ -44,13 +42,8 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     --min-vmaf=*) min_vmaf="${1#--min-vmaf=}" ;;
-    --min-vmaf) # Lowest acceptable VMAF mean on the sample (default 90)
+    --min-vmaf) # Lowest acceptable VMAF mean on the sample (default 92)
       min_vmaf="$2"
-      shift
-      ;;
-    --big-savings=*) big_savings="${1#--big-savings=}" ;;
-    --big-savings) # At this size cut or more, in percent, VMAF can be 5 under --min-vmaf (default 50)
-      big_savings="$2"
       shift
       ;;
     *) rest+=("$1") ;;
@@ -63,11 +56,10 @@ if [[ ${#rest[@]} -ne 1 ]]; then
   exit 1
 fi
 
-if [[ ! "$min_savings" =~ ^[0-9]+$ || ! "$min_vmaf" =~ ^[0-9]+$ || ! "$big_savings" =~ ^[0-9]+$ ]]; then
-  echo "--min-savings, --min-vmaf and --big-savings must be whole numbers" >&2
+if [[ ! "$min_savings" =~ ^[0-9]+$ || ! "$min_vmaf" =~ ^[0-9]+$ ]]; then
+  echo "--min-savings and --min-vmaf must be whole numbers" >&2
   exit 1
 fi
-loose_vmaf=$((min_vmaf - big_savings_vmaf_slack))
 
 input="${rest[0]}"
 if [[ ! -f "$input" ]]; then
@@ -225,7 +217,7 @@ describe_action() {
 echo
 echo "File:   $(basename "$input")"
 echo "        $(human_size "$size"), $(human_duration "$duration")"
-echo "Video:  $video_codec ${width}x${height}, ~${video_kbps} kbps -> AV1, CRF from $start_crf down to $lowest_crf until VMAF >= $min_vmaf ($loose_vmaf if ${big_savings}%+ smaller)"
+echo "Video:  $video_codec ${width}x${height}, ~${video_kbps} kbps -> AV1, CRF from $start_crf down to $lowest_crf until VMAF >= $min_vmaf"
 if [[ " ${video_flags[*]} " == *" --1080p "* ]]; then
   echo "        downscale to 1080p (--keep-4k to skip)"
 fi
@@ -255,7 +247,7 @@ while IFS=$'\t' read -r track codec channels language title; do
 done <<<"$all_audio"
 echo "        AAC or Opus is picked after the sample: Opus if it cuts ${opus_min_gain}%+ off the result"
 echo "Subs:   keep all ($subtitle_count)"
-echo "Test:   ${sample_parts} x ${part_seconds}s sample, needs ${min_savings}%+ smaller and VMAF ${min_vmaf}+ (or ${loose_vmaf}+ at ${big_savings}%+ smaller)"
+echo "Test:   ${sample_parts} x ${part_seconds}s sample, needs ${min_savings}%+ smaller and VMAF ${min_vmaf}+"
 if ((height < 1080)); then
   echo "        VMAF scored upscaled to 1080p, as if watched fullscreen (stricter than native size)"
 fi
@@ -327,12 +319,8 @@ while true; do
   if ! less_than "$vmaf" "$min_vmaf"; then
     break
   fi
-  if ((savings >= big_savings)) && ! less_than "$vmaf" "$loose_vmaf"; then
-    echo "VMAF under $min_vmaf but ${savings}% smaller: accepting down to $loose_vmaf for ${big_savings}%+ cuts" >&2
-    break
-  fi
   if ((crf - crf_step < lowest_crf)); then
-    not_worth_it "VMAF stays under $min_vmaf (or $loose_vmaf at ${big_savings}%+ smaller) down to CRF $crf"
+    not_worth_it "VMAF stays under $min_vmaf down to CRF $crf"
   fi
   crf=$((crf - crf_step))
 done

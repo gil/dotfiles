@@ -160,6 +160,10 @@ done
 
 echo "VMAF guide: 95+ can't tell apart | 90-95 very good | 80-90 good, small loss if you look"
 echo "            70-80 visible loss | under 70 poor. Check \"1% low\" too: it shows the worst moments."
+if [[ -z "$display_height" && "${size#*x}" -lt 1080 ]]; then
+  echo "Tip: this video is ${size#*x}p. If you watch it fullscreen on a bigger screen, add --display 1080:"
+  echo "     scores at native size hide loss that shows once the video is upscaled."
+fi
 echo
 
 jq -s -r '
