@@ -256,6 +256,9 @@ done <<<"$all_audio"
 echo "        AAC or Opus is picked after the sample: Opus if it cuts ${opus_min_gain}%+ off the result"
 echo "Subs:   keep all ($subtitle_count)"
 echo "Test:   ${sample_parts} x ${part_seconds}s sample, needs ${min_savings}%+ smaller and VMAF ${min_vmaf}+ (or ${loose_vmaf}+ at ${big_savings}%+ smaller)"
+if ((height < 1080)); then
+  echo "        VMAF scored upscaled to 1080p, as if watched fullscreen (stricter than native size)"
+fi
 echo
 
 confirm "Test a sample?" || exit 0
@@ -276,6 +279,8 @@ cut_filter=()
 
 compare_flags=()
 ((height > 1440)) && compare_flags+=(--4k)
+# Small videos are usually watched fullscreen, which magnifies artifacts that VMAF at native size misses
+((height < 1080)) && compare_flags+=(--display 1080)
 
 part="$workdir/part.mkv"
 converted="$workdir/part--out.mkv"

@@ -11,6 +11,7 @@ samples=5
 seconds=10
 full=false
 model=vmaf_v0.6.1
+display_height=
 rest=()
 
 while [[ $# -gt 0 ]]; do
@@ -20,7 +21,13 @@ while [[ $# -gt 0 ]]; do
       exit 0
       ;;
     --full) full=true ;; # Score the whole video instead of samples (slow)
-    --4k) model=vmaf_4k_v0.6.1 ;; # Use the 4K model (default is the 1080p model)    --samples=*) samples="${1#--samples=}" ;;
+    --4k) model=vmaf_4k_v0.6.1 ;; # Use the 4K model (default is the 1080p model)
+    --display=*) display_height="${1#--display=}" ;;
+    --display) # Upscale both videos to this height before scoring, e.g. 1080 for a video watched fullscreen on a 1080p screen
+      display_height="$2"
+      shift
+      ;;
+    --samples=*) samples="${1#--samples=}" ;;
     --samples) # Number of clips, spread evenly across the video (default 5)
       samples="$2"
       shift
@@ -42,6 +49,11 @@ fi
 
 if [[ ! "$samples" =~ ^[1-9][0-9]*$ || ! "$seconds" =~ ^[1-9][0-9]*$ ]]; then
   echo "--samples and --seconds must be positive whole numbers" >&2
+  exit 1
+fi
+
+if [[ -n "$display_height" && ! "$display_height" =~ ^[1-9][0-9]*$ ]]; then
+  echo "--display must be a positive whole number" >&2
   exit 1
 fi
 
@@ -77,12 +89,18 @@ align_seconds=3
 max_offset=2
 # PSNR gap, in dB, before another alignment counts as clearly better than the timestamps'
 mismatch_margin=3
-converted_chain="scale=${size/x/:}:flags=bicubic,format=yuv420p10le"
+score_size=${size/x/:}
+reference_scale=
+if [[ -n "$display_height" ]]; then
+  score_size=$(awk -F: -v h="$display_height" '{ w = int($1 * h / $2 / 2 + 0.5) * 2; print w ":" h }' <<<"$score_size")
+  reference_scale="scale=$score_size:flags=bicubic,"
+fi
+converted_chain="scale=$score_size:flags=bicubic,format=yuv420p10le"
 
 # Reference chain that pairs each converted frame with the reference frame <offset> frames later
 reference_chain() {
   local offset=$1
-  echo "format=yuv420p10le,setpts='PTS-if(gt(FRAME_RATE,0),($offset+0.5)/FRAME_RATE,$offset/30+0.005)/TB'"
+  echo "${reference_scale}format=yuv420p10le,setpts='PTS-if(gt(FRAME_RATE,0),($offset+0.5)/FRAME_RATE,$offset/30+0.005)/TB'"
 }
 
 alignment_psnr() {
