@@ -1,20 +1,106 @@
 #!/usr/bin/env bash
 set -e
 
+if [[ $# -lt 2 ]]; then
+  echo "usage: ,compare-video-frame <time> <video> [video...]" >&2
+  echo "Saves and opens a side-by-side image of the frame at <time> in each video." >&2
+  echo "The first video is the reference: the others show the frame nearest to its frame." >&2
+  exit 1
+fi
+
 timestamp="$1"
 shift
+
+candidates=5
+# PSNR gap, in dB, before a neighbor frame counts as clearly closer to the reference
+mismatch_margin=3
 
 out="compare_frame_${timestamp//:/-}.png"
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 
-frames=()
+to_seconds() {
+  awk -F: '{ s = 0; for (i = 1; i <= NF; i++) s = s * 60 + $i; printf "%.6f", s }' <<<"$1"
+}
+
+frame_seconds() {
+  ffprobe -v error -select_streams v:0 -show_entries stream=avg_frame_rate -of csv=p=0 "$1" |
+    awk -F/ '{ fps = ($2 > 0) ? $1 / $2 : 0; if (fps <= 0) fps = 30; printf "%.6f", 1 / fps }'
+}
+
+# Writes <prefix>1.png, <prefix>2.png... and prints each frame's time, relative to <seek>
+extract_frames() {
+  local video=$1 seek=$2 count=$3 prefix=$4
+  ffmpeg -nostdin -hide_banner -ss "$seek" -i "$video" -map 0:v:0 -frames:v "$count" -vf showinfo -y "${prefix}%d.png" 2>&1 |
+    awk '/showinfo/ { for (i = 1; i <= NF; i++) if ($i ~ /^pts_time:/) { sub(/^pts_time:/, "", $i); print $i } }'
+}
+
+psnr() {
+  ffmpeg -nostdin -hide_banner -i "$1" -i "$2" -filter_complex "[1:v]scale=${reference_size}[c];[0:v][c]psnr" -f null - 2>&1 |
+    awk -F'average:' '/average:/ { split($2, a, " "); print (a[1] == "inf" ? 1000 : a[1]) }'
+}
+
+reference="$1"
+reference_name=$(basename "$reference")
+seek=$(to_seconds "$timestamp")
+reference_frame="$tmp/00_1.png"
+reference_offset=$(extract_frames "$reference" "$seek" 1 "$tmp/00_" | head -1)
+if [[ -z "$reference_offset" ]]; then
+  echo "no frame at $timestamp in $reference" >&2
+  exit 1
+fi
+reference_time=$(awk -v s="$seek" -v o="$reference_offset" 'BEGIN { printf "%.6f", s + o }')
+reference_size=$(ffprobe -v error -show_entries stream=width,height -of csv=s=x:p=0 "$reference_frame" | tr x :)
+
+frames=(-label "$reference_name" "$reference_frame")
 index=0
-for video in "$@"; do
-  frame="$tmp/$(printf '%02d' "$index").png"
-  ffmpeg -nostdin -loglevel error -ss "$timestamp" -i "$video" -frames:v 1 "$frame"
-  frames+=(-label "$(basename "$video")" "$frame")
+for video in "${@:2}"; do
   index=$((index + 1))
+  name=$(basename "$video")
+  prefix="$tmp/$(printf '%02d' "$index")_"
+  frame=$(frame_seconds "$video")
+  window_start=$(awk -v t="$reference_time" -v f="$frame" -v n="$candidates" 'BEGIN { s = t - f * n / 2; printf "%.6f", (s < 0 ? 0 : s) }')
+
+  mapfile -t offsets < <(extract_frames "$video" "$window_start" "$candidates" "$prefix")
+  if [[ ${#offsets[@]} -eq 0 ]]; then
+    echo "no frame near $timestamp in $video" >&2
+    exit 1
+  fi
+
+  # The pick is always the frame nearest the reference's frame time. Picture similarity is
+  # only used to warn, never to change the pick: in still scenes a neighbor can look closer.
+  picked=0
+  for i in "${!offsets[@]}"; do
+    if awk -v w="$window_start" -v t="$reference_time" -v a="${offsets[$i]}" -v b="${offsets[$picked]}" \
+      'BEGIN { da = w + a - t; db = w + b - t; exit !((da < 0 ? -da : da) < (db < 0 ? -db : db)) }'; then
+      picked=$i
+    fi
+  done
+
+  picked_psnr=$(psnr "$reference_frame" "${prefix}$((picked + 1)).png")
+  closest=$picked
+  closest_psnr=$picked_psnr
+  for i in "${!offsets[@]}"; do
+    score=$(psnr "$reference_frame" "${prefix}$((i + 1)).png")
+    if awk -v a="$score" -v b="$closest_psnr" 'BEGIN { exit !(a > b) }'; then
+      closest=$i
+      closest_psnr=$score
+    fi
+  done
+
+  label="$name"
+  if ((closest != picked)) && awk -v a="$closest_psnr" -v b="$picked_psnr" -v m="$mismatch_margin" 'BEGIN { exit !(a - b > m) }'; then
+    shift_frames=$((closest - picked))
+    direction=later
+    ((shift_frames < 0)) && direction=earlier
+    echo "WARNING: $name probably does not show the same frame as $reference_name." >&2
+    echo "  The frame picked by its timestamp looks less like $reference_name's frame than the frame ${shift_frames#-} $direction does." >&2
+    echo "  This usually means one of the videos gained or lost frames before this point (for example, a frame" >&2
+    echo "  dropped during conversion), so the image may show slightly different moments instead of the exact" >&2
+    echo "  same frame before and after conversion. The image still uses the timestamp match." >&2
+    label+=$'\n'"WARNING: probably not the same frame (see terminal)"
+  fi
+  frames+=(-label "$label" "${prefix}$((picked + 1)).png")
 done
 
 columns=1
