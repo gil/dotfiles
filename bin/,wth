@@ -31,6 +31,10 @@ restart_ui() {
   quiet killall Dock Finder SystemUIServer ControlCenter
 }
 
+restart_universal_control() {
+  quiet killall UniversalControl sharingd rapportd
+}
+
 clear_quicklook() {
   quiet qlmanage -r cache
 }
@@ -43,5 +47,6 @@ flush_dns
 restart_bluetooth
 restart_audio
 restart_camera
+restart_universal_control
 clear_quicklook
 restart_ui
