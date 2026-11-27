@@ -14,7 +14,7 @@ alwaysApply: true
 
 - ALWAYS use `pnpm` with Corepack when creating a new JavaScript or TypeScript project. NEVER use npm or yarn.
 - ALWAYS use `tsdown` instead of `tsup`.
-- Prefer ripgrep (`rg`) over of `grep` for file searching.
+- ALWAYS use `uv` on new Python projects.
 - Prefer `glab` CLI for GitLab and `gh` for GitHub, instead of MCPs.
 - If any tool would help you perform your task more easily, stop and tell me how you'd install it, offering to do it for me in case I approve.
 
@@ -26,7 +26,6 @@ alwaysApply: true
 # Shell Usage
 
 - Prefer tools that don't require Bash permission prompts (e.g. Read, Grep, Glob) over Shell whenever possible.
-- Avoid compound Shell commands (`&&`, `||`, `;`, pipes) and command substitutions (`$()`). Use separate sequential tool calls instead.
 - If a Shell command unexpectedly triggers a permission prompt, flag it and suggest updating this guidance or `settings.json` permissions to prevent it.
 - NEVER kill processes by name or pattern. No `killall`, no `pkill`, no `pkill -f <anything>` (including `pkill -f vite`, `pkill -f vite-node`, `pkill -f node`). Pattern matches hit processes in other projects, other dev servers, and the browser.
 - To free a port, ALWAYS use port-specific termination: `lsof -ti :PORT -sTCP:LISTEN | xargs kill -9`
